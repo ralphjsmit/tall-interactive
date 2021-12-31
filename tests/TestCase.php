@@ -4,7 +4,6 @@ namespace RalphJSmit\Tall\Interactive\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use RalphJSmit\Tall\Interactive\Tall\InteractiveServiceProvider;
 
 class TestCase extends Orchestra
 {
