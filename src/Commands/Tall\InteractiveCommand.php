@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace RalphJSmit\Tall\Interactive\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class Tall\InteractiveCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'tall-interactive';
 
     public $description = 'My command';
 
