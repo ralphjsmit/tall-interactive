@@ -1,1 +1,57 @@
-null
+{
+    "name": "ralphjsmit/tall-interactive",
+    "description": "Create forms, modals and slide-overs with ease.",
+    "keywords": [
+        "ralphjsmit",
+        "laravel",
+        "tall-interactive"
+    ],
+    "homepage": "https://github.com/ralphjsmit/tall-interactive",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ralph J. Smit",
+            "email": "rjs@ralphjsmit.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^8.73",
+        "livewire/livewire": "^2.8",
+        "spatie/laravel-package-tools": "^1.9.2"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.10",
+        "nunomaduro/larastan": "^1.0",
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "RalphJSmit\\Tall\\Interactive\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RalphJSmit\\Tall\\Interactive\\Tests\\": "tests"
+        }
+    },
+    "scripts": {},
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RalphJSmit\\Tall\\Interactive\\ActionablesServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
