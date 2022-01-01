@@ -24,7 +24,7 @@ trait HasForm
 
     public function getFormSchema(): array
     {
-        $formSchema = $this->formClass::getFormSchema(livewire: $this,);
+        $formSchema = $this->formClass::getFormSchema(livewire: $this, );
 
         $properties = [];
 
@@ -51,7 +51,7 @@ trait HasForm
             $properties[$property] = $value;
         }
 
-        if ( ! isset($this->formData) ) {
+        if (! isset($this->formData)) {
             $this->formData = new FormData($properties);
         }
 
