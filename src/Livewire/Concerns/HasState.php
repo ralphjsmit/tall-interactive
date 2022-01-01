@@ -17,13 +17,17 @@ trait HasState
         );
     }
 
-    public function openActionable(): void
+    public function openActionable(string $actionable): void
     {
-        $this->actionableOpen = true;
+        if ( $this->actionableId === $actionable ) {
+            $this->actionableOpen = true;
+        }
     }
 
-    public function closeActionable(): void
+    public function closeActionable(string $actionable): void
     {
-        $this->actionableOpen = false;
+        if ( $this->actionableId === $actionable ) {
+            $this->actionableOpen = false;
+        }
     }
 }
