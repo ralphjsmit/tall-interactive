@@ -8,22 +8,25 @@ it('can record stacktrace of opened modals and slideovers', function () {
 
     $component
         ->emit('modal:open', 'modal-1')
-        ->assertSet('openedActionables', [
-            'modal-1',
-        ])->assertEmitted('actionable:open', 'modal-1');
+        ->assertSet('openedActionables', ['modal-1',])
+        ->assertEmitted('actionable:open', 'modal-1');
 
     $component
         ->emit('slideOver:open', 'slideover-1')
         ->assertSet('openedActionables', [
             'modal-1',
             'slideover-1',
-        ])->assertEmitted('actionable:open', 'slideover-1');
+        ])
+        ->assertEmitted('actionable:close', 'modal-1')
+        ->assertEmitted('actionable:open', 'slideover-1');
 
     $component
-        ->emit('modal:close')
+        ->emit('slideOver:close')
         ->assertSet('openedActionables', [
             'modal-1',
-        ])->assertEmitted('actionable:close', 'slideover-1');
+        ])
+        ->assertEmitted('actionable:close', 'slideover-1')
+        ->assertEmitted('actionable:open', 'modal-1');
 
     $component
         ->emit('modal:close')
@@ -34,7 +37,8 @@ it('can record stacktrace of opened modals and slideovers', function () {
         ->emit('slideOver:open', 'slideover-2')
         ->assertSet('openedActionables', [
             'slideover-2',
-        ])->assertEmitted('actionable:open', 'slideover-2')
+        ])
+        ->assertEmitted('actionable:open', 'slideover-2')
         ->emit('slideOver:close')
         ->assertSet('openedActionables', [])
         ->assertEmitted('actionable:close', 'slideover-2');

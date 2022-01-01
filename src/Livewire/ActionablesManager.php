@@ -26,6 +26,10 @@ class ActionablesManager extends Component
 
     public function openActionable(string $actionable)
     {
+        if ( $this->openedActionables ) {
+            $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
+        }
+
         $this->openedActionables[] = $actionable;
 
         $this->emit('actionable:open', $actionable);
@@ -36,6 +40,10 @@ class ActionablesManager extends Component
         $actionable = array_pop($this->openedActionables);
 
         $this->emit('actionable:close', $actionable);
+
+        if ( $this->openedActionables ) {
+            $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
+        }
     }
 
 }
