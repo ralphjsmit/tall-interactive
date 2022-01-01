@@ -14,8 +14,7 @@ class ActionablesServiceProvider extends PackageServiceProvider
         $package
             ->name('tall-interactive')
             ->hasConfigFile()
-            ->hasViews();
             ->hasViews()
-            ->hasViewComponents('tall-interactive', Modal::class, SlideOver::class);
+            ->hasViewComponents('tall-interactive', Modal::class, SlideOver::classn);
     }
 }
