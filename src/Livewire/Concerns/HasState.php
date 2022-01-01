@@ -26,5 +26,4 @@ trait HasState
     {
         $this->actionableOpen = false;
     }
-
 }
