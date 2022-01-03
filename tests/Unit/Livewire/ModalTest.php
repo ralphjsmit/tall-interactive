@@ -1,6 +1,8 @@
 <?php
 
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Testing\Assert;
 use Livewire\Livewire;
 use RalphJSmit\Tall\Interactive\Forms\Form;
 use RalphJSmit\Tall\Interactive\Livewire\Modal;
@@ -102,9 +104,10 @@ class TestForm extends Form
         ];
     }
 
-    public static function submitForm(array $formData): void
+    public static function submitForm(array $formData, object|null $record): void
     {
         static::$submittedTimes++;
+        Assert::assertNull($record);
     }
 }
 
@@ -192,3 +195,57 @@ it('cannot dismiss the form if not allowed', function () {
         ->assertSet('dismissable', false)
         ->assertDontSee('Close');
 });
+
+it('will display the title', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'title' => 'Great modal title',
+    ]);
+
+    $component
+        ->assertSee('Great modal title');
+});
+
+it('will display the description', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'description' => 'This is a sentence to describe the modal.',
+    ]);
+
+    $component
+        ->assertSee('This is a sentence to describe the modal.');
+});
+
+it('can receive an Eloquent record', function () {
+    $user = User::make(['email' => 'john@john.com', 'password' => 'password']);
+
+    UserForm::$expectedUser = $user;
+
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'record' => $user,
+        'form' => UserForm::class,
+    ]);
+
+    $component
+        ->assertSet('record', $user)
+        ->call('submitForm');
+});
+
+class User extends Model { protected $guarded = []; }
+
+class UserForm extends Form
+{
+    public static $expectedUser;
+
+    public static \Closure $assertionCallable;
+
+    public static function getFormSchema(): array { return []; }
+
+    public static function getFormDefaults(): array { return []; }
+
+    public static function submitForm(array $formData, object|null $record): void
+    {
+        Assert::assertInstanceOf(User::class, $record);
+    }
+}

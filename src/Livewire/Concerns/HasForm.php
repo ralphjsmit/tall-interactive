@@ -6,6 +6,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 
 trait HasForm
 {
+    use CanCallForm;
     use Closeable;
     use InteractsWithForms;
 
@@ -43,21 +44,16 @@ trait HasForm
     {
         $formDefaults = $this->call('getFormDefaults');
 
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             foreach ($formDefaults as $property => $value) {
                 $this->{$property} = $value;
             }
 
             $this->formInitialized = true;
         }
-    }
-
-    private function call(string $method, array $parameters = [])
-    {
-        return app()->call([$this->formClass, $method], array_merge(['livewire' => $this,], $parameters));
     }
 }

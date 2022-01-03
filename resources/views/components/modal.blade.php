@@ -5,10 +5,13 @@
 
     $optionalParameters = [
         'closeonSubmit',
+        'description',
         'dismissable',
         'dismissableWith',
         'form',
         'maxWidth',
+        'record',
+        'title',
     ];
 
     foreach ($optionalParameters as $optionalParameter) {
