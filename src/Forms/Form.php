@@ -2,5 +2,6 @@
 
 namespace RalphJSmit\Tall\Interactive\Forms;
 
-abstract class Form /* implements ToForm */ { }
-
+abstract class Form /* implements ToForm */
+{
+}

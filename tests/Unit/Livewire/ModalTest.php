@@ -182,4 +182,3 @@ it('cannot dismiss the form if not allowed', function () {
         ->assertSet('dismissable', false)
         ->assertDontSee('Close');
 });
-

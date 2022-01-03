@@ -64,5 +64,4 @@ class UserForm extends Form
             ]),
         ];
     }
-
 }

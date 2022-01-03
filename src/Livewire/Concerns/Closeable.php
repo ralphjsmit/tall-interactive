@@ -10,7 +10,7 @@ trait Closeable
 
     public function handleCloseOnSubmit(string $modalType)
     {
-        if ( $this->closeOnSubmit ) {
+        if ($this->closeOnSubmit) {
             $this->emit("{$modalType}:close");
         }
     }
