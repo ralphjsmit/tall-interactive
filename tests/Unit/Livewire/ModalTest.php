@@ -36,6 +36,16 @@ it('can contain the form', function () {
     ]);
 });
 
+it('will set the maxWidth to the correct default', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+    ]);
+
+    $component
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('maxWidth', '2xl');
+});
+
 it('will store the maxWidth', function () {
     $component = Livewire::test(Modal::class, [
         'id' => 'test-modal',

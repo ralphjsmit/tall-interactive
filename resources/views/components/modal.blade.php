@@ -1,12 +1,22 @@
 @php
     $parameters = [
         'id' => $attributes->get('id'),
-        'maxWidth' => $attributes->has('maxWidth') ? $attributes->get('maxWidth') : '2xl',
     ];
 
-    if ( $attributes->has('form') ) {
-        $parameters['form'] = $attributes->get('form');
+    $optionalParameters = [
+        'closeonSubmit',
+        'dismissable',
+        'dismissableWith',
+        'form',
+        'maxWidth',
+    ];
+
+    foreach ($optionalParameters as $optionalParameter) {
+        if ( $attributes->has($optionalParameter) ) {
+            $parameters[$optionalParameter] = $attributes->get($optionalParameter);
+        }
     }
+
 @endphp
 
 @livewire('tall-interactive::modal', $parameters)
