@@ -232,7 +232,10 @@ it('can receive an Eloquent record', function () {
         ->call('submitForm');
 });
 
-class User extends Model { protected $guarded = []; }
+class User extends Model
+{
+    protected $guarded = [];
+}
 
 class UserForm extends Form
 {
@@ -240,9 +243,15 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(): array { return []; }
+    public static function getFormSchema(): array
+    {
+        return [];
+    }
 
-    public static function getFormDefaults(): array { return []; }
+    public static function getFormDefaults(): array
+    {
+        return [];
+    }
 
     public static function submitForm(array $formData, object|null $record): void
     {

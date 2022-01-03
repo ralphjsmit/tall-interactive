@@ -18,7 +18,7 @@ trait HasState
 
     public function openActionable(string $actionable): void
     {
-        if ( $this->actionableId === $actionable ) {
+        if ($this->actionableId === $actionable) {
             ray($this->actionableId);
             $this->actionableOpen = true;
             ray($this)->label('Opening actionable');
@@ -27,7 +27,7 @@ trait HasState
 
     public function closeActionable(string $actionable): void
     {
-        if ( $this->actionableId === $actionable ) {
+        if ($this->actionableId === $actionable) {
             ray($this->actionableId);
             $this->actionableOpen = false;
             ray($this);
