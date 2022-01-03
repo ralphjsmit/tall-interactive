@@ -58,7 +58,7 @@
                                 <form wire:submit.prevent="submitForm">
                                     <!-- Submission is handled by the buttons below. Nevertheless we still expose the method for submission on enter keystroke. -->
                                     {{ $this->form }}
-
+                                    
                                     <button type="submit" class="invisible max-h-0 max-w-0 absolute">Submit</button>
                                 </form>
                             @endif
