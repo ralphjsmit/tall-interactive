@@ -3,14 +3,13 @@
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
 use Filament\Forms\Concerns\InteractsWithForms;
-use RalphJSmit\Tall\Interactive\Forms\FormData;
 
 trait HasForm
 {
+    use Closeable;
     use InteractsWithForms;
 
-    public FormData $formData;
-    public string $prefix = 'formData.';
+    public bool $formInitialized = false;
 
     public function mountHasForm(string $maxWidth = null)
     {
@@ -19,61 +18,46 @@ trait HasForm
 
     public function submitForm(): void
     {
-        $this->formClass::submitForm(livewire: $this, formData: $this->formData);
+        $this->call('submitForm', [
+            'formData' => $this->form->getState(),
+        ]);
+
+        $this->handleFormSubmitted();
+    }
+
+    private function handleFormSubmitted()
+    {
+        $this->handleCloseOnSubmit('modal');
     }
 
     public function getFormSchema(): array
     {
-        $formSchema = $this->formClass::getFormSchema(livewire: $this, );
+        $formSchema = $this->call('getFormSchema');
 
-        $properties = [];
-
-        foreach ($formSchema as $formComponent) {
-            $name = $formComponent->getName();
-
-            $formComponent
-                ->name($this->prefix . $name)
-                ->statePath($this->prefix . $name);
-        }
-
-        $this->getFormDefaults();
+        $this->setDefaultProperties();
 
         return $formSchema;
     }
 
-    public function getFormDefaults(): array
+    private function setDefaultProperties(): void
     {
-        $formDefaults = $this->formClass::getFormDefaults();
+        $formDefaults = $this->call('getFormDefaults');
 
-        $properties = [];
-
-        foreach ($formDefaults as $property => $value) {
-            $properties[$property] = $value;
+        if ( $this->formInitialized ) {
+            return;
         }
 
-        if (! isset($this->formData)) {
-            $this->formData = new FormData($properties);
-        }
+        if ( $this->formClass ) {
+            foreach ($formDefaults as $property => $value) {
+                $this->{$property} = $value;
+            }
 
-        return $properties;
+            $this->formInitialized = true;
+        }
     }
 
-    //    public function __get($property)
-    //    {
-    //        $formDefaults = $this->getFormDefaults();
-    //
-    //        if ( $property === 'form' ) {
-    //            return $this->form;
-    //        }
-    //
-    //        if ( array_key_exists($property, $formDefaults) ) {
-    //            if ( property_exists($this, $property) ) {
-    //                return $this->$property;
-    //            } else {
-    //                return $formDefaults[$property];
-    //            }
-    //        }
-    //
-    //        return $this->$property;
-    //    }
+    private function call(string $method, array $parameters = [])
+    {
+        return app()->call([$this->formClass, $method], array_merge(['livewire' => $this,], $parameters));
+    }
 }

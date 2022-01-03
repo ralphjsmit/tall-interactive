@@ -8,5 +8,5 @@ interface ToForm
 {
     public static function getFormSchema(Component $livewire = null): array;
 
-    public static function submitForm(FormData $formData, Component $livewire = null): void;
+    public static function submitForm(array $formData, Component $livewire = null): void;
 }

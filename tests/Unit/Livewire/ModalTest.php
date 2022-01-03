@@ -1,18 +1,6 @@
 <?php
 
-use Filament\Forms\Components\Builder;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\MultiSelect;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Livewire\Component;
 use Livewire\Livewire;
 use RalphJSmit\Tall\Interactive\Forms\Form;
 use RalphJSmit\Tall\Interactive\Livewire\Modal;
@@ -45,7 +33,6 @@ it('can contain the form', function () {
     $component = Livewire::test(Modal::class, [
         'id' => 'test-modal',
         'form' => '',
-
     ]);
 });
 
@@ -60,67 +47,139 @@ it('will store the maxWidth', function () {
         ->assertSet('maxWidth', '7xl');
 });
 
-it('can receive and display a form component', function () {
+it('can initialize and submit the form', function () {
     $component = Livewire::test(Modal::class, [
         'id' => 'test-modal',
-        'form' => UserForm::class,
+        'form' => TestForm::class,
+    ]);
+
+    TestForm::$submittedTimes = 0;
+    expect(TestForm::$submittedTimes)->toBe(0);
+
+    $component
+        ->assertSet('formClass', TestForm::class)
+        ->assertSee('email')
+        ->assertSee('Enter your e-mail');
+
+    $component
+        ->assertSet('email', '')
+        ->assertSet('year', 2000)
+        ->call('submitForm')
+        ->assertHasErrors()
+        ->set('email', 'rjs@ralphjsmit.com')
+        ->call('submitForm')
+        ->assertHasNoErrors();
+
+    expect(TestForm::$submittedTimes)->toBe(1);
+});
+
+class TestForm extends Form
+{
+    public static int $submittedTimes = 0;
+
+    public static function getFormSchema(): array
+    {
+        return [
+            TextInput::make('email')->label('Enter your e-mail')->required(),
+        ];
+    }
+
+    public static function getFormDefaults(): array
+    {
+        return [
+            'email' => '',
+            'year' => 2000,
+        ];
+    }
+
+    public static function submitForm(array $formData): void
+    {
+        static::$submittedTimes++;
+    }
+}
+
+it('can close the form on submit', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'closeOnSubmit' => true,
     ]);
 
     $component
-        ->assertSet('formClass', UserForm::class);
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('actionableOpen', true);
 
     $component
-        ->assertSee('email')
-        ->assertSee('Enter your e-mail');
+        ->set('email', 'rjs@ralphjsmit.com')
+        ->call('submitForm')
+        ->assertEmitted('modal:close')
+        ->emit('actionable:close', 'test-modal')/* Action performed by ActionablesManager */
+        ->assertSet('actionableOpen', false);
 });
 
-class UserForm extends Form
-{
-    public static function getFormSchema(Component $livewire = null): array
-    {
-        return [
-            TextInput::make('email')->label('Enter your e-mail'),
-            Grid::make([
-                TextInput::make('name')->default(0),
-                Select::make('select')->options(['a' => 'A', 'b' => 'B']),
-            ]),
-            Repeater::make('repeater')->schema([
-                TextInput::make('surname'),
-                MultiSelect::make('multiSelect')->options(['a' => 'A', 'b' => 'B']),
-            ]),
-            Fieldset::make('fieldset')->schema([
-                TextInput::make('fieldsetField')->default(0),
-            ]),
-            Tabs::make('Tab Heading')->tabs([
-                Tabs\Tab::make('My tab')->schema([
-                    TextInput::make('Textinput in first tab'),
-                ]),
-                Tabs\Tab::make('My second tab')->schema([
-                    FileUpload::make('test')->label('File-upload in second tab'),
-                ]),
-            ]),
-            Section::make('section')->description('My section')->schema([
-                MarkdownEditor::make('markdownEditor')->label('Markdown editor'),
-            ]),
-            Card::make()->schema([
-                Builder::make('builder')->blocks([
-                    Builder\Block::make('headingBlock')->schema([
-                        TextInput::make('content')
-                            ->label('Heading')
-                            ->required(),
-                        Select::make('level')
-                            ->options([
-                                'h1' => 'Heading 1',
-                                'h2' => 'Heading 2',
-                                'h3' => 'Heading 3',
-                                'h4' => 'Heading 4',
-                                'h5' => 'Heading 5',
-                                'h6' => 'Heading 6',
-                            ])
-                            ->required(),
-                    ]),
-                ]),
-            ]),
-        ];
-    }
-}
+it('cannot close the form on submit if not allowed', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'closeOnSubmit' => false,
+    ]);
+
+    $component
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('actionableOpen', true);
+
+    $component
+        ->set('email', 'rjs@ralphjsmit.com')
+        ->call('submitForm')
+        ->assertNotEmitted('modal:close')
+        ->assertSet('actionableOpen', true);
+});
+
+it('cannot dismiss the form by default', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+    ]);
+
+    $component
+        ->assertSet('dismissable', false)
+        ->assertDontSee('Close');
+});
+
+it('can dismiss the form', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'dismissable' => true,
+    ]);
+
+    $component
+        ->assertSet('dismissable', true)
+        ->assertSee('Close');
+});
+
+it('can dismiss the form with custom text', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'dismissableWith' => 'Cancel this action',
+    ]);
+
+    $component
+        ->assertSet('dismissable', true)
+        ->assertDontSee('Close')
+        ->assertSee('Cancel this action');
+});
+
+it('cannot dismiss the form if not allowed', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'dismissable' => false,
+    ]);
+
+    $component
+        ->assertSet('dismissable', false)
+        ->assertDontSee('Close');
+});
+
