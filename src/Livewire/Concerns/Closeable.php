@@ -12,7 +12,7 @@ trait Closeable
     public function handleCloseOnSubmit()
     {
         if ( $this->closeOnSubmit ) {
-            $this->emit("{$this->actionableType}:close", $this->actionableId);
+            $this->close();
         }
     }
 }

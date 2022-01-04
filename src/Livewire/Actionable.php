@@ -7,4 +7,9 @@ use Livewire\Component;
 abstract class Actionable extends Component
 {
     protected $listeners = [];
+
+    public function close()
+    {
+        $this->emit("{$this->actionableType}:close", $this->actionableId);
+    }
 }
