@@ -188,6 +188,18 @@ it('can dismiss the form with custom text', function () {
         ->assertSee('Cancel this action');
 });
 
+it('can submit the form with custom text', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'submitWith' => 'Confirm awesome stuff',
+    ]);
+
+    $component
+        ->assertDontSee('Close')
+        ->assertSee('Confirm awesome stuff');
+});
+
 it('cannot dismiss the form if not allowed', function () {
     $component = Livewire::test(Modal::class, [
         'id' => 'test-modal',

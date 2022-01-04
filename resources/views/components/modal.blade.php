@@ -11,6 +11,7 @@
         'form',
         'maxWidth',
         'record',
+        'submitWith',
         'title',
     ];
 
