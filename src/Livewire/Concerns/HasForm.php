@@ -44,11 +44,11 @@ trait HasForm
     {
         $formDefaults = $this->call('getFormDefaults');
 
-        if ( $this->formInitialized ) {
+        if ($this->formInitialized) {
             return;
         }
 
-        if ( $this->formClass ) {
+        if ($this->formClass) {
             foreach ($formDefaults as $property => $value) {
                 $this->{$property} = $value;
             }
