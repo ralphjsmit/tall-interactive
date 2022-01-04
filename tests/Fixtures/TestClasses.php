@@ -37,12 +37,19 @@ class InitializationTestForm extends Form
     public static string $expectedSecondParam;
     public static object $expectedThirdParam;
 
-    public static function getFormSchema(): array { return []; }
+    public static function getFormSchema(): array
+    {
+        return [];
+    }
 
-    public static function getFormDefaults(): array { return []; }
+    public static function getFormDefaults(): array
+    {
+        return [];
+    }
 
-    public static function initialize() {}
-
+    public static function initialize()
+    {
+    }
 }
 
 class User extends Model
