@@ -16,7 +16,11 @@ it('can open the modal', function () {
 
     $component
         ->emit('actionable:close', 'test-modal')
-        ->assertSet('actionableOpen', false);
+        ->assertSet('actionableOpen', false)
+        ->assertNotEmitted('modal:open')
+        ->assertNotEmitted('modal:close')
+        ->assertNotEmitted('actionable:open')
+        ->assertNotEmitted('actionable:close');
 });
 
 it('will not open the modal for another identifier', function () {
@@ -125,7 +129,7 @@ it('can close the form on submit', function () {
     $component
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertEmitted('modal:close')
+        ->assertEmitted('modal:close', 'test-modal')
         ->emit('actionable:close', 'test-modal')/* Action performed by ActionablesManager */
         ->assertSet('actionableOpen', false);
 });

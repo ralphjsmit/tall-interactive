@@ -32,11 +32,10 @@ trait HasForm
     {
         ray('Handle close on submit');
 
-        ray($this->closeOnSubmit);
-        if ( $this->closeOnSubmit ) {
-            ray('Emit modal close', $this->actionableId);
-            $this->emitTo(ActionablesManager::class, 'modal:close', $this->actionableId);
-        }
+        $this->emitTo(ActionablesManager::class, 'modal:close', $this->actionableId);
+
+        //        if ( $this->closeOnSubmit ) {
+        //        }
     }
 
     public function getFormSchema(): array
