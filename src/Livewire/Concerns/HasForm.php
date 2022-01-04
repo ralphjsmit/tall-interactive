@@ -31,7 +31,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if ( $this->record !== null ) {
+        if ($this->record !== null) {
             $this->initializeForm();
         }
     }
@@ -47,11 +47,11 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ( $this->formInitialized ) {
+        if ($this->formInitialized) {
             return;
         }
 
-        if ( $this->formClass ) {
+        if ($this->formClass) {
             $this->initializeForm();
         }
     }
