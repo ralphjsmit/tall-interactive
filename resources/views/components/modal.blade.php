@@ -4,7 +4,7 @@
     ];
 
     $optionalParameters = [
-        'closeonSubmit',
+        'closeOnSubmit',
         'description',
         'dismissable',
         'dismissableWith',
