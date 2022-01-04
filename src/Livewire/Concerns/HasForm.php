@@ -28,7 +28,7 @@ trait HasForm
 
     private function handleFormSubmitted()
     {
-        $this->handleCloseOnSubmit('modal');
+        $this->handleCloseOnSubmit();
     }
 
     public function getFormSchema(): array

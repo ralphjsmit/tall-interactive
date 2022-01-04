@@ -8,10 +8,10 @@ trait Closeable
 
     public bool $closeOnSubmit = false;
 
-    public function handleCloseOnSubmit(string $modalType)
+    public function handleCloseOnSubmit()
     {
-        if ($this->closeOnSubmit) {
-            $this->emit("$modalType:close", $this->actionableId);
+        if ( $this->closeOnSubmit ) {
+            $this->emit("{$this->actionableType}:close", $this->actionableId);
         }
     }
 }

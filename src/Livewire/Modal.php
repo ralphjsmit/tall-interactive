@@ -18,7 +18,6 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\ReceivesForm;
 class Modal extends Actionable implements HasForms
 {
     use CanBeDismissed;
-
     use Closeable;
     use HasForm;
     use HasMaxWidth;
@@ -29,6 +28,7 @@ class Modal extends Actionable implements HasForms
     use ReceivesForm;
 
     public string $actionableId;
+    public string $actionableType = 'modal';
 
     public function mount(string $id)
     {
