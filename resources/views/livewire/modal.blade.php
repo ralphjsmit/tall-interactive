@@ -46,7 +46,6 @@
                     </div>
                 @endif
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    {{ $actionableId }}
                     <div class="">
                         @if($title)
                             <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">
