@@ -24,5 +24,6 @@ class ActionablesServiceProvider extends PackageServiceProvider
     {
         Livewire::component('tall-interactive::actionables-manager', \RalphJSmit\Tall\Interactive\Livewire\ActionablesManager::class);
         Livewire::component('tall-interactive::modal', \RalphJSmit\Tall\Interactive\Livewire\Modal::class);
+        Livewire::component('tall-interactive::slide-over', \RalphJSmit\Tall\Interactive\Livewire\SlideOver::class);
     }
 }
