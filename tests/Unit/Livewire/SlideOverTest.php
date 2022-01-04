@@ -19,6 +19,8 @@ it('can open the modal', function () {
         ->assertSet('actionableOpen', false)
         ->assertNotEmitted('modal:open')
         ->assertNotEmitted('modal:close')
+        ->assertNotEmitted('slideOver:open')
+        ->assertNotEmitted('slideOver:close')
         ->assertNotEmitted('actionable:open')
         ->assertNotEmitted('actionable:close');
 });
@@ -35,15 +37,15 @@ it('can open the actionable', function () {
         ->assertEmitted('slideOver:close', 'test-slide-over');
 });
 
-it('will not open the modal for another identifier', function () {
+it('will not open the slide-over for another identifier', function () {
     $component = Livewire::test(SlideOver::class, ['id' => 'test-slide-over']);
 
     $component
-        ->emit('actionable:open', 'another-modal')
+        ->emit('actionable:open', 'another-slide-over')
         ->assertSet('actionableOpen', false);
 
     $component
-        ->emit('actionable:close', 'another-modal')
+        ->emit('actionable:close', 'another-slide-over')
         ->assertSet('actionableOpen', false);
 });
 
@@ -161,6 +163,7 @@ it('cannot close the form on submit if not allowed', function () {
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertNotEmitted('modal:close')
+        ->assertNotEmitted('slideOver:close')
         ->assertSet('actionableOpen', true);
 });
 
@@ -227,21 +230,21 @@ it('cannot dismiss the form if not allowed', function () {
 it('will display the title', function () {
     $component = Livewire::test(SlideOver::class, [
         'id' => 'test-slide-over',
-        'title' => 'Great modal title',
+        'title' => 'Great slide-over title',
     ]);
 
     $component
-        ->assertSee('Great modal title');
+        ->assertSee('Great slide-over title');
 });
 
 it('will display the description', function () {
     $component = Livewire::test(SlideOver::class, [
         'id' => 'test-slide-over',
-        'description' => 'This is a sentence to describe the modal.',
+        'description' => 'This is a sentence to describe the slide-over.',
     ]);
 
     $component
-        ->assertSee('This is a sentence to describe the modal.');
+        ->assertSee('This is a sentence to describe the slide-over.');
 });
 
 it('can receive an Eloquent record', function () {

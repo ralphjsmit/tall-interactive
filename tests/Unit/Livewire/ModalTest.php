@@ -16,6 +16,8 @@ it('can open the modal', function () {
         ->assertSet('actionableOpen', false)
         ->assertNotEmitted('modal:open')
         ->assertNotEmitted('modal:close')
+        ->assertNotEmitted('slideOver:open')
+        ->assertNotEmitted('slideOver:close')
         ->assertNotEmitted('actionable:open')
         ->assertNotEmitted('actionable:close');
 });
