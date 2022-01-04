@@ -95,7 +95,8 @@ it('can initialize and submit the form', function () {
         ->assertHasErrors()
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertHasNoErrors();
+        ->assertHasNoErrors()
+        ->assertNotSet('email', 'rjs@ralphjsmit.com');
 
     expect(TestForm::$submittedTimes)->toBe(1);
 });

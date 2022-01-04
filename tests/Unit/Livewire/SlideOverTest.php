@@ -98,7 +98,8 @@ it('can initialize and submit the form', function () {
         ->assertHasErrors()
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertHasNoErrors();
+        ->assertHasNoErrors()
+        ->assertNotSet('email', 'rjs@ralphjsmit.com');
 
     expect(SlideOverTestForm::$submittedTimes)->toBe(1);
 });
@@ -248,7 +249,7 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = User::make(['email' => 'john@john.com', 'password' => 'password']);
+    $user = User::make(['email' => 'john@example.com', 'password' => 'password']);
 
     UserForm::$expectedUser = $user;
 
@@ -260,7 +261,9 @@ it('can receive an Eloquent record', function () {
 
     $component
         ->assertSet('record', $user)
-        ->call('submitForm');
+        ->assertSet('record.email', 'john@example.com')
+        ->call('submitForm')
+        ->assertSet('record.email', 'john@example.com');
 });
 
 it('can receive an htmlstring', function () {

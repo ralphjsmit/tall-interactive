@@ -8,6 +8,7 @@ trait HasForm
 {
     use CanCallForm;
     use Closeable;
+    use HasRecord;
     use InteractsWithForms;
 
     public bool $formInitialized = false;
@@ -29,6 +30,10 @@ trait HasForm
     private function handleFormSubmitted()
     {
         $this->handleCloseOnSubmit();
+
+        if ( $this->record !== null ) {
+            $this->initializeForm();
+        }
     }
 
     public function getFormSchema(): array
@@ -42,18 +47,23 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        $formDefaults = $this->call('getFormDefaults');
-
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
-            foreach ($formDefaults as $property => $value) {
-                $this->{$property} = $value;
-            }
-
-            $this->formInitialized = true;
+        if ( $this->formClass ) {
+            $this->initializeForm();
         }
+    }
+
+    private function initializeForm()
+    {
+        $formDefaults = $this->call('getFormDefaults');
+
+        foreach ($formDefaults as $property => $value) {
+            $this->{$property} = $value;
+        }
+
+        $this->formInitialized = true;
     }
 }
