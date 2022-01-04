@@ -18,14 +18,14 @@ trait HasState
 
     public function openActionable(string $actionable): void
     {
-        if ( $this->actionableId === $actionable ) {
+        if ($this->actionableId === $actionable) {
             $this->actionableOpen = true;
         }
     }
 
     public function closeActionable(string $actionable): void
     {
-        if ( $this->actionableId === $actionable ) {
+        if ($this->actionableId === $actionable) {
             $this->actionableOpen = false;
         }
     }
