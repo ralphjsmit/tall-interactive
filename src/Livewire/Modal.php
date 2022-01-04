@@ -11,6 +11,7 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasRecord;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasSlot;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasState;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasTitle;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\ReceivesForm;
@@ -22,6 +23,7 @@ class Modal extends Actionable implements HasForms
     use HasForm;
     use HasMaxWidth;
     use HasDescription;
+    use HasSlot;
     use HasTitle;
     use HasRecord;
     use HasState;

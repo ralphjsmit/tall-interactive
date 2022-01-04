@@ -1,10 +1,7 @@
 <?php
 
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Testing\Assert;
+use Illuminate\Support\HtmlString;
 use Livewire\Livewire;
-use RalphJSmit\Tall\Interactive\Forms\Form;
 use RalphJSmit\Tall\Interactive\Livewire\Modal;
 
 it('can open the modal', function () {
@@ -21,6 +18,18 @@ it('can open the modal', function () {
         ->assertNotEmitted('modal:close')
         ->assertNotEmitted('actionable:open')
         ->assertNotEmitted('actionable:close');
+});
+
+it('can open the actionable', function () {
+    $component = Livewire::test(Modal::class, ['id' => 'test-modal']);
+
+    $component
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('actionableOpen', true);
+
+    $component
+        ->call('close')
+        ->assertEmitted('modal:close', 'test-modal');
 });
 
 it('will not open the modal for another identifier', function () {
@@ -88,32 +97,6 @@ it('can initialize and submit the form', function () {
 
     expect(TestForm::$submittedTimes)->toBe(1);
 });
-
-class TestForm extends Form
-{
-    public static int $submittedTimes = 0;
-
-    public static function getFormSchema(): array
-    {
-        return [
-            TextInput::make('email')->label('Enter your e-mail')->required(),
-        ];
-    }
-
-    public static function getFormDefaults(): array
-    {
-        return [
-            'email' => '',
-            'year' => 2000,
-        ];
-    }
-
-    public static function submitForm(array $formData, object|null $record): void
-    {
-        static::$submittedTimes++;
-        Assert::assertNull($record);
-    }
-}
 
 it('can close the form on submit', function () {
     $component = Livewire::test(Modal::class, [
@@ -248,29 +231,31 @@ it('can receive an Eloquent record', function () {
         ->call('submitForm');
 });
 
-class User extends Model
-{
-    protected $guarded = [];
-}
+it('can receive an htmlstring', function () {
+    $html = '<p>This is a paragraph</p>';
+    $slot = new HtmlString($html);
 
-class UserForm extends Form
-{
-    public static $expectedUser;
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'slot' => $slot,
+    ]);
 
-    public static \Closure $assertionCallable;
+    $component
+        ->assertSet('slot', $slot)
+        ->assertSee($html, false);
+});
 
-    public static function getFormSchema(): array
-    {
-        return [];
-    }
+it('form will be prioritised above slot', function () {
+    $html = '<p>This is a paragraph</p>';
+    $slot = new HtmlString($html);
 
-    public static function getFormDefaults(): array
-    {
-        return [];
-    }
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'slot' => $slot,
+        'form' => UserForm::class,
+    ]);
 
-    public static function submitForm(array $formData, object|null $record): void
-    {
-        Assert::assertInstanceOf(User::class, $record);
-    }
-}
+    $component
+        ->assertSet('slot', $slot)
+        ->assertDontSee($html);
+});
