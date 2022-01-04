@@ -31,6 +31,20 @@ class TestForm extends Form
     }
 }
 
+class InitializationTestForm extends Form
+{
+    public static int $expectedFirstParam;
+    public static string $expectedSecondParam;
+    public static object $expectedThirdParam;
+
+    public static function getFormSchema(): array { return []; }
+
+    public static function getFormDefaults(): array { return []; }
+
+    public static function initialize() {}
+
+}
+
 class User extends Model
 {
     protected $guarded = [];

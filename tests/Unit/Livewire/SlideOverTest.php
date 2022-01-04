@@ -25,6 +25,24 @@ it('can open the modal', function () {
         ->assertNotEmitted('actionable:close');
 });
 
+it('can open the modal and initialize it', function () {
+    $component = Livewire::test(SlideOver::class, [
+        'id' => 'test-slide-over',
+    ]);
+
+    $user = User::make(['email' => 'john@example.com']);
+
+    InitializationTestForm::$expectedFirstParam = 1;
+    InitializationTestForm::$expectedSecondParam = 'randomParameter';
+    InitializationTestForm::$expectedThirdParam = $user;
+
+    $component
+        ->emit('actionable:open', 'test-slide-over', 1, 'randomParameter', $user)
+        ->assertSet('actionableOpen', true);
+
+    $this->markTestIncomplete();
+});
+
 it('can open the actionable', function () {
     $component = Livewire::test(SlideOver::class, ['id' => 'test-slide-over']);
 
