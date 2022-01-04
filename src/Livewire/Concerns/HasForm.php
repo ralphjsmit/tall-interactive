@@ -3,7 +3,6 @@
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
 use Filament\Forms\Concerns\InteractsWithForms;
-use RalphJSmit\Tall\Interactive\Livewire\ActionablesManager;
 
 trait HasForm
 {
@@ -24,18 +23,12 @@ trait HasForm
             'formData' => $this->form->getState(),
         ]);
 
-        ray('Submit form');
         $this->handleFormSubmitted();
     }
 
     private function handleFormSubmitted()
     {
-        ray('Handle close on submit');
-
-        $this->emitTo(ActionablesManager::class, 'modal:close', $this->actionableId);
-
-        //        if ( $this->closeOnSubmit ) {
-        //        }
+        $this->handleCloseOnSubmit('modal');
     }
 
     public function getFormSchema(): array
@@ -51,11 +44,11 @@ trait HasForm
     {
         $formDefaults = $this->call('getFormDefaults');
 
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             foreach ($formDefaults as $property => $value) {
                 $this->{$property} = $value;
             }

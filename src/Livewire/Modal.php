@@ -6,6 +6,7 @@ use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\CanBeDismissed;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\Closeable;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
@@ -18,7 +19,7 @@ class Modal extends Actionable implements HasForms
 {
     use CanBeDismissed;
 
-    //    use Closeable;
+    use Closeable;
     use HasForm;
     use HasMaxWidth;
     use HasDescription;
