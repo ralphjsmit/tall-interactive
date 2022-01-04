@@ -11,7 +11,7 @@ trait Closeable
 
     public function handleCloseOnSubmit()
     {
-        if ( $this->closeOnSubmit ) {
+        if ($this->closeOnSubmit) {
             $this->close();
         }
     }
