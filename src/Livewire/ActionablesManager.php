@@ -10,9 +10,7 @@ class ActionablesManager extends Component
 {
     public array $openedActionables = [];
 
-    public function mount()
-    {
-    }
+    public function mount() {}
 
     public function render(): View|Factory
     {
@@ -27,15 +25,15 @@ class ActionablesManager extends Component
         //        ':close' => 'closeActionable',
     ];
 
-    public function openActionable(string $actionable)
+    public function openActionable(string $actionable, ...$params)
     {
-        if ($this->openedActionables) {
+        if ( $this->openedActionables ) {
             $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
         }
 
         $this->openedActionables[] = $actionable;
 
-        $this->emit('actionable:open', $actionable);
+        $this->emit('actionable:open', $actionable, ...$params);
     }
 
     public function closeActionable()
@@ -44,7 +42,7 @@ class ActionablesManager extends Component
 
         $this->emit('actionable:close', $actionable);
 
-        if ($this->openedActionables) {
+        if ( $this->openedActionables ) {
             $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
         }
     }

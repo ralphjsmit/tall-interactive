@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Livewire\Livewire;
 use RalphJSmit\Tall\Interactive\Livewire\Modal;
@@ -20,6 +21,27 @@ it('can open the modal', function () {
         ->assertNotEmitted('slideOver:close')
         ->assertNotEmitted('actionable:open')
         ->assertNotEmitted('actionable:close');
+});
+
+it('can open the modal and initialize it', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-slide-over',
+        'form' => InitializationTestForm::class,
+    ]);
+
+    $user = User::make(['email' => 'john@example.com']);
+
+    InitializationTestForm::$expectedFirstParam = 1;
+    InitializationTestForm::$expectedSecondParam = 'randomParameter';
+    InitializationTestForm::$expectedThirdParam = $user;
+    InitializationTestForm::$initializedTimes = 0;
+
+    $component
+        ->assertSet('form', fn ($value) => $value !== null)
+        ->emit('actionable:open', 'test-slide-over', 1, 'randomParameter', $user)
+        ->assertSet('actionableOpen', true);
+
+    expect(InitializationTestForm::$initializedTimes)->toBe(1);
 });
 
 it('can open the actionable', function () {
@@ -219,19 +241,25 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = User::make(['email' => 'john@john.com', 'password' => 'password']);
+    $user = new class extends Model
+    {
+        public $email = 'john@example.com';
+        public $password = 'password';
+    };
 
     UserForm::$expectedUser = $user;
 
     $component = Livewire::test(Modal::class, [
-        'id' => 'test-modal',
+        'id' => 'test-slide-over',
         'record' => $user,
         'form' => UserForm::class,
     ]);
 
     $component
         ->assertSet('record', $user)
-        ->call('submitForm');
+        ->assertSet('record.email', 'john@example.com')
+        ->call('submitForm')
+        ->assertSet('record.email', 'john@example.com');
 });
 
 it('can receive an htmlstring', function () {

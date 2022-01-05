@@ -10,12 +10,37 @@ trait HasForm
     use Closeable;
     use HasRecord;
     use InteractsWithForms;
+    use RegisterListeners;
 
     public bool $formInitialized = false;
+
+    public function initializeHasForm(): void
+    {
+        //        $this->registerListeners([
+        //            'actionable:open' => 'runFormInitialization',
+        //        ]);
+    }
 
     public function mountHasForm(string $maxWidth = null)
     {
         $this->maxWidth = $maxWidth ?? '2xl';
+    }
+
+    public function runFormInitialization(string $actionable, $params)
+    {
+        if ( $this->actionableId !== $actionable ) {
+            return;
+        }
+
+        if ( ! $this->formInitialized ) {
+            return;
+        }
+
+        $params = collect($params)->mapWithKeys(function ($item, $key) {
+            return ["formParam{$key}" => $item];
+        })->all();
+
+        $this->call('initialize', $params);
     }
 
     public function submitForm(): void
@@ -31,7 +56,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if ($this->record !== null) {
+        if ( ! $this->record ) {
             $this->initializeForm();
         }
     }
@@ -47,11 +72,11 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->initializeForm();
         }
     }

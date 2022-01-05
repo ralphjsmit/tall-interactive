@@ -6,6 +6,10 @@ trait CanCallForm
 {
     private function call(string $method, array $parameters = [])
     {
+        if ( ! method_exists($this->formClass, $method) ) {
+            return;
+        }
+
         return app()->call(
             [$this->formClass, $method],
             array_merge([

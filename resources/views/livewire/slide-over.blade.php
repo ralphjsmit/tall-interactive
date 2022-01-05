@@ -33,29 +33,47 @@
                     >
                         <div class="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl">
                             <div class="flex-1 h-0 overflow-y-auto">
-                                <div class="py-6 px-4 bg-primary-700 sm:px-6">
-                                    <div class="flex items-center justify-between">
-                                        <h2 class="text-lg font-bold text-white" id="slide-over-title">
-                                            {{ $title }}
-                                        </h2>
-                                        @if($dismissable)
-                                            <div class="ml-3 h-7 flex items-center">
-                                                <button type="button" wire:click="$emit('slideOver:close', '{{ $actionableId }}')" class="hover:bg-primary-800 rounded-md text-primary-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
-                                                    <span class="sr-only">{{ $dismissableWith }}</span>
-                                                    <!-- Heroicon name: outline/x -->
-                                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </button>
+                                @if($title || $description)
+                                    <div class="py-6 px-4 bg-primary-700 sm:px-6">
+                                        @if($title)
+                                            <div class="flex items-center justify-between">
+                                                <h2 class="text-lg font-bold text-white" id="slide-over-title">
+                                                    {{ $title }}
+                                                </h2>
+                                                @if($dismissable)
+                                                    <div class="ml-3 h-7 flex items-center">
+                                                        <button type="button" wire:click="$emit('slideOver:close', '{{ $actionableId }}')" class="hover:bg-primary-800 rounded-md text-primary-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                                                            <span class="sr-only">{{ $dismissableWith }}</span>
+                                                            <!-- Heroicon name: outline/x -->
+                                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        @if($description)
+                                            <div class="mt-1">
+                                                <p class="text-sm text-primary-300">
+                                                    {{ $description }}
+                                                </p>
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="mt-1">
-                                        <p class="text-sm text-primary-300">
-                                            {{ $description }}
-                                        </p>
-                                    </div>
-                                </div>
+                                @else
+                                    @if($dismissable)
+                                        <div class="absolute top-2 right-6 ml-3 h-7 flex items-center">
+                                            <button type="button" wire:click="$emit('slideOver:close', '{{ $actionableId }}')" class="hover:bg-gray-100 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                                <span class="sr-only">{{ $dismissableWith }}</span>
+                                                <!-- Heroicon name: outline/x -->
+                                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    @endif
+                                @endif
                                 <div class="flex-1 flex flex-col justify-between">
                                     <div class="my-8 px-4 divide-y divide-gray-200 sm:px-6">
                                         @if($formClass)

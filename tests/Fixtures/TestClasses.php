@@ -36,12 +36,19 @@ class InitializationTestForm extends Form
     public static int $expectedFirstParam;
     public static string $expectedSecondParam;
     public static object $expectedThirdParam;
+    public static int $initializedTimes = 0;
 
     public static function getFormSchema(): array { return []; }
 
     public static function getFormDefaults(): array { return []; }
 
-    public static function initialize() {}
+    public static function initialize(int $formParam0, $formParam1, object $formParam2): void
+    {
+        Assert::assertSame(static::$expectedFirstParam, $formParam0);
+        Assert::assertSame(static::$expectedSecondParam, $formParam1);
+        Assert::assertSame(static::$expectedThirdParam, $formParam2);
+        static::$initializedTimes++;
+    }
 
 }
 
@@ -56,9 +63,11 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(): array
+    public static function getFormSchema(string $recordPathIfGiven): array
     {
-        return [];
+        return [
+            TextInput::make("{$recordPathIfGiven}email"),
+        ];
     }
 
     public static function getFormDefaults(): array
@@ -68,6 +77,6 @@ class UserForm extends Form
 
     public static function submitForm(array $formData, object|null $record): void
     {
-        Assert::assertInstanceOf(User::class, $record);
+        Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($record));
     }
 }

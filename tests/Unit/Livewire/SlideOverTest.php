@@ -1,6 +1,7 @@
 <?php
 
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\Testing\Assert;
 use Livewire\Livewire;
@@ -25,9 +26,10 @@ it('can open the modal', function () {
         ->assertNotEmitted('actionable:close');
 });
 
-it('can open the modal and initialize it', function () {
+it('can open the slideover and initialize it', function () {
     $component = Livewire::test(SlideOver::class, [
         'id' => 'test-slide-over',
+        'form' => InitializationTestForm::class,
     ]);
 
     $user = User::make(['email' => 'john@example.com']);
@@ -35,12 +37,14 @@ it('can open the modal and initialize it', function () {
     InitializationTestForm::$expectedFirstParam = 1;
     InitializationTestForm::$expectedSecondParam = 'randomParameter';
     InitializationTestForm::$expectedThirdParam = $user;
+    InitializationTestForm::$initializedTimes = 0;
 
     $component
+        ->assertSet('form', fn ($value) => $value !== null)
         ->emit('actionable:open', 'test-slide-over', 1, 'randomParameter', $user)
         ->assertSet('actionableOpen', true);
 
-    $this->markTestIncomplete();
+    expect(InitializationTestForm::$initializedTimes)->toBe(1);
 });
 
 it('can open the actionable', function () {
@@ -267,7 +271,11 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = User::make(['email' => 'john@example.com', 'password' => 'password']);
+    $user = new class extends Model
+    {
+        public $email = 'john@example.com';
+        public $password = 'password';
+    };
 
     UserForm::$expectedUser = $user;
 
@@ -310,5 +318,13 @@ it('form will be prioritised above slot', function () {
 
     $component
         ->assertSet('slot', $slot)
-        ->assertDontSee($html);
+        ->assertDontSee($html)
+        ->assertDontSee('This is a paragraph');
+});
+
+it('can reset the form after closing it', function () {
+    $component = Livewire::test(SlideOver::class, [
+        'id' => 'test-slide-over',
+        'form' => UserForm::class,
+    ]);
 });

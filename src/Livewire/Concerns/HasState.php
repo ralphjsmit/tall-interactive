@@ -16,17 +16,24 @@ trait HasState
         ]);
     }
 
-    public function openActionable(string $actionable): void
+    public function openActionable(string $actionable, ...$params): void
     {
-        if ($this->actionableId === $actionable) {
-            $this->actionableOpen = true;
+        if ( $this->actionableId !== $actionable ) {
+            return;
+        }
+
+        $this->actionableOpen = true;
+
+        if ( method_exists($this, 'runFormInitialization') ) {
+            $this->runFormInitialization($actionable, $params);
         }
     }
 
     public function closeActionable(string $actionable): void
     {
-        if ($this->actionableId === $actionable) {
-            $this->actionableOpen = false;
+        if ( $this->actionableId !== $actionable ) {
+            return;
         }
+        $this->actionableOpen = false;
     }
 }
