@@ -23,6 +23,7 @@ class ActionablesManager extends Component
         'slideOver:open' => 'openActionable',
         'slideOver:close' => 'closeActionable',
         //        ':close' => 'closeActionable',
+        'actionables:forceClose' => 'forceCloseActionables',
     ];
 
     public function openActionable(string $actionable, ...$params)
@@ -44,6 +45,14 @@ class ActionablesManager extends Component
 
         if ( $this->openedActionables ) {
             $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
+        }
+    }
+
+    public function forceCloseActionables()
+    {
+        foreach ($this->openedActionables as $key => $actionable) {
+            $this->emit('actionable:close', $actionable);
+            unset($this->openedActionables[$key]);
         }
     }
 }

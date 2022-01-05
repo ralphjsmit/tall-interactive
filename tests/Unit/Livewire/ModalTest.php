@@ -53,7 +53,8 @@ it('can open the actionable', function () {
 
     $component
         ->call('close')
-        ->assertEmitted('modal:close', 'test-modal');
+        ->assertEmitted('modal:close', 'test-modal')
+        ->assertNotEmitted('actionables:forceClose');
 });
 
 it('will not open the modal for another identifier', function () {
@@ -66,6 +67,24 @@ it('will not open the modal for another identifier', function () {
     $component
         ->emit('actionable:close', 'another-modal')
         ->assertSet('actionableOpen', false);
+});
+
+it('can forceClose actionables on submit', function () {
+    $component = Livewire::test(Modal::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'forceCloseOnSubmit' => true,
+    ]);
+
+    $component
+        ->emit('actionable:open', 'another-modal')
+        ->assertSet('actionableOpen', false)
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('actionableOpen', true)
+        ->set('email', 'john@example.com')
+        ->call('submitForm')
+        ->assertHasNoErrors()
+        ->assertEmitted('actionables:forceClose');
 });
 
 it('can contain the form', function () {

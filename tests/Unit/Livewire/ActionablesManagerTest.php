@@ -43,3 +43,18 @@ it('can record stacktrace of opened modals and slideovers', function () {
         ->assertSet('openedActionables', [])
         ->assertEmitted('actionable:close', 'slideover-2');
 });
+
+it('can force-close opened modals and slideovers', function () {
+    $component = Livewire::test(ActionablesManager::class);
+
+    $component
+        ->emit('modal:open', 'modal-1')
+        ->emit('slideOver:open', 'slide-over-2')
+        ->assertSet('openedActionables', ['modal-1', 'slide-over-2']);
+
+    $component
+        ->emit('actionables:forceClose')
+        ->assertEmitted('actionable:close', 'modal-1')
+        ->assertEmitted('actionable:close', 'slide-over-2')
+        ->assertSet('openedActionables', []);
+});

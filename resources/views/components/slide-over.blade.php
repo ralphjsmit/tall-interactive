@@ -9,6 +9,7 @@
         'description',
         'dismissable',
         'dismissableWith',
+        'forceCloseOnSubmit',
         'form',
         'maxWidth',
         'record',

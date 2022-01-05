@@ -71,6 +71,24 @@ it('will not open the slide-over for another identifier', function () {
         ->assertSet('actionableOpen', false);
 });
 
+it('can forceClose actionables on submit', function () {
+    $component = Livewire::test(SlideOver::class, [
+        'id' => 'test-modal',
+        'form' => TestForm::class,
+        'forceCloseOnSubmit' => true,
+    ]);
+
+    $component
+        ->emit('actionable:open', 'another-modal')
+        ->assertSet('actionableOpen', false)
+        ->emit('actionable:open', 'test-modal')
+        ->assertSet('actionableOpen', true)
+        ->set('email', 'john@example.com')
+        ->call('submitForm')
+        ->assertHasNoErrors()
+        ->assertEmitted('actionables:forceClose');
+});
+
 it('can contain the form', function () {
     $component = Livewire::test(SlideOver::class, [
         'id' => 'test-slide-over',

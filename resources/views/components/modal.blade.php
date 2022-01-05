@@ -10,6 +10,7 @@
         'dismissable',
         'dismissableWith',
         'form',
+        'forceCloseOnSubmit',
         'maxWidth',
         'record',
         'submitWith',

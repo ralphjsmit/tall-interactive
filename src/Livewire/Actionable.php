@@ -12,4 +12,9 @@ abstract class Actionable extends Component
     {
         $this->emit("{$this->actionableType}:close", $this->actionableId);
     }
+
+    public function forceClose()
+    {
+        $this->emit('actionables:forceClose');
+    }
 }
