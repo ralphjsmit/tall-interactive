@@ -38,9 +38,10 @@ class InitializationTestForm extends Form
     public static object $expectedThirdParam;
     public static int $initializedTimes = 0;
 
-    public static function getFormSchema(): array { return []; }
-
-    public static function getFormDefaults(): array { return []; }
+    public static function getFormSchema(): array
+    {
+        return [];
+    }
 
     public static function initialize(int $formParam0, $formParam1, object $formParam2): void
     {
@@ -50,6 +51,10 @@ class InitializationTestForm extends Form
         static::$initializedTimes++;
     }
 
+    public static function getFormDefaults(): array
+    {
+        return [];
+    }
 }
 
 class User extends Model
