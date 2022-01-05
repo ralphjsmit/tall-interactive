@@ -1,2 +1,7 @@
 - Add typehints if Livewire supports them
 - Test view components
+- Minimalistic design (v2)
+- Accept Filament table components
+- Show/hide overlay background (v2)
+- Separate state after submitting (v2)
+- Cleanup test structure to work with datasets (v2)
