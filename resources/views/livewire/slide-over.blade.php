@@ -91,18 +91,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex-shrink-0 px-4 py-4 flex justify-end">
-                                @if($dismissable)
-                                    <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                                        {{ $dismissableWith }}
+                            @if($showControls)
+                                <div class="flex-shrink-0 px-4 py-4 flex justify-end" id="tall-interactive-slide-over-controls">
+                                    @if($dismissable)
+                                        <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                            {{ $dismissableWith }}
+                                        </button>
+                                    @endif
+                                    <button type="submit" wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}"
+                                            class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                        {{ $submitWith }}
                                     </button>
-                                @endif
-                                <button type="submit" wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}"
-                                        class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                                    {{ $submitWith }}
-                                </button>
-                            </div>
+                                </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

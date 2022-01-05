@@ -2,7 +2,14 @@
 
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
-trait HasRecord
+trait HasControls
 {
-    public object|null $record = null;
+    public bool $showControls = true;
+
+    public function mountHasControls(bool $hideControls = null)
+    {
+        if ( $hideControls ) {
+            $this->showControls = ! $hideControls;
+        }
+    }
 }
