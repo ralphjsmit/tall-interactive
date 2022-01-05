@@ -8,7 +8,7 @@ trait HasControls
 
     public function mountHasControls(bool $hideControls = null)
     {
-        if ( $hideControls ) {
+        if ($hideControls) {
             $this->showControls = ! $hideControls;
         }
     }
