@@ -7,6 +7,7 @@ use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RalphJSmit\Tall\Interactive\ActionablesServiceProvider;
 use RyanChandler\TablerIcons\BladeTablerIconsServiceProvider;
+use Usernotnull\Toast\ToastServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -22,6 +23,7 @@ class TestCase extends Orchestra
             LivewireServiceProvider::class,
             BladeTablerIconsServiceProvider::class,
             FormsServiceProvider::class,
+            ToastServiceProvider::class,
         ];
     }
 
