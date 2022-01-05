@@ -34,6 +34,9 @@ trait HasState
         if ( $this->actionableId !== $actionable ) {
             return;
         }
+
+        $this->resetValidation();
+
         $this->actionableOpen = false;
     }
 }
