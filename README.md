@@ -24,6 +24,8 @@ The package requires the following dependencies:
 - Filament Forms
 - Toast notification (not required, but very handy)
 
+You can install them manually or skip to the [Faster installation section](#faster-installation) for new projects.
+
 #### Laravel Livewire
 
 Please follow the [Laravel Livewire installation instructions](https://laravel-livewire.com/docs/2.x/alpine-js#installation) if you haven't done so yet.
