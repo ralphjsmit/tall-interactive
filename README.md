@@ -2,6 +2,42 @@
 
 This package allows you to create beautiful forms, modals and slide-overs with ease. It utillises the great Filament Forms package for creating the forms and the awesome TALL-stack for the design.
 
+## Installation for local testing 
+
+The fastest way to get this up-and-running-locally is to create a new plain Laravel installation, for example:
+
+```bash
+laravel new ...
+```
+
+For the package to work, you should have Livewire, Tailwind, AlpineJS and Filament Forms installed. I also created a package with an artisan command to install all that for your:
+
+```bash
+composer require ralphjsmit/tall-install
+composer dump-autoload
+php artisan tall-install
+```
+
+If you're testing it on an existing project, you should install the dependencies manually.
+
+Next, you need to install the package. Add this to your `composer.json` file to test it locally:
+```json
+    "repositories": [
+        {
+            "type": "path",
+            "url": "ADD PATH HERE"
+        }
+    ]
+```
+
+And require it like this:
+```json
+"ralphjsmit/tall-interactive": "@dev",
+```
+
+Finally, run `composer install` and you should be ready to go!
+
+
 ## Installation
 
 You can install the package via composer:
@@ -15,6 +51,8 @@ Optionally, you can publish the views using
 ```bash
 php artisan vendor:publish --tag="tall-interactive-views"
 ```
+
+
 
 
 ## Example form component:
