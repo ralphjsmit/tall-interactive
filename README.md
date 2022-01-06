@@ -83,6 +83,17 @@ After installing the package and setting up the dependencies, add the following 
 <x-tall-interactive::actionables-manager />
 ```
 
+Finally, add the following to the `content` key of your `tailwind.config.js` file:
+
+```js
+module.exports = {
+    content: [
+        './vendor/ralphjsmit/tall-interactive/resources/views/**/*.blade.php',
+        // All other locations
+    ],
+///
+```
+
 Now you're ready to go!
 
 #### Faster installation
