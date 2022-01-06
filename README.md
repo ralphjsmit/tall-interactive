@@ -119,6 +119,45 @@ Now you're ready to go and build your first forms!
 
 ## Usage
 
+You can build a modal, a slide-over or an inline form (I call them 'actionables') with three things:
+
+- With a Filament Form 
+- With a Livewire component (will be implemented soon)
+- With custom Blade contents
+
+### Creating a Filament Form
+
+To start building your first form, create a new file in your `app/Forms` directory (custom namesapces also allowed). You could call it `UserForm` or however you like.
+
+Add the following contents to the form file:
+
+```php
+<?php
+
+namespace App\Forms;
+
+use RalphJSmit\Tall\Interactive\Forms\Form;
+
+class UserForm extends Form {
+
+    public static function getFormSchema(): array
+    {
+        return [];
+    }
+
+    public static function getFormDefaults(): array
+    {
+        return [];
+    }
+
+    public static function submitForm()
+    {
+        //
+    }
+
+    public static function initialize() {}
+}
+```
 
 
 
