@@ -115,7 +115,7 @@ You can build a modal, a slide-over or an inline form (I call them 'actionables'
 - With custom Blade contents
 
 
-## Creating a Filament Form
+### Creating a Filament Form
 
 To start building your first form, create a new file in your `app/Forms` directory (custom namespaces also allowed). You could call it `UserForm` or however you like.
 
@@ -179,7 +179,7 @@ public static function getFormSchema(Component $livewire): array
 }
 ```
 
-Use the static `getFormDefaults()` to specify the default values for each fields as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
+Use the static `getFormDefaults()` to specify the default values for each field as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
 
 ```php
 public static function getFormDefaults(): array
@@ -206,8 +206,8 @@ public static function getFormSchema(string $recordPathIfGiven): array
     return [
         TextInput::make("{$recordPathIfGiven}email")->label('Enter your email')->placeholder('john@example.com')->required(),
         Grid::make()->schema([
-            TextInput::make(("{$recordPathIfGiven}firstname")->label('Enter your first name')->placeholder('John'),
-            TextInput::make(("{$recordPathIfGiven}lastname")->label('Enter your last name')->placeholder('Doe'),
+            TextInput::make("{$recordPathIfGiven}firstname")->label('Enter your first name')->placeholder('John'),
+            TextInput::make("{$recordPathIfGiven}lastname")->label('Enter your last name')->placeholder('Doe'),
         ]),
     ];
 }
@@ -263,9 +263,31 @@ public static function submitForm(Component $livewire, array $formData, User $re
 }
 ```
 
-## Modal
+### Using Modals
 
-In order to use a modal on a page, 
+In order to open a modal on a page, include the following somewhere on the page:
+
+```blade
+<x-tall-interactive::modal id="create-user" />
+```
+
+The only required parameter here is the `id` of a modal. This `id` is required, because you need it when emitting a Livewire event to open the modal. The `id` for a modal should be different for each modal on a page, otherwise multiple modals would open at the same time.
+
+You can open the modal by dispatching a `modal:open` event with the `id` as it's first parameter:
+```blade
+<button onclick="Livewire.emit('modal:open', 'create-user')" type="button" class="...">
+    Example Modal
+</button>
+```
+
+Currently the modal is empty. Let's fix that by displaying our form. In order to display a form, add the `form` property:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+/>
+```
 
 
 
