@@ -35,7 +35,12 @@ And require it like this:
 "ralphjsmit/tall-interactive": "@dev",
 ```
 
-Finally, run `composer install` and you should be ready to go!
+Next, run `composer install` to pull in the package.
+
+Finally, add the following code in a Blade file that is loaded on every page, e.g. in your `layouts/app.blade.php`:
+```
+<x-tall-interactive::actionables-manager />
+```
 
 
 ## Installation
