@@ -16,7 +16,7 @@
 {{-- Inline form --}}
 
 <x-tall-interactive::forms.form-container :controlsDesign="$controlsDesign" :maxWidth="$maxWidth" :applyContainer="$container">
-    <div class="space-y-8 divide-y divide-gray-200">
+    <div class="space-y-8">
         @if($title || $description)
             <div>
                 @if($title)
