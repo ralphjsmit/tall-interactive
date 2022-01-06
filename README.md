@@ -51,11 +51,79 @@ You can install the package via composer:
 composer require ralphjsmit/tall-interactive
 ```
 
-Optionally, you can publish the views using
+### Setup
+
+The package requires the following dependencies:
+
+- Laravel Livewire
+- Alpine.js
+- Tailwind CSS
+- Filament Forms
+- Toast notification (not required, but very handy)
+
+#### Laravel Livewire
+
+Please follow the [Laravel Livewire installation instructions](https://laravel-livewire.com/docs/2.x/alpine-js#installation) if you haven't done so yet.
+
+#### Alpine.js, Tailwind, Filament Forms
+
+Please follow the [Filament Forms installation instructions](https://filamentadmin.com/docs/2.x/forms/installation) to install Alpine.js, Tailwind CSS and Filament Forms.
+
+#### Toast notifications
+
+Using the [Toast TALL notifications package](http://github.com/usernotnull/tall-toasts) is not required, but it is a recommend if you need to send notifications to your users, for example on submitting a form.
+
+If you decide to use Toast, please follow their [setup instructions](https://github.com/usernotnull/tall-toasts#setup).
+
+#### Tall Interactive
+
+After installing the package and setting up the dependencies, add the following code to your Blade files so that it's loaded on every page. For example in your `layouts/app.blade.php` view:
+
+```blade
+<x-tall-interactive::actionables-manager />
+```
+
+Now you're ready to go!
+
+#### Faster installation
+
+If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that all the above dependencies in a plain Laravel installation. 
+
+It works like this:
+
+First, create a new plain Laravel installation, for example with:
 
 ```bash
-php artisan vendor:publish --tag="tall-interactive-views"
+laravel new name
+# or
+composer create-project laravel/laravel name
 ```
+
+Next, require the `tall-install` package and run the `php artisan tall-install` command:
+
+```bash
+composer require ralphjsmit/tall-install
+composer dump-autoload
+php artisan tall-install
+```
+
+The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please check out the [documentation](https://github.com/ralphjsmit/tall-install#installation--usage) for that.
+
+Now, you can install the `tall-interactive` package: 
+
+```bash
+composer require ralphjsmit/tall-interactive
+```
+
+Finally, add the following to your `layouts/app.blade.php` file or an other file that is loaded on every page:
+
+```blade
+<x-tall-interactive::actionables-manager />
+```
+
+Now you're ready to go and build your first forms!
+
+## Usage
 
 
 
@@ -115,4 +183,13 @@ class UserForm extends Form
 }
 ```
 
+
+
+### Customizing the views
+
+Optionally, you can publish the views using (not recommended, they can get outdated):
+
+```bash
+php artisan vendor:publish --tag="tall-interactive-views"
+```
 
