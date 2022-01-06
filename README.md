@@ -91,17 +91,11 @@ If you want a faster installation process, you could check out my [ralphjsmit/ta
 
 It works like this:
 
-First, create a new plain Laravel installation, for example with:
-
 ```bash
-laravel new name
-# or
-composer create-project laravel/laravel name
-```
+# First, create a new plain Laravel installation, for example with:
+laravel new name # OR: composer create-project laravel/laravel name 
 
-Next, require the `tall-install` package and run the `php artisan tall-install` command:
-
-```bash
+# Next, require the `tall-install` package and run the `php artisan tall-install` command:
 composer require ralphjsmit/tall-install
 composer dump-autoload
 php artisan tall-install
