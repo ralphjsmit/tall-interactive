@@ -63,13 +63,15 @@ Now you're ready to go!
 
 #### Faster installation
 
-If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that all the above dependencies in a plain Laravel installation. 
+If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation. 
 
 It works like this:
 
 ```bash
 # First, create a new plain Laravel installation, for example with:
-laravel new name # OR: composer create-project laravel/laravel name 
+
+laravel new name 
+# OR: composer create-project laravel/laravel name 
 
 # Next, require the `tall-install` package and run the `php artisan tall-install` command:
 composer require ralphjsmit/tall-install
@@ -79,13 +81,13 @@ php artisan tall-install
 
 The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please check out the [documentation](https://github.com/ralphjsmit/tall-install#installation--usage) for that.
 
-Now, you can install the `tall-interactive` package: 
+Now, you are ready to install the `tall-interactive` package: 
 
 ```bash
 composer require ralphjsmit/tall-interactive
 ```
 
-Finally, add the following to your `layouts/app.blade.php` file:
+To setup the `tall-interactive` package, add the following to your `layouts/app.blade.php` file:
 
 ```blade
 <x-tall-interactive::actionables-manager />
@@ -112,9 +114,16 @@ You can build a modal, a slide-over or an inline form (I call them 'actionables'
 - With a Livewire component (will be implemented soon)
 - With custom Blade contents
 
-### Creating a Filament Form
 
-To start building your first form, create a new file in your `app/Forms` directory (custom namesapces also allowed). You could call it `UserForm` or however you like.
+## Creating a Filament Form
+
+To start building your first form, create a new file in your `app/Forms` directory (custom namespaces also allowed). You could call it `UserForm` or however you like.
+
+Run the following command to generate a form in your `app/Forms` namespace:
+
+```bash
+php artisan make:form UserForm
+```
 
 Add the following contents to the form file:
 
@@ -146,62 +155,117 @@ class UserForm extends Form {
 }
 ```
 
+### Building your form
 
+Creating a form with Filament is very easy. The field classes of your form reside in the static `getFormSchema()` method of the Form class.
 
-## Example form component:
+For all the available fields, [check out the Filament documentation](https://filamentadmin.com/docs/2.x/forms/fields).
 
 ```php
-<?php
-
-namespace App\Forms;
-
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Support\HtmlString;
-use Livewire\Component;
-use RalphJSmit\Tall\Interactive\Forms\Form;
-
-class UserForm extends Form
+public static function getFormSchema(Component $livewire): array
 {
-    public static function getFormSchema(Component $livewire): array
-    {
-        return [
-            TextInput::make('email')->label('Enter your email')->placeholder('john@example.com')->required(),
-            Grid::make()->schema([
-                TextInput::make('firstname')->label('Enter your first name')->placeholder('John'),
-                TextInput::make('lastname')->label('Enter your last name')->placeholder('Doe'),
-            ]),
-            TextInput::make('password')->label('Choose a password')->password(),
-            MarkdownEditor::make('why')->label('Why do you want an account?'),
-            Placeholder::make('')->content(
-                new HtmlString('Click <button onclick="Livewire.emit(\'modal:open\', \'create-user-child\')" type="button" class="text-primary-500">here</button> to open a child modal🤩')
-            ),
-        ];
-    }
-
-    public static function getFormDefaults(): array
-    {
-        return [
-            'email' => null,
-            'firstname' => null,
-            'lastname' => null,
-            'password' => null,
-            'why' => null,
-        ];
-    }
-
-    public static function submitForm()
-    {
-        toast()
-            ->success('Thanks for submitting the form! (Your data isn\'t stored anywhere.')
-            ->push();
-    }
-
-    public static function initialize() {}
+    return [
+        TextInput::make('email')->label('Enter your email')->placeholder('john@example.com')->required(),
+        Grid::make()->schema([
+            TextInput::make('firstname')->label('Enter your first name')->placeholder('John'),
+            TextInput::make('lastname')->label('Enter your last name')->placeholder('Doe'),
+        ]),
+        TextInput::make('password')->label('Choose a password')->password(),
+        MarkdownEditor::make('why')->label('Why do you want an account?'),
+        Placeholder::make('')->content(
+            new HtmlString('Click <button onclick="Livewire.emit(\'modal:open\', \'create-user-child\')" type="button" class="text-primary-500">here</button> to open a child modal🤩')
+        ),
+    ];
 }
 ```
+
+Use the static `getFormDefaults()` to specify the default values for each fields as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
+
+```php
+public static function getFormDefaults(): array
+{
+    return [
+        'email' => null,
+        'firstname' => null,
+        'lastname' => null,
+        'password' => null,
+        'why' => null,
+    ];
+}
+```
+
+#### Binding to model properties
+
+If you want to bind directly to model properties, you should use the `$recordPathIfGiven` variable to prefix your fields.
+
+This makes sure that whenever you provide a model to the actionable, your fields will be prefixed with the correct location. If you haven't a provided a model, this variable will be an empty string.
+
+```php
+public static function getFormSchema(string $recordPathIfGiven): array
+{
+    return [
+        TextInput::make("{$recordPathIfGiven}email")->label('Enter your email')->placeholder('john@example.com')->required(),
+        Grid::make()->schema([
+            TextInput::make(("{$recordPathIfGiven}firstname")->label('Enter your first name')->placeholder('John'),
+            TextInput::make(("{$recordPathIfGiven}lastname")->label('Enter your last name')->placeholder('Doe'),
+        ]),
+    ];
+}
+```
+
+
+> **NB.:** You are required to provide a default value for each field, otherwise Livewire will throw a "property not found" error.
+
+#### Submitting a form
+
+You can use the static `submitForm()` method to provide the logic for submitting the form. 
+
+```php
+public static function submitForm(array $formData)
+{
+    User::create($formData);
+
+
+    toast()
+        ->success('Thanks for submitting the form! (Your data isn\'t stored anywhere.')
+        ->push();
+}
+```
+
+#### Dependency injection in form classes
+
+The `tall-interactive` package also provides dependency injection for all the methods in a form class, similar to Filament Forms.
+
+You can specify the following variables in each of the above methods:
+
+1. `\Livewire\Component $livewire` to access the current Livewire instance
+2. `$record` to access the record (if any)
+3. `$recordPathIfGiven` to access the current path to the record (if any)
+
+For example:
+
+```php
+use Livewire\Component;
+use App\Models\User;
+
+public static function submitForm(Component $livewire, array $formData, User $record) 
+{
+    // Save the user
+    $record->save();
+
+    if ($formData['password]) {
+        $record->update([
+            'password' => $formData['password'],
+        ]);
+    }
+
+    //
+}
+```
+
+## Modal
+
+In order to use a modal on a page, 
 
 
 
