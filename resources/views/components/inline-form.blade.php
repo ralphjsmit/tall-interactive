@@ -1,6 +1,5 @@
 @php
     $parameters = [
-        'id' => $attributes->get('id'),
         'slot' => $slot,
     ];
 
