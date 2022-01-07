@@ -1,3 +1,6 @@
+![tall-interactive](https://github.com/ralphjsmit/tall-interactive/blob/7e83eff29dae09f6f8bc22437ad19763a403b0db/docs/images/tall-interactive.jpg)
+
+
 # Create forms, modals and slide-overs with ease.
 
 This package allows you to create beautiful forms, modals and slide-overs with ease. It utillises the great Filament Forms package for creating the forms and the awesome TALL-stack for the design.
