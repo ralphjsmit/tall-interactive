@@ -263,13 +263,21 @@ public static function submitForm(Component $livewire, array $formData, User $re
 }
 ```
 
-### Using Modals
+### Using Modals and Slide-Overs
 
 In order to open a modal on a page, include the following somewhere on the page:
 
 ```blade
 <x-tall-interactive::modal id="create-user" />
 ```
+
+If you want to use a slide-over instead of a modal, use the following tag:
+
+```blade
+<x-tall-interactive::slide-over id="create-user" />
+```
+
+Both the `modal` component and the `slide-over` component work exactly the same. 
 
 The only required parameter here is the `id` of a modal. This `id` is required, because you need it when emitting a Livewire event to open the modal. The `id` for a modal should be different for each modal on a page, otherwise multiple modals would open at the same time.
 
@@ -280,6 +288,8 @@ You can open the modal by dispatching a `modal:open` event with the `id` as it's
 </button>
 ```
 
+#### Filament Forms
+
 Currently the modal is empty. Let's fix that by displaying our form. In order to display a form, add the `form` property:
 
 ```blade
@@ -289,9 +299,184 @@ Currently the modal is empty. Let's fix that by displaying our form. In order to
 />
 ```
 
+Now, when you emit the `modal:open` event, the modal will contain a nice form.
+
+#### Livewire 
+
+You may specify the name of a Livewire component to be used instead of a form, by using the `livewire` attribute:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    livewire="users.edit"
+/>
+```
+
+If you specify both the `form` and the `livewire` attribute, only the `form` will be displayed.
+
+#### Blade
+
+You can also give custom Blade content to an actionable by putting in the slot of component:
+
+```
+<x-tall-interactive::modal id="create-user">
+
+    <p>My custom Blade content in this actionable!<p>
+
+</tall-interactive::modal>
+```
+
+#### Configuration attributes
+
+The following attributes for configuring your actionable available.
+
+**Closing a modal on successfully submitting the form**
+
+If you specify the `closeOnSubmit` attribute, the actionable will automatically close on submit. This attribute is `false` by default.
+
+If you specify the `forceCloseOnSubmit` attribute, all modals and slide-overs will be closed upon successfully submitting this form. This could be handy for situations like this: Edit User > Delete User > Submit. This attribute is `false` by default.
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    closeOnSubmit
+/>
+```
+
+**Adding a title**
+
+You may specify the title of a form with the `title` attribute. If you omit the `title` attribute, the title will not be visible.
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    title="Create a user"
+/>
+```
+
+**Adding a description**
+
+You may specify the description of a form with the `description` attribute. If you omit the `description` attribute, the description will not be visible.
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    title="Create a user"
+    description="Use this form to grant a user access to your system."
+/>
+```
+
+**Text on submit button**
+
+You may set the text on the submit-button by specifiying the `submitWith` attribute:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    submitWith="Create user"
+/>
+```
+
+**Closing a form before submitting**
+
+You may allow an actionable to be dismissed (closed) before it is submitted by specifiying the `dismissable` attribute. By default this is disabled.
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    dismissable
+/>
+```
+
+You may specify the text on the close-button of an actionable with the `dismissableWith` attribute. By default the text will be 'Close'.
+
+If you specify the `dismissableWith` attribute, you are allowed to omit the `dismissable` attribute:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    dismissableWith="Go back"
+/>
+```
+
+**Hiding the buttons**
+
+You may hide the buttons at the bottom of an actionable by specifiying the `hideControls` attribute:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    hideControls
+/>
+```
+
+**Setting a maximum width**
+
+You may set the width of the actionable by specify the `maxWidth` attribute. Possible values are: `sm`,`md`,`lg`,`xl`,`2xl`, `3xl`, `4xl`, `5xl`, `6xl`, `7xl`.
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    maxWidth="2xl"
+/>
+```
+
+**Model binding**
+
+You may give the form an (Eloquent) model, which can be used for things like Edit forms:
+
+```blade
+@foreach (\App\Models\User::get() as $user)
+    <x-tall-interactive::modal
+        id="edit-user"
+        :form="\App\Forms\UserForm::class"
+        :model="$user"
+    />
+@endforeach
+```
 
 
-### Customizing the views
+## Inline forms
+
+You may also display inline forms on a page like this:
+
+```blade
+<x-tall-interactive::inline-form />
+```
+
+For an inline form, you don't to specify an `id`.
+
+An inline form takes the following parameters:
+
+1. `container`
+2. `controlsDesign`
+3. `form`
+4. `title`
+5. `description`
+6. `submitWith`
+7. `hideControls`
+8. `maxWidth`
+9. `model`
+
+Parameters 3-9 work the same as explained above, so I'm not going to repeat them here.
+
+**Putting an inline form in a container**
+
+You may specify the `container` attribute to put an inline form in a container. A container is just a simple wrapper that looks like this:
+
+// Image
+
+**Changing the controls design**
+
+You may specify the `controlsDesign` to change the design of the buttons at the bottom of the form. It takes on of two values: `minimal` and `classic`. By default it is `minimal`.
+
+## General
 
 Optionally, you can publish the views using (not recommended, they can get outdated):
 
