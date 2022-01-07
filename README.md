@@ -34,6 +34,17 @@ Please follow the [Laravel Livewire installation instructions](https://laravel-l
 
 Please follow the [Filament Forms installation instructions](https://filamentadmin.com/docs/2.x/forms/installation) to install Alpine.js, Tailwind CSS and Filament Forms.
 
+Add the following to the `content` key of your `tailwind.config.js` file:
+
+```js
+module.exports = {
+    content: [
+        './vendor/ralphjsmit/tall-interactive/resources/views/**/*.blade.php',
+        // All other locations
+    ],
+///
+```
+
 #### Toast notifications
 
 Using the [Toast TALL notifications package](http://github.com/usernotnull/tall-toasts) is not required, but it is a recommend if you need to send notifications to your users, for example on submitting a form.
@@ -48,63 +59,27 @@ After installing the package and setting up the dependencies, add the following 
 <x-tall-interactive::actionables-manager />
 ```
 
-Finally, add the following to the `content` key of your `tailwind.config.js` file:
+Now you're ready to go and build your first actionables!
 
-```js
-module.exports = {
-    content: [
-        './vendor/ralphjsmit/tall-interactive/resources/views/**/*.blade.php',
-        // All other locations
-    ],
-///
-```
-
-Now you're ready to go!
-
-#### Faster installation
-
-If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation. 
-
-It works like this:
-
-```bash
-# First, create a new plain Laravel installation, for example with:
-
-laravel new name 
-# OR: composer create-project laravel/laravel name 
-
-# Next, require the `tall-install` package and run the `php artisan tall-install` command:
-composer require ralphjsmit/tall-install
-composer dump-autoload
-php artisan tall-install
-```
-
-The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please check out the [documentation](https://github.com/ralphjsmit/tall-install#installation--usage) for that.
-
-Now, you are ready to install the `tall-interactive` package: 
-
-```bash
-composer require ralphjsmit/tall-interactive
-```
-
-To setup the `tall-interactive` package, add the following to your `layouts/app.blade.php` file:
-
-```blade
-<x-tall-interactive::actionables-manager />
-```
-
-And add the files to your `tailwind.config.js` file:
-
-```js
-module.exports = {
-    content: [
-        './vendor/ralphjsmit/tall-interactive/resources/views/**/*.blade.php',
-        // All other locations
-    ],
-///
-```
-
-Now you're ready to go and build your first forms!
+> #### Faster installation
+> 
+> If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation. 
+>
+> It works like this:
+> 
+> ```bash
+> # First, create a new plain Laravel installation, for example with:
+> 
+> laravel new name 
+> # OR: composer create-project laravel/laravel name 
+> 
+> # Next, require the `tall-install` package and run the `php artisan tall-install` command:
+> composer require ralphjsmit/tall-install
+> composer dump-autoload
+> php artisan tall-install
+> ```
+> 
+> The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please check out the [documentation]> (https://github.com/ralphjsmit/tall-install#installation--usage) for that.
 
 ## Usage
 
@@ -117,7 +92,7 @@ You can build a modal, a slide-over or an inline form (I call them 'actionables'
 
 ### Creating a Filament Form
 
-To start building your first form, create a new file in your `app/Forms` directory (custom namespaces also allowed). You could call it `UserForm` or however you like.
+To start building our first actionable, let's do some preparation first. Create a new file in your `app/Forms` directory (custom namespaces are also fine). You could call it `UserForm` or however you like.
 
 Run the following command to generate a form in your `app/Forms` namespace:
 
@@ -238,17 +213,26 @@ The `tall-interactive` package also provides dependency injection for all the me
 
 You can specify the following variables in each of the above methods:
 
-1. `\Livewire\Component $livewire` to access the current Livewire instance
+1. `$livewire` to access the current Livewire instance
 2. `$record` to access the record (if any)
 3. `$recordPathIfGiven` to access the current path to the record (if any)
+4. `$formVersion` to access the current form version. You could use this to make minor between different versions of your form (like a 'create' and 'edit' version of the same form).
+5. `$formData` to access the current form data. Only available in the `submitForm` method.
+6. `$close` to get a closure that allows you to close an actionable. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
+
+This is a very advanced way of customization which modals should be open and which modals not. 
+7. `$forceClose` to get a closure that allows you to close all open actionables. 
+
+You may mix-and-match those dependencies however you like and only include those that you need. Similar to [Filament's closure customization](https://filamentadmin.com/docs/2.x/forms/advanced#using-closure-customisation).
 
 For example:
 
 ```php
+use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public static function submitForm(Component $livewire, array $formData, User $record) 
+public static function submitForm(Component $livewire, User $record, array $formData, Closure $close, Closure $forceClose) 
 {
     // Save the user
     $record->save();
@@ -258,6 +242,11 @@ public static function submitForm(Component $livewire, array $formData, User $re
             'password' => $formData['password'],
         ]);
     }
+    
+    $close(); // Close current actionable
+    $close('another-peer-actionable'); // Close another actionable
+    $forceClose() // Close all open actionables
+    
 
     //
 }
@@ -318,7 +307,7 @@ If you specify both the `form` and the `livewire` attribute, only the `form` wil
 
 You can also give custom Blade content to an actionable by putting in the slot of component:
 
-```
+```blade
 <x-tall-interactive::modal id="create-user">
 
     <p>My custom Blade content in this actionable!<p>
@@ -332,7 +321,7 @@ The following attributes for configuring your actionable available.
 
 **Closing a modal on successfully submitting the form**
 
-If you specify the `closeOnSubmit` attribute, the actionable will automatically close on submit. This attribute is `false` by default.
+If you specify the `closeOnSubmit` attribute, the actionable will automatically close on submit. This attribute is `false` by default, meaning that the actionable will stay open after successfully submitting the form.
 
 If you specify the `forceCloseOnSubmit` attribute, all modals and slide-overs will be closed upon successfully submitting this form. This could be handy for situations like this: Edit User > Delete User > Submit. This attribute is `false` by default.
 ```blade
