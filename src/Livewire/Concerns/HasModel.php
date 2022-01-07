@@ -2,7 +2,7 @@
 
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
-trait HasRecord
+trait HasModel
 {
-    public object|null $record = null;
+    public object|null $model = null;
 }

@@ -43,7 +43,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };
@@ -52,15 +53,15 @@ it('can receive an Eloquent record', function () {
 
     $component = Livewire::test(InlineForm::class, [
         'id' => 'test-slide-over',
-        'record' => $user,
+        'model' => $user,
         'form' => UserForm::class,
     ]);
 
     $component
-        ->assertSet('record', $user)
-        ->assertSet('record.email', 'john@example.com')
+        ->assertSet('model', $user)
+        ->assertSet('model.email', 'john@example.com')
         ->call('submitForm')
-        ->assertSet('record.email', 'john@example.com');
+        ->assertSet('model.email', 'john@example.com');
 });
 
 it('can receive an htmlstring', function () {

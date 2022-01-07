@@ -8,7 +8,7 @@ trait HasForm
 {
     use CanCallForm;
     use Closeable;
-    use HasRecord;
+    use HasModel;
     use InteractsWithForms;
     use RegisterListeners;
 
@@ -21,11 +21,11 @@ trait HasForm
 
     public function runFormInitialization(string $actionable, $params)
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
-        if (! $this->formInitialized) {
+        if ( ! $this->formInitialized ) {
             return;
         }
 
@@ -49,7 +49,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->record) {
+        if ( ! $this->model ) {
             $this->initializeForm();
         }
     }
@@ -65,11 +65,11 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->initializeForm();
         }
     }

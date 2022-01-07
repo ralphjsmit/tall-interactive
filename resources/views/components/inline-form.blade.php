@@ -10,7 +10,7 @@
         'form',
         'hideControls',
         'maxWidth',
-        'record',
+        'model',
         'submitWith',
         'title',
     ];

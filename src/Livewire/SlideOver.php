@@ -12,7 +12,7 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasEvents;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
-use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasRecord;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasModel;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasSlot;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasState;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasTitle;
@@ -27,7 +27,7 @@ class SlideOver extends Actionable implements HasForms
     use HasEvents;
     use HasForm;
     use HasMaxWidth;
-    use HasRecord;
+    use HasModel;
     use HasState;
     use HasSlot;
     use HasTitle;

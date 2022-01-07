@@ -24,10 +24,10 @@ class TestForm extends Form
         ];
     }
 
-    public static function submitForm(array $formData, object|null $record): void
+    public static function submitForm(array $formData, object|null $model): void
     {
         static::$submittedTimes++;
-        Assert::assertNull($record);
+        Assert::assertNull($model);
     }
 }
 
@@ -68,10 +68,10 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(string $recordPathIfGiven): array
+    public static function getFormSchema(string $modelPathIfGiven): array
     {
         return [
-            TextInput::make("{$recordPathIfGiven}email"),
+            TextInput::make("{$modelPathIfGiven}email"),
         ];
     }
 
@@ -80,8 +80,8 @@ class UserForm extends Form
         return [];
     }
 
-    public static function submitForm(array $formData, object|null $record): void
+    public static function submitForm(array $formData, object|null $model): void
     {
-        Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($record));
+        Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($model));
     }
 }

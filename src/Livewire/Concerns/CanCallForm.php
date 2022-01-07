@@ -16,8 +16,8 @@ trait CanCallForm
                 'close' => fn (string $actionable = null) => $this->close($actionable),
                 'forceClose' => fn () => $this->forceClose(),
                 'livewire' => $this,
-                'record' => $this->record,
-                'recordPathIfGiven' => $this->record ? 'record.' : '',
+                'model' => $this->model,
+                'modelPathIfGiven' => $this->model ? 'model.' : '',
             ], $parameters)
         );
     }
