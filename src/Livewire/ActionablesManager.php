@@ -22,7 +22,7 @@ class ActionablesManager extends Component
         'modal:close' => 'closeActionable',
         'slideOver:open' => 'openActionable',
         'slideOver:close' => 'closeActionable',
-        ':close' => 'closeActionable',
+        ':close' => 'closeSingleActionable',
         'actionables:forceClose' => 'forceCloseActionables',
     ];
 
@@ -53,6 +53,17 @@ class ActionablesManager extends Component
         foreach ($this->openedActionables as $key => $actionable) {
             $this->emit('actionable:close', $actionable);
             unset($this->openedActionables[$key]);
+        }
+    }
+
+    public function closeSingleActionable(string $actionable): void
+    {
+        if ( ( $key = array_search($actionable, $this->openedActionables) ) !== false ) {
+            $this->emit('actionable:close', $actionable);
+
+            unset($this->openedActionables[$key]);
+
+            $this->openedActionables = array_values($this->openedActionables);
         }
     }
 }
