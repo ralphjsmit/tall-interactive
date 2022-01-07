@@ -171,7 +171,7 @@ public static function getFormDefaults(): array
 
 #### Binding to model properties
 
-If you want to **bind directly to model properties**, you should use the `**$modelPathIfGiven**` variable to prefix your fields.
+If you want to **bind directly to model properties**, you should use the **`$modelPathIfGiven`** variable to prefix your fields.
 
 This makes sure that **whenever you provide a model** to the actionable, your fields will be **prefixed with the correct location**. If you haven't a provided a model, this variable will be an empty string.
 
