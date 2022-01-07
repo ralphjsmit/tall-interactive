@@ -2,9 +2,9 @@
 
 This package allows you to create beautiful forms, modals and slide-overs with ease. It utillises the great Filament Forms package for creating the forms and the awesome TALL-stack for the design.
 
-
 **[Installation instructions for testing](https://github.com/ralphjsmit/tall-interactive/blob/main/Installation-testing.md)**
 
+[![run-tests](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml/badge.svg?event=push)](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml)
 
 ## Installation
 
