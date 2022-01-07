@@ -56,7 +56,7 @@ it('can open the actionable', function () {
 
     $component
         ->call('close')
-        ->assertEmitted('slideOver:close', 'test-slide-over');
+        ->assertEmitted(':close', 'test-slide-over');
 });
 
 it('will not open the slide-over for another identifier', function () {
@@ -184,7 +184,7 @@ it('can close the form on submit', function () {
     $component
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertEmitted('slideOver:close', 'test-slide-over')
+        ->assertEmitted(':close', 'test-slide-over')
         ->emit('actionable:close', 'test-slide-over')/* Action performed by ActionablesManager */
         ->assertSet('actionableOpen', false);
 });
@@ -289,7 +289,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

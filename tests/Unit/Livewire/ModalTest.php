@@ -53,7 +53,7 @@ it('can open the actionable', function () {
 
     $component
         ->call('close')
-        ->assertEmitted('modal:close', 'test-modal')
+        ->assertEmitted(':close', 'test-modal')
         ->assertNotEmitted('actionables:forceClose');
 });
 
@@ -156,7 +156,7 @@ it('can close the form on submit', function () {
     $component
         ->set('email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertEmitted('modal:close', 'test-modal')
+        ->assertEmitted(':close', 'test-modal')
         ->emit('actionable:close', 'test-modal')/* Action performed by ActionablesManager */
         ->assertSet('actionableOpen', false);
 });
@@ -260,7 +260,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

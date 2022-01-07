@@ -9,6 +9,7 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\CanBeDismissed;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\Closeable;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasControls;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasEvents;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasRecord;
@@ -23,6 +24,7 @@ class SlideOver extends Actionable implements HasForms
     use Closeable;
     use HasControls;
     use HasDescription;
+    use HasEvents;
     use HasForm;
     use HasMaxWidth;
     use HasRecord;
