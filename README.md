@@ -242,11 +242,14 @@ public static function submitForm(Component $livewire, User $record, array $form
         ]);
     }
     
-    $close(); /* Close current actionable */
+    /* Close current actionable */
+    $close(); 
     
-    $close('another-peer-actionable'); /* Close another actionable */
+    /* Close another actionable */
+    $close('another-peer-actionable'); 
     
-    $forceClose() /* Close all open actionables */
+    /* Close all open actionables */
+    $forceClose();
     
 
     //
