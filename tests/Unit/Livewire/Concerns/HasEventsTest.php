@@ -13,7 +13,7 @@ it('can emit :close event', function (string $livewire) {
     $component
         ->call('close')
         ->assertEmitted(':close', 'test-actionable');
-})->with('stateful_actionables');
+})->with('actionables');
 
 it('can emit :close event for custom modal', function (string $livewire) {
     $component = Livewire::test($livewire, [
@@ -25,7 +25,7 @@ it('can emit :close event for custom modal', function (string $livewire) {
         ->call('close', 'another-actionable')
         ->assertNotEmitted(':close', 'test-actionable')
         ->assertEmitted(':close', 'another-actionable');
-})->with('stateful_actionables');
+})->with('actionables');
 
 it('can emit actionables:forceClose event', function (string $livewire) {
     $component = Livewire::test($livewire, [
@@ -36,7 +36,7 @@ it('can emit actionables:forceClose event', function (string $livewire) {
     $component
         ->call('forceClose')
         ->assertEmitted('actionables:forceClose');
-})->with('stateful_actionables');
+})->with('actionables');
 
 it('can get a callable from the above methods', function (mixed $closeCallableParameters, string $expectedEmittedEventParams, string $livewire) {
     CallableTestForm::$closeCallableParameters = $closeCallableParameters;
@@ -55,7 +55,7 @@ it('can get a callable from the above methods', function (mixed $closeCallablePa
 })->with([
     [[], 'test-actionable'],
     [['another-actionable'], 'another-actionable'],
-])->with('stateful_actionables');
+])->with('actionables');
 
 class CallableTestForm extends Form
 {

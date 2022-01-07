@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasControls;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDesign;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasEvents;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasLivewire;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
@@ -21,6 +22,7 @@ class InlineForm extends Actionable implements HasForms
     use HasControls;
     use HasDescription;
     use HasDesign;
+    use HasEvents;
     use HasForm;
     use HasLivewire;
     use HasMaxWidth;

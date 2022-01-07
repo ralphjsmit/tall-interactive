@@ -7,23 +7,24 @@ it('can display the controls', function (string $livewire) {
         'id' => 'test-modal',
         'form' => TestForm::class,
         'dismissableWith' => 'Close',
+        'submitWith' => 'Submit form',
     ]);
 
     $component
         ->assertSet('showControls', true)
-        ->assertSee('Close')
-        ->assertSee('Submit');
-})->with('stateful_actionables');
+        ->assertSee('Submit form');
+})->with('actionables');
 
 it('cannot display the controls if not allowed', function (string $livewire) {
     $component = Livewire::test($livewire, [
         'id' => 'test-modal',
         'form' => TestForm::class,
-        'dismissableWith' => 'Close',
+        'dismissableWith' => 'Close form',
+        'submitWith' => 'Submit form',
         'hideControls' => true,
     ]);
 
     $component
         ->assertSet('showControls', false)
-        ->assertDontSee('id="tall-interactive-slide-over-controls"', false);
-})->with('stateful_actionables');
+        ->assertDontSee('Submit form', false);
+})->with('actionables');
