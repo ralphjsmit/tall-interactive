@@ -218,10 +218,10 @@ You can specify the following variables in each of the above methods:
 3. `$recordPathIfGiven` to access the current path to the record (if any)
 4. `$formVersion` to access the current form version. You could use this to make minor between different versions of your form (like a 'create' and 'edit' version of the same form).
 5. `$formData` to access the current form data. Only available in the `submitForm` method.
-6. `$close` to get a closure that allows you to close an actionable. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
-
-This is a very advanced way of customization which modals should be open and which modals not. 
+6. `$close` to get a closure that allows you to close an actionable. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen. 
 7. `$forceClose` to get a closure that allows you to close all open actionables. 
+
+Using the `$close()` and `$forceClose()` closures are a very advanced way of customization which modals should be open and which modals not. 
 
 You may mix-and-match those dependencies however you like and only include those that you need. Similar to [Filament's closure customization](https://filamentadmin.com/docs/2.x/forms/advanced#using-closure-customisation).
 
