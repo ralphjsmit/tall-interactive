@@ -42,4 +42,3 @@ it('can emit actionables:forceClose event', function (string $livewire) {
         ->call('forceClose')
         ->assertEmitted('actionables:forceClose');
 })->with('actionables');
-
