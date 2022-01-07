@@ -231,13 +231,13 @@ use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public static function submitForm(Component $livewire, User $record, array $formData, Closure $close, Closure $forceClose) 
+public static function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose) 
 {
     // Save the user
-    $record->save();
+    $model->save();
 
     if ($formData['password]) {
-        $record->update([
+        $model->update([
             'password' => $formData['password'],
         ]);
     }
