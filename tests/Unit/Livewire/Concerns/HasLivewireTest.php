@@ -9,7 +9,6 @@ beforeEach(function () {
 });
 
 it('can render a Livewire component', function (string $livewire, string $componentInputName) {
-
     $component = Livewire::test($livewire, [
         'id' => 'test-actionable',
         'livewire' => $componentInputName,
