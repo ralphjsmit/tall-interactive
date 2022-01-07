@@ -8,5 +8,7 @@ class MakeFormCommand extends Command
 {
     public $signature = 'make:form {name}';
 
-    public function handle() {}
+    public function handle()
+    {
+    }
 }

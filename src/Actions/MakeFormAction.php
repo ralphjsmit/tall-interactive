@@ -4,5 +4,7 @@ namespace RalphJSmit\Tall\Interactive\Actions;
 
 class MakeFormAction
 {
-    public function execute() {}
+    public function execute()
+    {
+    }
 }
