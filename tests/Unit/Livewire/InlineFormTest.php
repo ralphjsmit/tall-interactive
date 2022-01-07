@@ -26,7 +26,6 @@ it('can display the inline-form in an container', function () {
 
 it('will display the title', function () {
     $component = Livewire::test(InlineForm::class, [
-        'id' => 'test-modal',
         'title' => 'Great modal title',
     ]);
 
@@ -36,7 +35,6 @@ it('will display the title', function () {
 
 it('will display the description', function () {
     $component = Livewire::test(InlineForm::class, [
-        'id' => 'test-modal',
         'description' => 'This is a sentence to describe the modal.',
     ]);
 
@@ -45,7 +43,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };
@@ -70,7 +69,6 @@ it('can receive an htmlstring', function () {
     $slot = new HtmlString($html);
 
     $component = Livewire::test(InlineForm::class, [
-        'id' => 'test-modal',
         'slot' => $slot,
     ]);
 
@@ -84,7 +82,6 @@ it('form will be prioritised above slot', function () {
     $slot = new HtmlString($html);
 
     $component = Livewire::test(InlineForm::class, [
-        'id' => 'test-modal',
         'slot' => $slot,
         'form' => UserForm::class,
     ]);
