@@ -60,7 +60,7 @@ class ActionablesManager extends Component
 
     public function closeSingleActionable(string $actionable): void
     {
-        if ( ( $key = array_search($actionable, $this->openedActionables) ) !== false ) {
+        if (($key = array_search($actionable, $this->openedActionables)) !== false) {
             $this->emit('actionable:close', $actionable);
 
             unset($this->openedActionables[$key]);
