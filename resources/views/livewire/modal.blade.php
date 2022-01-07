@@ -70,10 +70,10 @@
 
                                     <button type="submit" class="invisible max-h-0 max-w-0 absolute">Submit</button>
                                 </form>
-                            @endif
-
-                            @if(! $formClass && $slot)
-                                {!!  $slot !!}
+                            @elseif($livewire)
+                                @livewire($livewire)
+                            @elseif($slot)
+                                {!! $slot !!}
                             @endif
 
 

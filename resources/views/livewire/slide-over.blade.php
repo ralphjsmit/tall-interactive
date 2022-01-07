@@ -76,6 +76,7 @@
                                 @endif
                                 <div class="flex-1 flex flex-col justify-between">
                                     <div class="my-8 px-4 divide-y divide-gray-200 sm:px-6">
+
                                         @if($formClass)
                                             <form wire:submit.prevent="submitForm">
                                                 <!-- Submission is handled by the buttons below. Nevertheless we still expose the method for submission on enter keystroke. -->
@@ -83,11 +84,12 @@
 
                                                 <button type="submit" class="invisible max-h-0 max-w-0 absolute">Submit</button>
                                             </form>
+                                        @elseif($livewire)
+                                            @livewire($livewire)
+                                        @elseif($slot)
+                                            {!! $slot !!}
                                         @endif
 
-                                        @if(! $formClass && $slot)
-                                            {!!  $slot !!}
-                                        @endif
                                     </div>
                                 </div>
                             </div>

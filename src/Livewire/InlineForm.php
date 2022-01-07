@@ -9,6 +9,7 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasControls;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDesign;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasForm;
+use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasLivewire;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasMaxWidth;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasModel;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasSlot;
@@ -21,6 +22,7 @@ class InlineForm extends Actionable implements HasForms
     use HasDescription;
     use HasDesign;
     use HasForm;
+    use HasLivewire;
     use HasMaxWidth;
     use HasModel;
     use HasSlot;
