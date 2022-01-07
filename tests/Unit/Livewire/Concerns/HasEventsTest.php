@@ -72,4 +72,3 @@ class CallableTestForm extends Form
         $forceClose();
     }
 }
-
