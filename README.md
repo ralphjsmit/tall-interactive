@@ -82,7 +82,7 @@ After installing the package and setting up the dependencies, **add the followin
 > php artisan tall-install
 > ```
 > 
-> The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please check out the [documentation]> (https://github.com/ralphjsmit/tall-install#installation--usage) for that.
+> The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please [check out the documentation](https://github.com/ralphjsmit/tall-install#installation--usage) for that.
 
 ## Usage
 
@@ -135,7 +135,7 @@ class UserForm extends Form {
 
 ### Building your form
 
-**Creating a form with Filament** is very easy. The **field classes** of your form reside in the static `**getFormSchema()**` method of the Form class.
+**Creating a form with Filament** is very easy. The **field classes** of your form reside in the static **`getFormSchema()`** method of the Form class.
 
 > For all the available fields, [check out the Filament documentation](https://filamentadmin.com/docs/2.x/forms/fields).
 
