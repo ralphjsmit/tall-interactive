@@ -10,4 +10,6 @@ abstract class Actionable extends Component
     use WireToast;
 
     protected $listeners = [];
+
+    protected array $messages = [];
 }
