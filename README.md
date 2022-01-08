@@ -492,9 +492,7 @@ Parameters 3-9 work the same as explained above, so I'm not going to repeat them
 
 **Putting an inline form in a container**
 
-You may specify the `container` attribute to **put an inline form in a nice container**. A container is just a simple wrapper that looks like this:
-
-// Image
+You may specify the `container` attribute to **put an inline form in a nice container**. A container is a simple wrapper that places the form in a white box with a nice shadow.
 
 **Changing the controls design**
 
