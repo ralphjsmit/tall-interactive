@@ -37,7 +37,7 @@ Please follow the [**Laravel Livewire installation instructions**](https://larav
 
 Please follow the [**Filament Forms installation instructions**](https://filamentadmin.com/docs/2.x/forms/installation) to install Alpine.js, Tailwind CSS and Filament Forms.
 
-Add the following to the `content` key of your `**tailwind.config.js**` file:
+Add the following to the `content` key of your `tailwind.config.js` file:
 
 ```js
 module.exports = {
