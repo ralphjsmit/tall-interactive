@@ -9,7 +9,7 @@ trait HasValidation
     public function registerFormMessages(): void
     {
         $this->registerMessages(
-            $this->call('getErrorMessages')
+            method_exists($this->formClass, 'getErrorMessages') ? $this->call('getErrorMessages') : []
         );
     }
 }
