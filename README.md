@@ -1,6 +1,5 @@
 ![tall-interactive](https://github.com/ralphjsmit/tall-interactive/blob/7e83eff29dae09f6f8bc22437ad19763a403b0db/docs/images/tall-interactive.jpg)
 
-
 # Create forms, modals and slide-overs with ease.
 
 This package allows you to create beautiful forms, modals and slide-overs with ease. It utillises the great Filament Forms package for creating the forms and the awesome TALL-stack for the design.
@@ -65,11 +64,11 @@ After installing the package and setting up the dependencies, **add the followin
 **Now you're ready to go and build your first actionables!**
 
 > #### Faster installation
-> 
-> If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation. 
+>
+> If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation.
 >
 > It works like this:
-> 
+>
 > ```bash
 > # First, create a new plain Laravel installation, for example with:
 > 
@@ -81,17 +80,16 @@ After installing the package and setting up the dependencies, **add the followin
 > composer dump-autoload
 > php artisan tall-install
 > ```
-> 
+>
 > The `tall-install` command also has a few additional options you can use, like installing Pest, Browsersync and DDD. Please [check out the documentation](https://github.com/ralphjsmit/tall-install#installation--usage) for that.
 
 ## Usage
 
 You can build a **modal**, a **slide-over** or an **inline form** (together I call them 'actionables') with three things:
 
-- With a **Filament Form** 
+- With a **Filament Form**
 - With a **Livewire component** (will be implemented soon)
 - With **custom Blade contents**
-
 
 ### Creating a Filament Form
 
@@ -195,7 +193,7 @@ public static function getFormSchema(string $modelPathIfGiven): array
 
 #### Submitting a form
 
-You can use the **static `submitForm()` method** to provide the logic for submitting the form. 
+You can use the **static `submitForm()` method** to provide the logic for submitting the form.
 
 ```php
 public static function submitForm(array $formData)
@@ -209,6 +207,23 @@ public static function submitForm(array $formData)
 }
 ```
 
+#### Adding custom validation messages
+
+You may register custom validation messages by implementing the static `getErrorMessages()` function:
+
+```php
+public static function getErrorMessages(): array
+{
+    return [
+
+        'email.required' => 'Please fill in your e-email',
+        'age.required' => 'Please enter your age',
+        'age.numeric' => 'Your age must be a number',
+    ];
+}
+
+```
+
 #### Dependency injection in form classes
 
 The `tall-interactive` package also provides **dependency injection** for **all the methods in a form class**, similar to Filament Forms.
@@ -220,10 +235,10 @@ You can specify the following variables in each of the above methods:
 3. `$modelPathIfGiven` to access the **current path to the model** (if any) (see [Binding to model properties](#binding-to-model-properties)).
 4. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
 5. `$formData` to access the **current form data**. Only available in the `submitForm` method.
-6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen. 
-7. `$forceClose` to get a closure that allows you to **close all actionables**. 
+6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
+7. `$forceClose` to get a closure that allows you to **close all actionables**.
 
-Using the `$close()` and `$forceClose()` closures are a very **advanced way of customization** which actionables should be open and which actionables not. 
+Using the `$close()` and `$forceClose()` closures are a very **advanced way of customization** which actionables should be open and which actionables not.
 
 You may **mix-and-match** those dependencies however you like and only include those that you need. Similar to [Filament's closure customization](https://filamentadmin.com/docs/2.x/forms/advanced#using-closure-customisation).
 
@@ -273,7 +288,7 @@ If you want to **open a slide-over** instead of a modal, use the following tag:
 <x-tall-interactive::slide-over id="create-user" />
 ```
 
-Both the `modal` component and the `slide-over` component work exactly the same. 
+Both the `modal` component and the `slide-over` component work exactly the same.
 
 The only **required parameter** here is the `id` of an actionable. This `id` is required, because you need it when emitting a Livewire event to open the actionable. The `id` for an actionable should be different for each actionable on a page, otherwise multiple actionables would open at the same time.
 
@@ -316,7 +331,7 @@ Currently the actionable is empty. Let's fix that by **displaying our form**. In
 
 Now, when you **emit the `modal:open` event**, the modal will **contain a nice form**.
 
-#### Livewire 
+#### Livewire
 
 You may **specify the name of a Livewire component** to be used instead of a form, by using the `livewire` attribute:
 
@@ -351,7 +366,7 @@ The following **attributes** are available for **configuring your actionable**.
 
 If you specify the `closeOnSubmit` attribute, the actionable will **automatically close on submit**. This attribute is `false` by default, meaning that the actionable will stay open after successfully submitting the form.
 
-If you specify the `forceCloseOnSubmit` attribute, **all actionables will be closed** upon successfully submitting this form. This could be handy for situations like this: Edit User > Delete User > Submit. This attribute is `false` by default. 
+If you specify the `forceCloseOnSubmit` attribute, **all actionables will be closed** upon successfully submitting this form. This could be handy for situations like this: Edit User > Delete User > Submit. This attribute is `false` by default.
 
 ```blade
 <x-tall-interactive::modal
@@ -361,7 +376,7 @@ If you specify the `forceCloseOnSubmit` attribute, **all actionables will be clo
 />
 ```
 
-If you need more advanced customization of which actionables to close and which to keep open, you should innject and use the `$close()` and `$forceClose()` in the `submitForm()` method in the formclass. 
+If you need more advanced customization of which actionables to close and which to keep open, you should innject and use the `$close()` and `$forceClose()` in the `submitForm()` method in the formclass.
 
 **Adding a title**
 
@@ -464,7 +479,6 @@ You may **give the form an (Eloquent) model**, which can be used for things like
 
 Check out the [section about binding to model properties for this](#binding-to-model-properties).
 
-
 ## Inline forms
 
 You may also **display inline forms** on a page like this:
@@ -486,7 +500,6 @@ An inline form takes the following parameters:
 7. `hideControls`
 8. `maxWidth`
 9. `model`
-
 
 Parameters 3-9 work the same as explained above, so I'm not going to repeat them here.
 
