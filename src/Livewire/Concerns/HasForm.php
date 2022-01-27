@@ -29,11 +29,11 @@ trait HasForm
 
     public function runFormInitialization(string $actionable, $params)
     {
-        if ( $this->actionableId !== $actionable ) {
+        if ($this->actionableId !== $actionable) {
             return;
         }
 
-        if ( ! $this->formInitialized ) {
+        if (! $this->formInitialized) {
             return;
         }
 
@@ -57,7 +57,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if ( ! $this->model ) {
+        if (! $this->model) {
             $this->initializeForm();
         }
     }
@@ -75,11 +75,11 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ( $this->formInitialized ) {
+        if ($this->formInitialized) {
             return;
         }
 
-        if ( $this->formClass ) {
+        if ($this->formClass) {
             $this->initializeForm();
         }
     }

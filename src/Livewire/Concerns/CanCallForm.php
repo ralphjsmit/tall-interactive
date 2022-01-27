@@ -8,7 +8,7 @@ trait CanCallForm
 {
     private function call(string $method, array $parameters = [])
     {
-        if ( ! method_exists($this->formClass, $method) ) {
+        if (! method_exists($this->formClass, $method)) {
             throw new Exception("Method [{$method}] does not exist on form class [{$this->formClass}].");
         }
 
