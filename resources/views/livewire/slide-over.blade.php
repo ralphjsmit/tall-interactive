@@ -13,9 +13,9 @@
     ][$maxWidth];
 @endphp
 
-<div>
+<div class="relative z-[999]">
     {{-- Slide-over --}}
-    <div class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak
+    <div class=" fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak
          x-data="{ state: $wire.entangle('actionableOpen') }"
          :class="state ? 'pointer-events-auto' : 'pointer-events-none'">
         <div class="absolute inset-0 overflow-hidden">
