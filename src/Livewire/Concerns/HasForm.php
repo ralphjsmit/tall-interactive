@@ -40,7 +40,7 @@ trait HasForm
     public function submitForm(): void
     {
         $this->call('submitForm', [
-            'formData' => $this->form->getState(),
+            'formData' => collect($this->form->getState()),
         ]);
 
         $this->handleFormSubmitted();
