@@ -10,5 +10,7 @@ trait ReceivesForm
     public function mountReceivesForm(string $form = '')
     {
         $this->formClass = $form;
+
+        $this->form->fill();
     }
 }

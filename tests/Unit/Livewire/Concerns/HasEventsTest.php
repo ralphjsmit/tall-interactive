@@ -47,7 +47,7 @@ it('can get a callable from the above methods', function (mixed $closeCallablePa
     ]);
 
     $component
-        ->set('email', 'john@example.com')
+        ->set('data.email', 'john@example.com')
         ->call('submitForm')
         ->assertHasNoErrors()
         ->assertEmitted(':close', $expectedEmittedEventParams)

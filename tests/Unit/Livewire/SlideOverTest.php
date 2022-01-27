@@ -182,7 +182,7 @@ it('can close the form on submit', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertEmitted(':close', 'test-slide-over')
         ->emit('actionable:close', 'test-slide-over')/* Action performed by ActionablesManager */
@@ -201,7 +201,7 @@ it('cannot close the form on submit if not allowed', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertNotEmitted('modal:close')
         ->assertNotEmitted('slideOver:close')
@@ -289,7 +289,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

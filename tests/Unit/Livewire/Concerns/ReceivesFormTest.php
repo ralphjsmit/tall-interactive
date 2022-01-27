@@ -27,7 +27,7 @@ it('can get a callable from the above methods', function (string $livewire) {
 
     $component
         ->assertSet('formVersion', 'create')
-        ->set('email', 'john@example.com')
+        ->set('data.email', 'john@example.com')
         ->call('submitForm')
         ->assertHasNoErrors();
 })->with('actionables');
@@ -39,11 +39,6 @@ class ExpectFormversionTest extends Form
     public static function getFormSchema(): array
     {
         return [TextInput::make('email')->email()->required(),];
-    }
-
-    public static function getFormDefaults(): array
-    {
-        return ['email' => null,];
     }
 
     public static function SubmitForm(Closure $close, Closure $forceClose, string $formVersion): void

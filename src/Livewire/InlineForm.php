@@ -19,17 +19,17 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\ReceivesForm;
 
 class InlineForm extends Actionable implements HasForms
 {
+    use ReceivesForm;
+    use HasForm;
     use HasControls;
     use HasDescription;
     use HasDesign;
     use HasEvents;
-    use HasForm;
     use HasLivewire;
     use HasMaxWidth;
     use HasModel;
     use HasSlot;
     use HasTitle;
-    use ReceivesForm;
 
     public ?string $actionableId;
     public string $actionableType = 'inlineForm';

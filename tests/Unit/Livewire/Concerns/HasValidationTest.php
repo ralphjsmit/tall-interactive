@@ -12,17 +12,17 @@ it('can render a Livewire component', function (string $livewire) {
 
     $component
         ->call('submitForm')
-        ->assertHasErrors(['email' => 'required'])
+        ->assertHasErrors(['data.email' => 'required'])
         ->assertSee('EMAIL_REQUIRED_MESSAGE')
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertHasErrors(['number' => 'required'])
+        ->assertHasErrors(['data.number' => 'required'])
         ->assertSee('NUMBER_REQUIRED_MESSAGE')
-        ->set('number', 'abcde')
+        ->set('data.number', 'abcde')
         ->call('submitForm')
-        ->assertHasErrors(['number' => 'numeric'])
+        ->assertHasErrors(['data.number' => 'numeric'])
         ->assertSee('NUMBER_NUMERIC_MESSAGE')
-        ->set('number', '12345')
+        ->set('data.number', '12345')
         ->call('submitForm')
         ->assertHasNoErrors();
 })->with('actionables');

@@ -81,7 +81,7 @@ it('can forceClose actionables on submit', function () {
         ->assertSet('actionableOpen', false)
         ->emit('actionable:open', 'test-modal')
         ->assertSet('actionableOpen', true)
-        ->set('email', 'john@example.com')
+        ->set('data.email', 'john@example.com')
         ->call('submitForm')
         ->assertHasNoErrors()
         ->assertEmitted('actionables:forceClose');
@@ -130,11 +130,11 @@ it('can initialize and submit the form', function () {
         ->assertSee('Enter your e-mail');
 
     $component
-        ->assertSet('email', '')
-        ->assertSet('year', 2000)
+        ->assertSet('data.email', '')
+        ->assertSet('data.year', 2000)
         ->call('submitForm')
         ->assertHasErrors()
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertHasNoErrors()
         ->assertNotSet('email', 'rjs@ralphjsmit.com');
@@ -154,8 +154,9 @@ it('can close the form on submit', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
+        ->assertHasNoErrors()
         ->assertEmitted(':close', 'test-modal')
         ->emit('actionable:close', 'test-modal')/* Action performed by ActionablesManager */
         ->assertSet('actionableOpen', false);
@@ -173,7 +174,7 @@ it('cannot close the form on submit if not allowed', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertNotEmitted('modal:close')
         ->assertSet('actionableOpen', true);
@@ -260,7 +261,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

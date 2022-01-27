@@ -12,7 +12,8 @@ class TestForm extends Form
     public static function getFormSchema(): array
     {
         return [
-            TextInput::make('email')->label('Enter your e-mail')->required(),
+            TextInput::make("email")->label('Enter your e-mail')->required(),
+            TextInput::make('year')->required()->default(2000),
         ];
     }
 
@@ -68,10 +69,10 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(string $modelPathIfGiven): array
+    public static function getFormSchema(): array
     {
         return [
-            TextInput::make("{$modelPathIfGiven}email"),
+            TextInput::make("email"),
         ];
     }
 

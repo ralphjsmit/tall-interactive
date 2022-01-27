@@ -13,6 +13,13 @@ trait HasForm
     use InteractsWithForms;
     use RegisterListeners;
 
+    public array $data = [];
+
+    protected function getFormStatePath(): ?string
+    {
+        return $this->model ? 'model' : 'data';
+    }
+
     public bool $formInitialized = false;
 
     public function mountHasForm(string $maxWidth = null)
@@ -22,11 +29,11 @@ trait HasForm
 
     public function runFormInitialization(string $actionable, $params)
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
-        if (! $this->formInitialized) {
+        if ( ! $this->formInitialized ) {
             return;
         }
 
@@ -50,7 +57,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->initializeForm();
         }
     }
@@ -68,22 +75,22 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->initializeForm();
         }
     }
 
     private function initializeForm()
     {
-        $formDefaults = $this->call('getFormDefaults');
-
-        foreach ($formDefaults as $property => $value) {
-            $this->{$property} = $value;
-        }
+        //        $formDefaults = $this->call('getFormDefaults');
+        //
+        //        foreach ($formDefaults as $property => $value) {
+        //            $this->{$property} = $value;
+        //        }
 
         $this->formInitialized = true;
     }

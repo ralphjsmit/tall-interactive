@@ -2,12 +2,14 @@
 
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
+use Exception;
+
 trait CanCallForm
 {
     private function call(string $method, array $parameters = [])
     {
-        if (! method_exists($this->formClass, $method)) {
-            return;
+        if ( ! method_exists($this->formClass, $method) ) {
+            throw new Exception("Method [{$method}] does not exist on form class [{$this->formClass}].");
         }
 
         return app()->call(
@@ -18,7 +20,6 @@ trait CanCallForm
                 'formVersion' => $this->formVersion,
                 'livewire' => $this,
                 'model' => $this->model,
-                'modelPathIfGiven' => $this->model ? 'model.' : '',
             ], $parameters)
         );
     }

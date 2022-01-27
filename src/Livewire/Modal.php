@@ -21,19 +21,19 @@ use RalphJSmit\Tall\Interactive\Livewire\Concerns\ReceivesForm;
 
 class Modal extends Actionable implements HasForms
 {
+    use ReceivesForm;
+    use HasForm;
     use CanBeDismissed;
     use Closeable;
     use HasControls;
     use HasDescription;
     use HasEvents;
-    use HasForm;
     use HasLivewire;
     use HasMaxWidth;
     use HasModel;
     use HasState;
     use HasSlot;
     use HasTitle;
-    use ReceivesForm;
 
     public string $actionableId;
     public string $actionableType = 'modal';
