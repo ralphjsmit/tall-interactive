@@ -6,7 +6,7 @@ This package allows you to create beautiful forms, modals and slide-overs with e
 
 **[Installation instructions for testing](https://github.com/ralphjsmit/tall-interactive/blob/main/Installation-testing.md)**
 
-[![run-tests](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml/badge.svg?event=push)](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml)
+[![Run tests](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml)
 
 ## Installation
 
