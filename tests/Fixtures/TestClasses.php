@@ -71,10 +71,10 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(string $modelPathIfGiven): array
+    public static function getFormSchema(): array
     {
         return [
-            TextInput::make("{$modelPathIfGiven}email"),
+            TextInput::make("email"),
         ];
     }
 
@@ -85,6 +85,9 @@ class UserForm extends Form
 
     public static function submitForm(Collection $formData, object|null $model): void
     {
-        Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($model));
+        Assert::assertSame(
+            get_object_vars(static::$expectedUser),
+            $model->toArray()
+        );
     }
 }

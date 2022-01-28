@@ -260,7 +260,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };
@@ -276,6 +277,8 @@ it('can receive an Eloquent record', function () {
     $component
         ->assertSet('model', $user)
         ->assertSet('model.email', 'john@example.com')
+        ->assertSet('model.password', 'password')
+        ->set('email', 'alex@example.com')
         ->call('submitForm')
         ->assertSet('model.email', 'john@example.com');
 });

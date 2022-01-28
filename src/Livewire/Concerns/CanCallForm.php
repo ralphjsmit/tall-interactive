@@ -6,7 +6,7 @@ trait CanCallForm
 {
     private function call(string $method, array $parameters = [])
     {
-        if (! method_exists($this->formClass, $method)) {
+        if ( ! method_exists($this->formClass, $method) ) {
             return;
         }
 
@@ -18,7 +18,6 @@ trait CanCallForm
                 'formVersion' => $this->formVersion,
                 'livewire' => $this,
                 'model' => $this->model,
-                'modelPathIfGiven' => $this->model ? 'model.' : '',
             ], $parameters)
         );
     }
