@@ -8,6 +8,7 @@
         'controlsDesign',
         'description',
         'form',
+        'formVersion',
         'hideControls',
         'maxWidth',
         'model',

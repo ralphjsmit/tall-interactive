@@ -10,6 +10,7 @@
         'dismissable',
         'dismissableWith',
         'form',
+        'formVersion',
         'forceCloseOnSubmit',
         'hideControls',
         'maxWidth',

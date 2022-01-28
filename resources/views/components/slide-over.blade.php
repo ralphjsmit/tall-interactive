@@ -11,6 +11,7 @@
         'dismissableWith',
         'forceCloseOnSubmit',
         'form',
+        'formVersion',
         'hideControls',
         'maxWidth',
         'model',
