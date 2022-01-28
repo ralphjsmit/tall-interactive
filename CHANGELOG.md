@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.2.2 - 2022-01-28
+
+- Fix: allow receiving the `$formVersion` parameter
+
 ## 0.2.1 - 2022-01-27
 
 - Fix z-index overlay problems
