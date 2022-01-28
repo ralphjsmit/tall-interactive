@@ -2,6 +2,7 @@
 
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Testing\Assert;
 use Livewire\Livewire;
@@ -163,10 +164,12 @@ class SlideOverTestForm extends Form
         ];
     }
 
-    public static function submitForm(array $formData, object|null $model): void
+    public static function submitForm(Collection $formData, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
+        Assert::assertTrue($formData->isNotEmpty());
+        Assert::assertIsArray($formData->all());
     }
 }
 
@@ -289,7 +292,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

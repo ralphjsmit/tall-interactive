@@ -2,6 +2,7 @@
 
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert;
 use RalphJSmit\Tall\Interactive\Forms\Form;
 
@@ -24,10 +25,12 @@ class TestForm extends Form
         ];
     }
 
-    public static function submitForm(array $formData, object|null $model): void
+    public static function submitForm(Collection $formData, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
+        Assert::assertTrue($formData->isNotEmpty());
+        Assert::assertIsArray($formData->all());
     }
 }
 
@@ -80,7 +83,7 @@ class UserForm extends Form
         return [];
     }
 
-    public static function submitForm(array $formData, object|null $model): void
+    public static function submitForm(Collection $formData, object|null $model): void
     {
         Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($model));
     }
