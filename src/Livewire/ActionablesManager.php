@@ -9,8 +9,6 @@ class ActionablesManager extends Component
 {
     public array $openedActionables = [];
 
-    public function mount(): void {}
-
     public function render(): View
     {
         return view('tall-interactive::livewire.actionables-manager');
