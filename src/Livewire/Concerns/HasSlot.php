@@ -15,6 +15,6 @@ trait HasSlot
 
     public function submitSlot(): void
     {
-        $this->close();
+        $this->handleCloseOnSubmit();
     }
 }

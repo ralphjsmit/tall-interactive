@@ -6,7 +6,7 @@ trait Closeable
 {
     use RegisterListeners;
 
-    public bool $closeOnSubmit = false;
+    public bool $closeOnSubmit = true;
     public bool $forceCloseOnSubmit = false;
     public string $submitWith = 'Submit';
 
