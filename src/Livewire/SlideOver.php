@@ -3,8 +3,7 @@
 namespace RalphJSmit\Tall\Interactive\Livewire;
 
 use Filament\Forms\Contracts\HasForms;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\CanBeDismissed;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\Closeable;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasControls;
@@ -38,12 +37,12 @@ class SlideOver extends Actionable implements HasForms
     public string $actionableId;
     public string $actionableType = 'slideOver';
 
-    public function mount(string $id)
+    public function mount(string $id): void
     {
         $this->actionableId = $id;
     }
 
-    public function render(): View|Factory
+    public function render(): View
     {
         return view('tall-interactive::livewire.slide-over');
     }

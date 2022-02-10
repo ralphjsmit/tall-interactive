@@ -3,7 +3,6 @@
 namespace RalphJSmit\Tall\Interactive\Livewire;
 
 use Filament\Forms\Contracts\HasForms;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\CanBeDismissed;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\Closeable;
@@ -38,12 +37,12 @@ class Modal extends Actionable implements HasForms
     public string $actionableId;
     public string $actionableType = 'modal';
 
-    public function mount(string $id)
+    public function mount(string $id): void
     {
         $this->actionableId = $id;
     }
 
-    public function render(): View|Factory
+    public function render(): View
     {
         return view('tall-interactive::livewire.modal');
     }

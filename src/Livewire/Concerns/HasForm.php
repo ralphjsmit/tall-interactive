@@ -15,18 +15,18 @@ trait HasForm
 
     public bool $formInitialized = false;
 
-    public function mountHasForm(string $maxWidth = null)
+    public function mountHasForm(string $maxWidth = null): void
     {
         $this->maxWidth = $maxWidth ?? '2xl';
     }
 
-    public function runFormInitialization(string $actionable, $params)
+    public function runFormInitialization(string $actionable, $params): void
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
-        if (! $this->formInitialized) {
+        if ( ! $this->formInitialized ) {
             return;
         }
 
@@ -46,11 +46,11 @@ trait HasForm
         $this->handleFormSubmitted();
     }
 
-    private function handleFormSubmitted()
+    private function handleFormSubmitted(): void
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->initializeForm();
         }
     }
@@ -68,16 +68,16 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ($this->formInitialized) {
+        if ( $this->formInitialized ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->initializeForm();
         }
     }
 
-    private function initializeForm()
+    private function initializeForm(): void
     {
         $formDefaults = $this->call('getFormDefaults');
 

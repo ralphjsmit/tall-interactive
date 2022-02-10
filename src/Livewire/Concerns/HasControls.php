@@ -6,9 +6,9 @@ trait HasControls
 {
     public bool $showControls = true;
 
-    public function mountHasControls(bool $hideControls = null)
+    public function mountHasControls(bool $hideControls = null): void
     {
-        if ($hideControls) {
+        if ( $hideControls ) {
             $this->showControls = ! $hideControls;
         }
     }

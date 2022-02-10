@@ -2,7 +2,6 @@
 
 namespace RalphJSmit\Tall\Interactive\Livewire;
 
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -10,9 +9,9 @@ class ActionablesManager extends Component
 {
     public array $openedActionables = [];
 
-    public function mount() {}
+    public function mount(): void {}
 
-    public function render(): View|Factory
+    public function render(): View
     {
         return view('tall-interactive::livewire.actionables-manager');
     }
@@ -26,7 +25,7 @@ class ActionablesManager extends Component
         'actionables:forceClose' => 'forceCloseActionables',
     ];
 
-    public function openActionable(string $actionable, ...$params)
+    public function openActionable(string $actionable, ...$params): void
     {
         if ( $this->openedActionables ) {
             $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
@@ -37,7 +36,7 @@ class ActionablesManager extends Component
         $this->emit('actionable:open', $actionable, ...$params);
     }
 
-    public function closeActionable()
+    public function closeActionable(): void
     {
         $actionable = array_pop($this->openedActionables);
 
@@ -48,7 +47,7 @@ class ActionablesManager extends Component
         }
     }
 
-    public function forceCloseActionables()
+    public function forceCloseActionables(): void
     {
         foreach ($this->openedActionables as $key => $actionable) {
             $this->emit('actionable:close', $actionable);

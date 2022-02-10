@@ -13,7 +13,7 @@ class FormData implements Wireable
         }
     }
 
-    public function toLivewire()
+    public function toLivewire(): array
     {
         return $this->toArray();
     }

@@ -3,7 +3,6 @@
 namespace RalphJSmit\Tall\Interactive\Livewire;
 
 use Filament\Forms\Contracts\HasForms;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasControls;
 use RalphJSmit\Tall\Interactive\Livewire\Concerns\HasDescription;
@@ -34,12 +33,12 @@ class InlineForm extends Actionable implements HasForms
     public ?string $actionableId;
     public string $actionableType = 'inlineForm';
 
-    public function mount(string $id = null)
+    public function mount(string $id = null): void
     {
         $this->actionableId = $id;
     }
 
-    public function render(): View|Factory
+    public function render(): View
     {
         return view('tall-interactive::livewire.inline-form');
     }

@@ -8,12 +8,12 @@ trait HasSlot
 {
     public string $slot = '';
 
-    public function mountHasSlot(HtmlString $slot)
+    public function mountHasSlot(HtmlString $slot): void
     {
         $this->slot = $slot->toHtml();
     }
 
-    public function submitSlot()
+    public function submitSlot(): void
     {
         $this->close();
     }

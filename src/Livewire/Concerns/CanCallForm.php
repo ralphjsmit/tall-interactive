@@ -4,10 +4,10 @@ namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
 trait CanCallForm
 {
-    private function call(string $method, array $parameters = [])
+    private function call(string $method, array $parameters = []): mixed
     {
-        if (! method_exists($this->formClass, $method)) {
-            return;
+        if ( ! method_exists($this->formClass, $method) ) {
+            return null;
         }
 
         return app()->call(

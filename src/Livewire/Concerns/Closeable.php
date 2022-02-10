@@ -10,15 +10,15 @@ trait Closeable
     public bool $forceCloseOnSubmit = false;
     public string $submitWith = 'Submit';
 
-    public function handleCloseOnSubmit()
+    public function handleCloseOnSubmit(): void
     {
-        if ($this->forceCloseOnSubmit) {
+        if ( $this->forceCloseOnSubmit ) {
             $this->forceClose();
 
             return;
         }
 
-        if ($this->closeOnSubmit) {
+        if ( $this->closeOnSubmit ) {
             $this->close();
         }
     }
