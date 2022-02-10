@@ -2,6 +2,12 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.3.0 - 2022-02-10
+
+- Fix: let `:close` event also open the last actionable again
+- Feat: increased return type support
+- Feat: allow child modals to force close all the other modals
+
 ## 0.2.2 - 2022-01-28
 
 - Fix: allow receiving the `$formVersion` parameter
