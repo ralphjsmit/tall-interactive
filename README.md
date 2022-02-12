@@ -200,7 +200,6 @@ public static function submitForm(array $formData)
 {
     User::create($formData);
 
-
     toast()
         ->success('Thanks for submitting the form! (Your data isn\'t stored anywhere.')
         ->push();
@@ -215,7 +214,6 @@ You may register custom validation messages by implementing the static `getError
 public static function getErrorMessages(): array
 {
     return [
-
         'email.required' => 'Please fill in your e-email',
         'age.required' => 'Please enter your age',
         'age.numeric' => 'Your age must be a number',
