@@ -37,7 +37,7 @@
                                     <div class="py-6 px-4 bg-primary-700 sm:px-6">
                                         @if($title)
                                             <div class="flex items-center justify-between">
-                                                <h2 class="text-lg font-bold text-white" id="slide-over-title">
+                                                <h2 class="text-xl font-bold text-white" id="slide-over-title">
                                                     {{ $title }}
                                                 </h2>
                                                 @if($dismissable)
