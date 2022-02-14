@@ -34,6 +34,25 @@ class TestForm extends Form
     }
 }
 
+class AdditionalFormParametersTestForm extends Form
+{
+    public static array $params = [];
+    public static int $initializedTimes = 0;
+
+    public static function getFormSchema(array $params): array
+    {
+        static::$initializedTimes++;
+        static::$params = $params;
+
+        return [];
+    }
+
+    public static function getFormDefaults(): array
+    {
+        return [];
+    }
+}
+
 class InitializationTestForm extends Form
 {
     public static int $expectedFirstParam;
