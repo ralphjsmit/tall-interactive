@@ -4,11 +4,15 @@ namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
 trait ReceivesForm
 {
-    public string $formClass = '';
+    public $formClass = null;
     public string $formVersion = '';
 
-    public function mountReceivesForm(string $form = ''): void
+    public function mountReceivesForm(string $form = null): void
     {
-        $this->formClass = $form;
+        dump($form);
+        if ( $form ) {
+            $this->formClass = new $form();
+            dump($this->formClass);
+        }
     }
 }

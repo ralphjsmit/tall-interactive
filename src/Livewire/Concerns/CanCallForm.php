@@ -10,8 +10,10 @@ trait CanCallForm
             return null;
         }
 
+        dump($this->formClass, 8, $this->model);
+
         return app()->call(
-            [new $this->formClass(), $method],
+            [$this->formClass, $method],
             array_merge([
                 'close' => fn (string $actionable = null) => $this->close($actionable),
                 'forceClose' => fn () => $this->forceClose(),
