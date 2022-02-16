@@ -367,7 +367,7 @@ The following **attributes** are available for **configuring your actionable**.
 
 **Closing a modal on successfully submitting the form**
 
-If you specify the `closeOnSubmit` attribute, the actionable will **automatically close on submit**. This attribute is `false` by default, meaning that the actionable will stay open after successfully submitting the form.
+If you specify the `closeOnSubmit` attribute, the actionable will **automatically close on submit**. This attribute is `true` by default, meaning that the actionable will close after successfully submitting the form.
 
 If you specify the `forceCloseOnSubmit` attribute, **all actionables will be closed** upon successfully submitting this form. This could be handy for situations like this: Edit User > Delete User > Submit. This attribute is `false` by default.
 
@@ -375,7 +375,7 @@ If you specify the `forceCloseOnSubmit` attribute, **all actionables will be clo
 <x-tall-interactive::modal
     id="create-user"
     :form="\App\Forms\UserForm::class"
-    closeOnSubmit
+    closeOnSubmit="false"
 />
 ```
 
