@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.4.1 - 2022-02-16
+
+- Update the order of the `mount()` call
+
 ## 0.4.0 - 2022-02-16
 
 - All methods on the form class are not static anymore.
