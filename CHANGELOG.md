@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.4.2 - 2022-02-16
+
+- Add `key()` directives to modal/slide-over to fix DOM diffing issues
+
 ## 0.4.1 - 2022-02-16
 
 - Update the order of the `mount()` call
