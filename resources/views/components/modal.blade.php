@@ -27,6 +27,8 @@
     $parameters['params'] = $attributes->except(array_keys($parameters))->getAttributes();
 @endphp
 
-@livewire('tall-interactive::modal', $parameters)
+<div>
+    @livewire('tall-interactive::modal', $parameters, key($parameters['id']))
+</div>
 
 
