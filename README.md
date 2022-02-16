@@ -122,15 +122,15 @@ class UserForm extends Form {
         return [];
     }
 
-    public function submitForm()
+    public function submitForm(): void
     {
         //
     }
 
-    public function mount() {}
+    public function mount(): void {}
     
     /** Only applicable for Models and SlideOvers */
-    public function onOpen() {}
+    public function onOpen(): void {}
 }
 ```
 
@@ -199,7 +199,7 @@ public function getFormSchema(string $modelPathIfGiven): array
 You can use the **`submitForm()` method** to provide the logic for submitting the form.
 
 ```php
-public function submitForm(array $formData)
+public function submitForm(array $formData): void
 {
     User::create($formData);
 
@@ -252,7 +252,7 @@ use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose) 
+public function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose): void 
 {
     // Save the user
     $model->save();
