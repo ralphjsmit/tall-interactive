@@ -2,6 +2,16 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.4.0 - 2022-02-16
+
+- All methods on the form class are not static anymore.
+- Allow storing data on the form class.
+- Add new parameters to dependency injection functionality.
+- Update readme with better examples.
+- Add support for `mount()` method on the form class, which is only called once.
+- Method `initialize()` dropped in favour of `mount()`.
+- Method `onOpen()` added to receive event parameters.
+
 ## 0.3.0 - 2022-02-10
 
 - Fix: let `:close` event also open the last actionable again
