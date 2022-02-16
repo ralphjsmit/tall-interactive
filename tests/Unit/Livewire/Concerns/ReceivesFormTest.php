@@ -51,3 +51,15 @@ class ExpectFormversionTest extends Form
         Assert::assertSame(static::$expectedFormVersion, $formVersion);
     }
 }
+
+it('can store a form object instead of the class', function (string $livewire) {
+    $component = Livewire::test($livewire, [
+        'id' => 'test-actionable',
+        'form' => TestForm::class,
+    ]);
+
+    $component
+        ->assertSet('formClass', function ($value) {
+            return $value instanceof TestForm;
+        });
+})->with('actionables');
