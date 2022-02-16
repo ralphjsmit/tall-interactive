@@ -86,7 +86,7 @@ After installing the package and setting up the dependencies, **add the followin
 You can build a **modal**, a **slide-over** or an **inline form** (together I call them 'actionables') with three things:
 
 - With a **Filament Form**
-- With a **Livewire component** (will be implemented soon)
+- With a **Livewire component**
 - With **custom Blade contents**
 
 ### Creating a Filament Form
