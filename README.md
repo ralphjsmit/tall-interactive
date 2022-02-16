@@ -112,33 +112,33 @@ use RalphJSmit\Tall\Interactive\Forms\Form;
 
 class UserForm extends Form {
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [];
     }
 
-    public static function submitForm()
+    public function submitForm()
     {
         //
     }
 
-    public static function initialize() {}
+    public function initialize() {}
 }
 ```
 
 ### Building your form
 
-**Creating a form with Filament** is very easy. The **field classes** of your form reside in the static **`getFormSchema()`** method of the Form class.
+**Creating a form with Filament** is very easy. The **field classes** of your form reside in the **`getFormSchema()`** method of the Form class.
 
 > For all the available fields, [check out the Filament documentation](https://filamentadmin.com/docs/2.x/forms/fields).
 
 ```php
-public static function getFormSchema(Component $livewire): array
+public function getFormSchema(Component $livewire): array
 {
     return [
         TextInput::make('email')->label('Enter your email')->placeholder('john@example.com')->required(),
@@ -155,10 +155,10 @@ public static function getFormSchema(Component $livewire): array
 }
 ```
 
-Use the **static `getFormDefaults()` to specify the default values** for each field as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
+Use the **`getFormDefaults()` to specify the default values** for each field as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
 
 ```php
-public static function getFormDefaults(): array
+public function getFormDefaults(): array
 {
     return [
         'email' => null,
@@ -177,7 +177,7 @@ If you want to **bind directly to model properties**, you should use the **`$mod
 This makes sure that **whenever you provide a model** to the actionable, your fields will be **prefixed with the correct location**. If you haven't a provided a model, this variable will be an empty string.
 
 ```php
-public static function getFormSchema(string $modelPathIfGiven): array
+public function getFormSchema(string $modelPathIfGiven): array
 {
     return [
         TextInput::make("{$modelPathIfGiven}email")->label('Enter your email')->placeholder('john@example.com')->required(),
@@ -193,10 +193,10 @@ public static function getFormSchema(string $modelPathIfGiven): array
 
 #### Submitting a form
 
-You can use the **static `submitForm()` method** to provide the logic for submitting the form.
+You can use the **`submitForm()` method** to provide the logic for submitting the form.
 
 ```php
-public static function submitForm(array $formData)
+public function submitForm(array $formData)
 {
     User::create($formData);
 
@@ -208,10 +208,10 @@ public static function submitForm(array $formData)
 
 #### Adding custom validation messages
 
-You may register custom validation messages by implementing the static `getErrorMessages()` function:
+You may register custom validation messages by implementing the `getErrorMessages()` function:
 
 ```php
-public static function getErrorMessages(): array
+public function getErrorMessages(): array
 {
     return [
         'email.required' => 'Please fill in your e-email',
@@ -248,7 +248,7 @@ use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public static function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose) 
+public function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose) 
 {
     // Save the user
     $model->save();
@@ -495,7 +495,7 @@ You may pass any custom parameters to the Blade component, however you like. Tho
 
 ```php
 {
-public static function getFormSchema(array $params): array
+public function getFormSchema(array $params): array
 {
     dump($params); 
     // [ 'x' => 'test', 'y' => 64, 'z' => true ]

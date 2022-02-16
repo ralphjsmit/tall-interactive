@@ -10,14 +10,14 @@ class TestForm extends Form
 {
     public static int $submittedTimes = 0;
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [
             TextInput::make('email')->label('Enter your e-mail')->required(),
         ];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [
             'email' => '',
@@ -25,7 +25,7 @@ class TestForm extends Form
         ];
     }
 
-    public static function submitForm(Collection $formData, object|null $model): void
+    public function submitForm(Collection $formData, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
@@ -39,7 +39,7 @@ class AdditionalFormParametersTestForm extends Form
     public static array $params = [];
     public static int $initializedTimes = 0;
 
-    public static function getFormSchema(array $params): array
+    public function getFormSchema(array $params): array
     {
         static::$initializedTimes++;
         static::$params = $params;
@@ -47,7 +47,7 @@ class AdditionalFormParametersTestForm extends Form
         return [];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [];
     }
@@ -60,12 +60,12 @@ class InitializationTestForm extends Form
     public static object $expectedThirdParam;
     public static int $initializedTimes = 0;
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [];
     }
 
-    public static function initialize(int $formParam0, $formParam1, object $formParam2): void
+    public function initialize(int $formParam0, $formParam1, object $formParam2): void
     {
         Assert::assertSame(static::$expectedFirstParam, $formParam0);
         Assert::assertSame(static::$expectedSecondParam, $formParam1);
@@ -73,7 +73,7 @@ class InitializationTestForm extends Form
         static::$initializedTimes++;
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [];
     }
@@ -90,19 +90,19 @@ class UserForm extends Form
 
     public static \Closure $assertionCallable;
 
-    public static function getFormSchema(string $modelPathIfGiven): array
+    public function getFormSchema(string $modelPathIfGiven): array
     {
         return [
             TextInput::make("{$modelPathIfGiven}email"),
         ];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [];
     }
 
-    public static function submitForm(Collection $formData, object|null $model): void
+    public function submitForm(Collection $formData, object|null $model): void
     {
         Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($model));
     }

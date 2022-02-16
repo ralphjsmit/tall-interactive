@@ -149,14 +149,14 @@ class SlideOverTestForm extends Form
 {
     public static int $submittedTimes = 0;
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [
             TextInput::make('email')->label('Enter your e-mail')->required(),
         ];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [
             'email' => '',
@@ -164,7 +164,7 @@ class SlideOverTestForm extends Form
         ];
     }
 
-    public static function submitForm(Collection $formData, object|null $model): void
+    public function submitForm(Collection $formData, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
@@ -292,7 +292,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

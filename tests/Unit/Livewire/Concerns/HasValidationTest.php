@@ -29,7 +29,7 @@ it('can render a Livewire component', function (string $livewire) {
 
 class TestValidationForm extends Form
 {
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [
             TextInput::make('email')->email()->required(),
@@ -37,7 +37,7 @@ class TestValidationForm extends Form
         ];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return [
             'email' => '',
@@ -45,7 +45,7 @@ class TestValidationForm extends Form
         ];
     }
 
-    public static function getErrorMessages(): array
+    public function getErrorMessages(): array
     {
         return [
             'email.required' => 'EMAIL_REQUIRED_MESSAGE',

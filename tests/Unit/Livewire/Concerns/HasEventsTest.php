@@ -61,17 +61,17 @@ class CallableTestForm extends Form
 {
     public static array $closeCallableParameters = [];
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [TextInput::make('email')->email()->required(),];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return ['email' => null,];
     }
 
-    public static function SubmitForm(Closure $close, Closure $forceClose): void
+    public function SubmitForm(Closure $close, Closure $forceClose): void
     {
         $close(...static::$closeCallableParameters);
 

@@ -17,7 +17,7 @@ use RalphJSmit\Tall\Interactive\Forms\Form;
 
 class UserForm extends Form
 {
-    public static function getFormSchema(Component $livewire = null): array
+    public function getFormSchema(Component $livewire = null): array
     {
         return [
             TextInput::make('email')->label('Enter your e-mail'),

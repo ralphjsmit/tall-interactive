@@ -36,17 +36,17 @@ class ExpectFormversionTest extends Form
 {
     public static string $expectedFormVersion = '';
 
-    public static function getFormSchema(): array
+    public function getFormSchema(): array
     {
         return [TextInput::make('email')->email()->required(),];
     }
 
-    public static function getFormDefaults(): array
+    public function getFormDefaults(): array
     {
         return ['email' => null,];
     }
 
-    public static function SubmitForm(Closure $close, Closure $forceClose, string $formVersion): void
+    public function SubmitForm(Closure $close, Closure $forceClose, string $formVersion): void
     {
         Assert::assertSame(static::$expectedFormVersion, $formVersion);
     }
