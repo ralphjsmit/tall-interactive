@@ -11,7 +11,7 @@ trait ReceivesForm
 
     public function mountReceivesForm(string $form = null): void
     {
-        if ( $form ) {
+        if ($form) {
             $this->formClass = new $form();
         }
     }
