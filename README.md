@@ -500,19 +500,15 @@ You may pass any custom parameters to the Blade component, however you like. Tho
 ```
 
 ```php
+public function getFormSchema(array $params): array
 {
-public function getFormSchema(array $
-params): array
-{
-    dump($params); 
+    // $params
     // [ 'x' => 'test', 'y' => 64, 'z' => true ]
     
     return [
         // ..
     ];
 }
-```
-
 ```
 
 ## Inline forms
