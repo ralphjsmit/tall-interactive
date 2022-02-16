@@ -88,7 +88,7 @@ class UserForm extends Form
 {
     public static $expectedUser;
 
-    public static \Closure $assertionCallable;
+    public static Closure $assertionCallable;
 
     public function getFormSchema(string $modelPathIfGiven): array
     {
@@ -104,6 +104,10 @@ class UserForm extends Form
 
     public function submitForm(Collection $formData, object|null $model): void
     {
-        Assert::assertSame(get_object_vars(static::$expectedUser), get_object_vars($model));
+        dd();
+        Assert::assertSame(
+            get_object_vars(static::$expectedUser),
+            get_object_vars($model)
+        );
     }
 }

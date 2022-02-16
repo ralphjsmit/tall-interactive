@@ -64,4 +64,9 @@ class UserForm extends Form
             ]),
         ];
     }
+
+    public function submitForm()
+    {
+        //
+    }
 }

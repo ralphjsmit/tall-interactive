@@ -60,6 +60,8 @@ it('can store a form object instead of the class', function (string $livewire) {
 
     $component
         ->assertSet('formClass', function ($value) {
+            dd($value);
+
             return $value instanceof TestForm;
         });
 })->with('actionables');
