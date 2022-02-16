@@ -27,9 +27,12 @@ it('can wire a form class to Livewire', function () {
         // Private properties not accessibe by Form, see comment below.
         //        'age' => 20,
         'test' => 'TEST',
+        '_formClass' => WireableTestForm::class,
     ]);
 
     $wiredForm = WireableTestForm::fromLivewire($wireable);
+
+    expect($wiredForm)->toBeInstanceOf(WireableTestForm::class);
 
     expect(invade($wiredForm))
         ->name->toBe('John Doe')

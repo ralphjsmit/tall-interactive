@@ -104,7 +104,6 @@ class UserForm extends Form
 
     public function submitForm(Collection $formData, object|null $model): void
     {
-        dd();
         Assert::assertSame(
             get_object_vars(static::$expectedUser),
             get_object_vars($model)

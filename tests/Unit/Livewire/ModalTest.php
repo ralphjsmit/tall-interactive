@@ -125,7 +125,7 @@ it('can initialize and submit the form', function () {
     expect(TestForm::$submittedTimes)->toBe(0);
 
     $component
-        ->assertSet('formClass', TestForm::class)
+        ->assertSet('formClass', fn ($value): bool => $value instanceof TestForm)
         ->assertSee('email')
         ->assertSee('Enter your e-mail');
 
@@ -260,7 +260,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

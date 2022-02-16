@@ -10,8 +10,6 @@ trait CanCallForm
             return null;
         }
 
-        dump($this->formClass, 8, $this->model);
-
         return app()->call(
             [$this->formClass, $method],
             array_merge([
