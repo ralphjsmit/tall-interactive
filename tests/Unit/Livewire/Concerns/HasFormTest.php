@@ -13,6 +13,8 @@ it('can mount actionables', function (string $actionable) {
 
     MountTestForm::$expectedModel = $user;
 
+    expect(MountTestForm::$mountedTimes)->toBe(0);
+
     $component = Livewire::test($actionable, [
         'id' => 'test-actionable',
         'form' => MountTestForm::class,

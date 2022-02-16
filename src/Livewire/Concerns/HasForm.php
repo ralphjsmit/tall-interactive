@@ -23,7 +23,7 @@ trait HasForm
 
     public function runFormInitialization(string $actionable, $params): void
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
@@ -45,47 +45,45 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
-            $this->initializeForm();
+        if ( ! $this->model ) {
+            $this->mountForm();
         }
     }
 
     public function getFormSchema(): array
     {
-        $formSchema = $this->call('getFormSchema');
-
         $this->setDefaultProperties();
 
+        $formSchema = $this->call('getFormSchema');
+
         $this->registerFormMessages();
-
-        if (! $this->formMounted) {
-            $this->call('mount');
-
-            $this->formMounted = true;
-        }
 
         return $formSchema;
     }
 
     private function setDefaultProperties(): void
     {
-        if ($this->formMounted) {
+        if ( $this->formMounted ) {
             return;
         }
 
-        if ($this->formClass) {
-            $this->initializeForm();
+        if ( $this->formClass ) {
+            $this->mountForm();
         }
     }
 
-    private function initializeForm(): void
+    private function mountForm(): void
     {
+        if ( ! $this->formMounted ) {
+            $this->call('mount');
+        }
+
         $formDefaults = $this->call('getFormDefaults');
 
         foreach ($formDefaults as $property => $value) {
             $this->{$property} = $value;
         }
 
-        $this->formInitialized = true;
+        $this->formMounted = true;
     }
 }
