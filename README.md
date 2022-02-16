@@ -199,9 +199,11 @@ public function getFormSchema(string $modelPathIfGiven): array
 You can use the **`submitForm()` method** to provide the logic for submitting the form.
 
 ```php
-public function submitForm(array $formData): void
+use Illuminate\Support\Collection;
+
+public function submitForm(Collection $formData): void
 {
-    User::create($formData);
+    User::create($formData->all());
 
     toast()
         ->success('Thanks for submitting the form! (Your data isn\'t stored anywhere.')
@@ -236,7 +238,7 @@ You can specify the following variables in each of the above methods:
 3. `$modelPathIfGiven` to access the **current path to the model** (if any) (see [Binding to model properties](#binding-to-model-properties)).
 4. `$formClass` to access the **current instance of the form class**. You could use this to set and get parameters (see [Storing data](#storing-data)).
 5. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
-6. `$formData` to access the **current form data**. Only available in the `submitForm` method.
+6. `$formData` to access the **currently submitted form data**. This is a collection. Only available in the `submitForm` method.
 7. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
 8. `$forceClose` to get a closure that allows you to **close all actionables**.
 9. `$params` to get an array with all additional parameters passed to the actionable Blade component.
@@ -252,15 +254,15 @@ use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public function submitForm(Component $livewire, User $model, array $formData, Closure $close, Closure $forceClose): void 
+public function submitForm(Component $livewire, User $model, Collection $formData, Closure $close, Closure $forceClose): void 
 {
     // Save the user
     $model->save();
 
-    if ($formData['password]) {
-        $model->update([
-            'password' => $formData['password'],
-        ]);
+    if ($formData->has('password')) {
+        $model->update(
+            $formData->only('password')->all()
+        );
     }
     
     /* Close current actionable */
@@ -499,7 +501,8 @@ You may pass any custom parameters to the Blade component, however you like. Tho
 
 ```php
 {
-public function getFormSchema(array $params): array
+public function getFormSchema(array $
+params): array
 {
     dump($params); 
     // [ 'x' => 'test', 'y' => 64, 'z' => true ]
@@ -562,12 +565,13 @@ You may use all the dependency injection functionality that's available as well 
 public User $user;
 public string $x = '';
 
-public function mount(array $params, User $model): void
+public function mount(array $
+params, User $model): void
 {
     $this->user = $model;
     $this->x = $params['x'];
 }
-
+                                                                  
 public function getFormSchema(): array
 {
     return [
