@@ -561,8 +561,7 @@ You may use all the dependency injection functionality that's available as well 
 public User $user;
 public string $x = '';
 
-public function mount(array $
-params, User $model): void
+public function mount(array $params, User $model): void
 {
     $this->user = $model;
     $this->x = $params['x'];
