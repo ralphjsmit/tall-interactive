@@ -53,6 +53,31 @@ class AdditionalFormParametersTestForm extends Form
     }
 }
 
+class MountTestForm extends Form
+{
+    public static int $mountedTimes = 0;
+    public static Model $expectedModel;
+
+    public function getFormSchema(): array
+    {
+        return [];
+    }
+
+    public function mount(array $params, Model $model): void
+    {
+        Assert::assertSame('test', $params['x']);
+        Assert::assertSame(64, $params['y']);
+        Assert::assertSame(true, (bool) $params['z']);
+        Assert::assertSame(static::$expectedModel, $model);
+        static::$mountedTimes++;
+    }
+
+    public function getFormDefaults(): array
+    {
+        return [];
+    }
+}
+
 class InitializationTestForm extends Form
 {
     public static int $expectedFirstParam;
@@ -65,11 +90,11 @@ class InitializationTestForm extends Form
         return [];
     }
 
-    public function initialize(int $formParam0, $formParam1, object $formParam2): void
+    public function onOpen(array $eventParams): void
     {
-        Assert::assertSame(static::$expectedFirstParam, $formParam0);
-        Assert::assertSame(static::$expectedSecondParam, $formParam1);
-        Assert::assertSame(static::$expectedThirdParam, $formParam2);
+        Assert::assertSame(static::$expectedFirstParam, $eventParams[0]);
+        Assert::assertSame(static::$expectedSecondParam, $eventParams[1]);
+        Assert::assertSame(static::$expectedThirdParam, $eventParams[2]);
         static::$initializedTimes++;
     }
 
@@ -108,5 +133,27 @@ class UserForm extends Form
             get_object_vars(static::$expectedUser),
             get_object_vars($model)
         );
+    }
+}
+
+class DependencyInjectionTestForm extends Form
+{
+    public int $submittedTimes = 0;
+
+    public function getFormSchema(): array
+    {
+        return [];
+    }
+
+    public function getFormDefaults(): array
+    {
+        return [];
+    }
+
+    public function submitForm(self $formClass): void
+    {
+        $this->submittedTimes++;
+
+        Assert::assertSame($this, $formClass);
     }
 }

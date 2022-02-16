@@ -5,7 +5,7 @@ use RalphJSmit\Tall\Interactive\Forms\Form;
 it('can wire a form class to Livewire', function () {
     $form = new WireableTestForm();
 
-    $form->initialize([
+    $form->onOpen([
         'name' => 'John Doe',
         'email' => 'john@example.com',
         'age' => 20,
@@ -32,6 +32,8 @@ it('can wire a form class to Livewire', function () {
 
     $wiredForm = WireableTestForm::fromLivewire($wireable);
 
+    expect(property_exists($wiredForm, '_formClass'))->toBeFalse();
+
     expect($wiredForm)->toBeInstanceOf(WireableTestForm::class);
 
     expect(invade($wiredForm))
@@ -50,7 +52,7 @@ class WireableTestForm extends Form
     /** Private properties cannot be accessed by the ->toLivewire() method in Form. To fix that, override the ->toLivewire() and static fromLivewire() methods or use protected properties. */
     private int $age;
 
-    public function initialize(array $params): void
+    public function onOpen(array $params): void
     {
         $this->name = $params['name'];
         $this->email = $params['email'];

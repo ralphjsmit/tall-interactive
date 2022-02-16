@@ -6,7 +6,7 @@ trait CanCallForm
 {
     private function call(string $method, array $parameters = []): mixed
     {
-        if (! method_exists($this->formClass, $method)) {
+        if ( ! $this->formClass || ! method_exists($this->formClass, $method) ) {
             return null;
         }
 
@@ -15,6 +15,7 @@ trait CanCallForm
             array_merge([
                 'close' => fn (string $actionable = null) => $this->close($actionable),
                 'forceClose' => fn () => $this->forceClose(),
+                'formClass' => $this->formClass,
                 'formVersion' => $this->formVersion,
                 'livewire' => $this,
                 'model' => $this->model,

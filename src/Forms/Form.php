@@ -2,6 +2,7 @@
 
 namespace RalphJSmit\Tall\Interactive\Forms;
 
+use Illuminate\Support\Arr;
 use Livewire\Wireable;
 
 class Form implements Wireable
@@ -15,9 +16,9 @@ class Form implements Wireable
 
     public static function fromLivewire($value): self
     {
-        $formClass = $value['_formClass'];
+        $formClass = Arr::pull($value, '_formClass');
 
-        return new $formClass($value);
+        return app($formClass, ['properties' => $value]);
     }
 
     public function toLivewire(): array

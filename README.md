@@ -127,7 +127,10 @@ class UserForm extends Form {
         //
     }
 
-    public function initialize() {}
+    public function mount() {}
+    
+    /** Only applicable for Models and SlideOvers */
+    public function onOpen() {}
 }
 ```
 
@@ -231,11 +234,12 @@ You can specify the following variables in each of the above methods:
 1. `$livewire` to get the **current Livewire instance**
 2. `$model` to get the **current model** (if any)
 3. `$modelPathIfGiven` to access the **current path to the model** (if any) (see [Binding to model properties](#binding-to-model-properties)).
-4. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
-5. `$formData` to access the **current form data**. Only available in the `submitForm` method.
-6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
-7. `$forceClose` to get a closure that allows you to **close all actionables**.
-8. `$params` to get an array with all additional parameters passed to the actionable Blade component.
+4. `$formClass` to access the **current instance of the form class**. You could use this to set and get parameters (see [Storing data](#storing-data)).
+5. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
+6. `$formData` to access the **current form data**. Only available in the `submitForm` method.
+7. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
+8. `$forceClose` to get a closure that allows you to **close all actionables**.
+9. `$params` to get an array with all additional parameters passed to the actionable Blade component.
 
 Using the `$close()` and `$forceClose()` closures are a very **advanced way of customization** which actionables should be open and which actionables not.
 
@@ -539,6 +543,70 @@ You may specify the `container` attribute to **put an inline form in a nice cont
 **Changing the controls design**
 
 You may specify the `controlsDesign` to **change the design of the buttons** at the bottom of the form. It takes on of two values: `minimal` and `classic`. By default it is `minimal`.
+
+## Advanced usage
+
+### Storing data
+
+In some cases it can be handy to store data in the instance of your form class. You can use that data later in the process, for example when submitting the form.
+
+You may add `public` properties on your form class to store data in. A good place to do so could be the `mount()` method, as shown below.
+
+### Mounting the form
+
+You can use the `mount()` method on the form class to mount your form. This can be useful for storing / setting data in the form class when it is invoked for the first time.
+
+You may use all the dependency injection functionality that's available as well (for a list of all the possible parameters, see above):
+
+```php
+public User $user;
+public string $x = '';
+
+public function mount(array $params, User $model): void
+{
+    $this->user = $model;
+    $this->x = $params['x'];
+}
+
+public function getFormSchema(): array
+{
+    return [
+        Hidden::make('user_id')->default($this->user->id)
+    ];}
+
+```
+
+### Reacting to events
+
+You may add an `onOpen()` method to your form class to react to the event of opening of the actionable. As you might expect, this method is only available for modals and slide-overs.
+
+```php
+public function onOpen(): void
+{
+    // ...
+}
+```
+
+You may also pass parameters to the events when opening a form:
+
+```blade
+<button onclick="Livewire.emit('modal:open', 'create-user', 8, 'admin')" type="button" class="...">
+    Open Modal
+</button>
+```
+
+Use the `$eventParams` variable to access the parameters passed to the event.
+
+```php
+public User $user;
+public array $prefilledValues = [];
+
+public function onOpen(array $eventParams, self $formClass): void
+{
+    $formClass->user = User::find($eventParams[0]);
+    $formClass->prefilledValues['type'] = $eventParams[1];
+}
+```
 
 ## Customizing the views
 

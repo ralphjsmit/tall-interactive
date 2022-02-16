@@ -12,7 +12,7 @@ trait ReceivesForm
     public function mountReceivesForm(string $form = null): void
     {
         if ( $form ) {
-            $this->formClass = new $form();
+            $this->formClass = app($form);
         }
     }
 }
