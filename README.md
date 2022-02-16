@@ -235,6 +235,7 @@ You can specify the following variables in each of the above methods:
 5. `$formData` to access the **current form data**. Only available in the `submitForm` method.
 6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
 7. `$forceClose` to get a closure that allows you to **close all actionables**.
+8. `$params` to get an array with all additional parameters passed to the actionable Blade component.
 
 Using the `$close()` and `$forceClose()` closures are a very **advanced way of customization** which actionables should be open and which actionables not.
 
@@ -476,6 +477,36 @@ You may **give the form an (Eloquent) model**, which can be used for things like
 ```
 
 Check out the [section about binding to model properties for this](#binding-to-model-properties).
+
+### Custom parameters
+
+You may pass any custom parameters to the Blade component, however you like. Those are collected in an array and can be used in your form:
+
+```blade
+<x-tall-interactive::modal
+    id="create-user"
+    :form="\App\Forms\UserForm::class"
+    closeOnSubmit
+    x="test"
+    :y="8*8"
+    z
+/>
+```
+
+```php
+{
+public static function getFormSchema(array $params): array
+{
+    dump($params); 
+    // [ 'x' => 'test', 'y' => 64, 'z' => true ]
+    
+    return [
+        // ..
+    ];
+}
+```
+
+```
 
 ## Inline forms
 

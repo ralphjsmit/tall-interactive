@@ -21,6 +21,7 @@
         }
     }
 
+    $parameters['params'] = $attributes->except(array_keys($parameters))->getAttributes();
 @endphp
 
 @livewire('tall-interactive::inline-form', $parameters)

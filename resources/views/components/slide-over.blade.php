@@ -24,6 +24,7 @@
         }
     }
 
+    $parameters['params'] = $attributes->except(array_keys($parameters))->getAttributes();
 @endphp
 
 @livewire('tall-interactive::slide-over', $parameters)

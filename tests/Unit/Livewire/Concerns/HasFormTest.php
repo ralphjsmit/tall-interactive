@@ -14,16 +14,14 @@ it('can pass additional parameters to the form class', function (string $livewir
     $component = Livewire::test($livewire, [
         'id' => 'test-actionable',
         'form' => AdditionalFormParametersTestForm::class,
-        'dismissableWith' => 'Close',
-        'submitWith' => 'Submit form',
+        'title' => 'TITLE',
         'params' => [
             'foo' => 'bar',
         ],
     ]);
 
     $component
-        ->assertSee('Close')
-        ->emit('actionable:open', 'test-actionable');
+        ->assertSee('TITLE');
 
     expect(AdditionalFormParametersTestForm::$initializedTimes)->toBe(1);
     expect(AdditionalFormParametersTestForm::$params)->toBe([
