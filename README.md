@@ -1,4 +1,4 @@
-![tall-interactive](https://github.com/ralphjsmit/tall-interactive/blob/7e83eff29dae09f6f8bc22437ad19763a403b0db/docs/images/tall-interactive.jpg)
+![tall-interactive](https://github.com/ralphjsmit/tall-interactive/blob/main/docs/images/tall-interactive.jpg)
 
 # Create forms, modals and slide-overs with ease.
 
