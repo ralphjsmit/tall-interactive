@@ -27,13 +27,13 @@
             <!-- This element is to trick the browser into centering the modal contents. -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle {{ $maxWidth }} sm:w-full"
+            <div class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle {{ $maxWidth }} sm:w-full"
                  x-show="state"
                  x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
                 @if($dismissable)
-                    <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                    <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4 rounded-[inherit]">
                         <button type="button" wire:click="$emit('modal:close', '{{ $actionableId }}')" class="bg-none hover:bg-gray-100 p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                             <span class="sr-only">{{ $dismissableWith }}</span>
 
@@ -45,7 +45,7 @@
                         </button>
                     </div>
                 @endif
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-[inherit]">
                     <div class="">
                         @if($title)
                             <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 @if($showControls)
-                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse" id="tall-interactive-slide-over-controls">
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-[inherit]" id="tall-interactive-slide-over-controls">
                         <button wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                     focus:ring-primary-500 sm:ml-3
                     sm:w-auto
