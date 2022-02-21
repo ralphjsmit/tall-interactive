@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.4.3 - 2022-02-21
+
+- Fix overflow/border-radius on small modals
+
 ## 0.4.2 - 2022-02-16
 
 - Add `key()` directives to modal/slide-over to fix DOM diffing issues
