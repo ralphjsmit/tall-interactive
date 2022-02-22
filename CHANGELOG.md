@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.5.0 - 2022-02-22
+
+- Add support for additional button actions
+
 ## 0.4.3 - 2022-02-21
 
 - Fix overflow/border-radius on small modals
