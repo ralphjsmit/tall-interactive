@@ -9,8 +9,8 @@ trait CanCallForm
     protected function call(string|Closure $method, array $parameters = []): mixed
     {
         dump($method);
-        if ( is_string($method) ) {
-            if ( ! $this->formClass || ! method_exists($this->formClass, $method) ) {
+        if (is_string($method)) {
+            if (! $this->formClass || ! method_exists($this->formClass, $method)) {
                 return null;
             }
         }
