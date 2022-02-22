@@ -53,6 +53,8 @@
         @if($showControls)
             <x-tall-interactive::forms.controls.base>
                 <x-dynamic-component :component="'tall-interactive::forms.controls.' . $controlsDesign">
+                    @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
+
                     <button wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                     focus:ring-primary-500 sm:ml-3
                     sm:w-auto

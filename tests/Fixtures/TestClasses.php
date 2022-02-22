@@ -53,6 +53,26 @@ class AdditionalFormParametersTestForm extends Form
     }
 }
 
+class AdditionalButtonsTestForm extends Form
+{
+    public static array $formButtons = [];
+
+    public function getFormSchema(array $params): array
+    {
+        return [];
+    }
+
+    public function getFormDefaults(): array
+    {
+        return [];
+    }
+
+    public function getButtonActions(): array
+    {
+        return static::$formButtons;
+    }
+}
+
 class MountTestForm extends Form
 {
     public static int $mountedTimes = 0;

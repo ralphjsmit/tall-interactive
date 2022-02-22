@@ -1,6 +1,8 @@
 <?php
 
+use Livewire\Component;
 use Livewire\Livewire;
+use RalphJSmit\Tall\Interactive\Actions\ButtonAction;
 
 beforeEach(function () {
     MountTestForm::$mountedTimes = 0;
@@ -81,4 +83,35 @@ it('can pass additional parameters to the form class', function (string $livewir
     expect(AdditionalFormParametersTestForm::$params)->toBe([
         'foo' => 'bar',
     ]);
+})->with('actionables');
+
+it('can specify additional buttons with tasks', function (string $livewire) {
+    AdditionalButtonsTestForm::$formButtons = [];
+
+    $component = Livewire::test($livewire, [
+        'id' => 'test-actionable',
+        'form' => AdditionalButtonsTestForm::class,
+        'title' => 'TITLE',
+    ]);
+
+    $component
+        ->assertDontSee('Other Action');
+
+    AdditionalButtonsTestForm::$formButtons = ( $buttons = [
+        ButtonAction::make('other_action')
+            ->action(function (Component $livewire) {
+                $livewire->hasExecutedAction = true;
+            })
+            ->label('Other Action'),
+    ] );
+
+    expect($component->instance())
+        ->getButtonActions()
+        ->toBe($buttons);
+
+    $component
+        ->emit('$refresh')
+        ->assertSee('Other Action')
+        ->call('executeButtonAction', 'other_action')
+        ->assertSet('hasExecutedAction', true);
 })->with('actionables');

@@ -1,6 +1,18 @@
 <?php
 
+use Filament\Forms\ComponentContainer;
 use Livewire\Livewire;
+
+it('can return the default parameters for calling forms', function (string $livewire) {
+    $component = Livewire::test($livewire, [
+        'id' => 'test-actionable',
+        'form' => TestForm::class,
+    ]);
+
+    $parameters = $component->instance()->getDefaultCallableParameters();
+
+    expect($parameters['form'])->toBeInstanceOf(ComponentContainer::class);
+})->with('actionables');
 
 it('can store properties on the form object', function (string $livewire) {
     $component = Livewire::test($livewire, [

@@ -3,6 +3,7 @@
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
 use Filament\Forms\Concerns\InteractsWithForms;
+use RalphJSmit\Tall\Interactive\Actions\ButtonAction;
 
 trait HasForm
 {
@@ -23,7 +24,7 @@ trait HasForm
 
     public function runFormInitialization(string $actionable, $params): void
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
@@ -45,7 +46,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->mountForm();
         }
     }
@@ -63,18 +64,18 @@ trait HasForm
 
     private function setDefaultProperties(): void
     {
-        if ($this->formMounted) {
+        if ( $this->formMounted ) {
             return;
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->mountForm();
         }
     }
 
     private function mountForm(): void
     {
-        if (! $this->formMounted) {
+        if ( ! $this->formMounted ) {
             $this->call('mount');
         }
 
@@ -85,5 +86,22 @@ trait HasForm
         }
 
         $this->formMounted = true;
+    }
+
+    public function getButtonActions(): array
+    {
+        return $this->call('getButtonActions') ?: [];
+    }
+
+    public function executeButtonAction(string $buttonActionName): void
+    {
+        collect($this->call('getButtonActions'))
+            ->each(function (ButtonAction $buttonAction) use ($buttonActionName): void {
+                if ( $buttonAction->getName() !== $buttonActionName ) {
+                    return;
+                }
+
+                $this->call($buttonAction->getAction());
+            });
     }
 }
