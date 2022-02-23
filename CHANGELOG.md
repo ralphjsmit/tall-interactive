@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.6.3 - 2022-02-23
+
+- DOM diffing issues
+
 ## 0.6.2 - 2022-02-23
 
 - Update wire:key implementation
