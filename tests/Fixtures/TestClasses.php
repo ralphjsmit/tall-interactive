@@ -14,14 +14,7 @@ class TestForm extends Form
     {
         return [
             TextInput::make('email')->label('Enter your e-mail')->required(),
-        ];
-    }
-
-    public function getFormDefaults(): array
-    {
-        return [
-            'email' => '',
-            'year' => 2000,
+            TextInput::make('year')->default(2000),
         ];
     }
 
@@ -46,11 +39,6 @@ class AdditionalFormParametersTestForm extends Form
 
         return [];
     }
-
-    public function getFormDefaults(): array
-    {
-        return [];
-    }
 }
 
 class AdditionalButtonsTestForm extends Form
@@ -58,11 +46,6 @@ class AdditionalButtonsTestForm extends Form
     public static array $formButtons = [];
 
     public function getFormSchema(array $params): array
-    {
-        return [];
-    }
-
-    public function getFormDefaults(): array
     {
         return [];
     }
@@ -88,13 +71,10 @@ class MountTestForm extends Form
         Assert::assertSame('test', $params['x']);
         Assert::assertSame(64, $params['y']);
         Assert::assertSame(true, (bool) $params['z']);
-        Assert::assertSame(static::$expectedModel, $model);
+        Assert::assertSame(true, (bool) $params['z']);
+        Assert::assertSame(static::$expectedModel->attributesToArray(), $model->attributesToArray());
+        Assert::assertSame(static::$expectedModel->attributesToArray(), $model->attributesToArray());
         static::$mountedTimes++;
-    }
-
-    public function getFormDefaults(): array
-    {
-        return [];
     }
 }
 
@@ -117,11 +97,6 @@ class InitializationTestForm extends Form
         Assert::assertSame(static::$expectedThirdParam, $eventParams[2]);
         static::$initializedTimes++;
     }
-
-    public function getFormDefaults(): array
-    {
-        return [];
-    }
 }
 
 class User extends Model
@@ -142,11 +117,6 @@ class UserForm extends Form
         ];
     }
 
-    public function getFormDefaults(): array
-    {
-        return [];
-    }
-
     public function submitForm(Collection $formData, object|null $model): void
     {
         Assert::assertSame(
@@ -161,11 +131,6 @@ class DependencyInjectionTestForm extends Form
     public int $submittedTimes = 0;
 
     public function getFormSchema(): array
-    {
-        return [];
-    }
-
-    public function getFormDefaults(): array
     {
         return [];
     }

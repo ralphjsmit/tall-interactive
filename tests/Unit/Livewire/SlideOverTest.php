@@ -63,7 +63,7 @@ it('can forceClose actionables on submit', function () {
         ->assertSet('actionableOpen', false)
         ->emit('actionable:open', 'test-modal')
         ->assertSet('actionableOpen', true)
-        ->set('email', 'john@example.com')
+        ->set('data.email', 'john@example.com')
         ->call('submitForm')
         ->assertHasNoErrors()
         ->assertEmitted('actionables:forceClose');
@@ -112,14 +112,14 @@ it('can initialize and submit the form', function () {
         ->assertSee('Enter your e-mail');
 
     $component
-        ->assertSet('email', '')
-        ->assertSet('year', 2000)
+        ->assertSet('data.email', '')
+        ->assertSet('data.year', 2000)
         ->call('submitForm')
         ->assertHasErrors()
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertHasNoErrors()
-        ->assertNotSet('email', 'rjs@ralphjsmit.com');
+        ->assertNotSet('data.email', 'rjs@ralphjsmit.com');
 
     expect(SlideOverTestForm::$submittedTimes)->toBe(1);
 });
@@ -131,15 +131,11 @@ class SlideOverTestForm extends Form
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('email')->label('Enter your e-mail')->required(),
-        ];
-    }
-
-    public function getFormDefaults(): array
-    {
-        return [
-            'email' => '',
-            'year' => 2000,
+            TextInput::make('email')
+                ->label('Enter your e-mail')
+                ->required(),
+            TextInput::make('year')
+                ->default(2000),
         ];
     }
 
@@ -164,7 +160,7 @@ it('can close the form on submit', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertEmitted(':close', 'test-slide-over')
         ->emit('actionable:close', 'test-slide-over')/* Action performed by ActionablesManager */
@@ -183,7 +179,7 @@ it('cannot close the form on submit if not allowed', function () {
         ->assertSet('actionableOpen', true);
 
     $component
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
         ->assertNotEmitted('modal:close')
         ->assertNotEmitted('slideOver:close')
@@ -271,7 +267,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };

@@ -9,7 +9,13 @@ trait HasValidation
     public function registerFormMessages(): void
     {
         $this->registerMessages(
-            method_exists($this->formClass, 'getErrorMessages') ? $this->call('getErrorMessages') : []
+            method_exists($this->formClass, 'getErrorMessages')
+                ? collect($this->call('getErrorMessages'))
+                ->mapWithKeys(function (string $message, string $key): array {
+                    return [$this->form->getStatePath() . '.' . $key => $message];
+                })
+                ->all()
+                : []
         );
     }
 }

@@ -12,17 +12,19 @@ it('can render a Livewire component', function (string $livewire) {
 
     $component
         ->call('submitForm')
-        ->assertHasErrors(['email' => 'required'])
+        ->assertHasErrors(['data.email' => 'required'])
         ->assertSee('EMAIL_REQUIRED_MESSAGE')
-        ->set('email', 'rjs@ralphjsmit.com')
+        ->set('data.email', 'rjs@ralphjsmit.com')
         ->call('submitForm')
-        ->assertHasErrors(['number' => 'required'])
+        ->assertHasNoErrors(['data.email' => 'required'])
+        ->call('submitForm')
+        ->assertHasErrors(['data.number' => 'required'])
         ->assertSee('NUMBER_REQUIRED_MESSAGE')
-        ->set('number', 'abcde')
+        ->set('data.number', '0x539')
         ->call('submitForm')
-        ->assertHasErrors(['number' => 'numeric'])
+        ->assertHasErrors(['data.number' => 'numeric'])
         ->assertSee('NUMBER_NUMERIC_MESSAGE')
-        ->set('number', '12345')
+        ->set('data.number', '12345')
         ->call('submitForm')
         ->assertHasNoErrors();
 })->with('actionables');
@@ -32,16 +34,12 @@ class TestValidationForm extends Form
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('email')->email()->required(),
-            TextInput::make('number')->rules(['numeric'])->required(),
-        ];
-    }
-
-    public function getFormDefaults(): array
-    {
-        return [
-            'email' => '',
-            'number' => '',
+            TextInput::make('email')
+                ->email()
+                ->required(),
+            TextInput::make('number')
+                ->rules(['numeric'])
+                ->required(),
         ];
     }
 

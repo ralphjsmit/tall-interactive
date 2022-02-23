@@ -115,11 +115,6 @@ class UserForm extends Form {
         return [];
     }
 
-    public function getFormDefaults(): array
-    {
-        return [];
-    }
-
     public function submitForm(): void
     {
         //
@@ -142,55 +137,47 @@ class UserForm extends Form {
 public function getFormSchema(Component $livewire): array
 {
     return [
-        TextInput::make('email')->label('Enter your email')->placeholder('john@example.com')->required(),
+        TextInput::make('email')
+            ->label('Enter your email')
+            ->placeholder('john@example.com')
+            ->required(),
         Grid::make()->schema([
-            TextInput::make('firstname')->label('Enter your first name')->placeholder('John'),
-            TextInput::make('lastname')->label('Enter your last name')->placeholder('Doe'),
+            TextInput::make('firstname')
+                ->label('Enter your first name')
+                ->placeholder('John'),
+            TextInput::make('lastname')
+                ->label('Enter your last name')
+                ->placeholder('Doe'),
         ]),
-        TextInput::make('password')->label('Choose a password')->password(),
-        MarkdownEditor::make('why')->label('Why do you want an account?'),
-        Placeholder::make('')->content(
-            new HtmlString('Click <button onclick="Livewire.emit(\'modal:open\', \'create-user-child\')" type="button" class="text-primary-500">here</button> to open a child modal🤩')
-        ),
+        TextInput::make('password')
+            ->label('Choose a password')
+            ->password(),
+        MarkdownEditor::make('why')
+            ->label('Why do you want an account?'),
+        Placeholder::make('open_child_modal')
+            ->disableLabel()
+            ->content(
+                new HtmlString('Click <button onclick="Livewire.emit(\'modal:open\', \'create-user-child\')" type="button" class="text-primary-500">here</button> to open a child modal🤩')
+            ),
     ];
 }
 ```
 
-Use the **`getFormDefaults()` to specify the default values** for each field as `$field => $defaultValue`. This will add the required public properties on the right Livewire component.
+#### Default values & models
+
+The field values are stored on the `$data` array property on the `$livewire` component. You can set default values by using the Filament `->default()` method:
 
 ```php
-public function getFormDefaults(): array
+public function getFormSchema(Component $livewire): array
 {
     return [
-        'email' => null,
-        'firstname' => null,
-        'lastname' => null,
-        'password' => null,
-        'why' => null,
+        TextInput::make('year')
+            ->label('Pick your year of birth')
+            ->default(now()->subYears(18)->format('Y')),
+            ->required(),
     ];
 }
 ```
-
-#### Binding to model properties
-
-If you want to **bind directly to model properties**, you should use the **`$modelPathIfGiven`** variable to prefix your fields.
-
-This makes sure that **whenever you provide a model** to the actionable, your fields will be **prefixed with the correct location**. If you haven't a provided a model, this variable will be an empty string.
-
-```php
-public function getFormSchema(string $modelPathIfGiven): array
-{
-    return [
-        TextInput::make("{$modelPathIfGiven}email")->label('Enter your email')->placeholder('john@example.com')->required(),
-        Grid::make()->schema([
-            TextInput::make("{$modelPathIfGiven}firstname")->label('Enter your first name')->placeholder('John'),
-            TextInput::make("{$modelPathIfGiven}lastname")->label('Enter your last name')->placeholder('Doe'),
-        ]),
-    ];
-}
-```
-
-> **NB.:** You are required to provide a default value for each field, otherwise Livewire will throw a "property not found" error.
 
 #### Submitting a form
 
@@ -233,13 +220,12 @@ You can specify the following variables in each of the above methods:
 
 1. `$livewire` to get the **current Livewire instance**
 2. `$model` to get the **current model** (if any)
-3. `$modelPathIfGiven` to access the **current path to the model** (if any) (see [Binding to model properties](#binding-to-model-properties)).
-4. `$formClass` to access the **current instance of the form class**. You could use this to set and get parameters (see [Storing data](#storing-data)).
-5. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
-6. `$formData` to access the **currently submitted form data**. This is a collection. Only available in the `submitForm` method.
-7. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
-8. `$forceClose` to get a closure that allows you to **close all actionables**.
-9. `$params` to get an array with all additional parameters passed to the actionable Blade component.
+3. `$formClass` to access the **current instance of the form class**. You could use this to set and get parameters (see [Storing data](#storing-data)).
+4. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
+5. `$formData` to access the **currently submitted form data**. This is a collection. Only available in the `submitForm` method.
+6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
+7. `$forceClose` to get a closure that allows you to **close all actionables**.
+8. `$params` to get an array with all additional parameters passed to the actionable Blade component.
 
 Using the `$close()` and `$forceClose()` closures are a very **advanced way of customization** which actionables should be open and which actionables not.
 
@@ -254,8 +240,9 @@ use App\Models\User;
 
 public function submitForm(Component $livewire, User $model, Collection $formData, Closure $close, Closure $forceClose): void 
 {
-    // Save the user
-    $model->save();
+    $model
+        ->fill($formData->except('password'))
+        ->save();
 
     if ($formData->has('password')) {
         $model->update(
@@ -271,9 +258,6 @@ public function submitForm(Component $livewire, User $model, Collection $formDat
     
     /* Close all open actionables */
     $forceClose();
-    
-
-    //
 }
 ```
 
