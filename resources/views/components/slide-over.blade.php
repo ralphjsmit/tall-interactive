@@ -28,7 +28,7 @@
 @endphp
 
 <div>
-    @livewire('tall-interactive::slide-over', $parameters)
+    @livewire('tall-interactive::slide-over', $parameters, key($parameters['id']))
 </div>
 
 

@@ -28,7 +28,7 @@
 @endphp
 
 <div>
-    @livewire('tall-interactive::modal', $parameters)
+    @livewire('tall-interactive::modal', $parameters, key($parameters['id']))
 </div>
 
 

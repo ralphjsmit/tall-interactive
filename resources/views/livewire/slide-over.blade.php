@@ -13,7 +13,7 @@
     ][$maxWidth];
 @endphp
 
-<div class="relative z-[999]" wire:key="{{ $actionableId }}">
+<div class="relative z-[999]">
     {{-- Slide-over --}}
     <div class=" fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak
          x-data="{ state: $wire.entangle('actionableOpen') }"
