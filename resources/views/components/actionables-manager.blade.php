@@ -1,1 +1,1 @@
-@livewire('tall-interactive::actionables-manager', key('Unique'))
+@livewire('tall-interactive::actionables-manager')
