@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.6.1 - 2022-02-23
+
+- Fixes
+
 ## 0.6.0 - 2022-02-23
 
 - Refactoring, move everything to `$data` property
