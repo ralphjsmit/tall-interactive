@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.6.2 - 2022-02-23
+
+- Update wire:key implementation
+
 ## 0.6.1 - 2022-02-23
 
 - Fixes
