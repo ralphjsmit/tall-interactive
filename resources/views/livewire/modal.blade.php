@@ -13,7 +13,7 @@
     ][$maxWidth];
 @endphp
 
-<div class="relative z-[999]">
+<div class="relative z-[999]" wire:key="{{ $actionableId }}">
     {{-- Modal --}}
     <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-cloak
          x-data="{ state: $wire.entangle('actionableOpen') }" :class="state ? 'pointer-events-auto' : 'pointer-events-none'">
