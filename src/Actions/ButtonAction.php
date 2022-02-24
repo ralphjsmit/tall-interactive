@@ -12,6 +12,11 @@ class ButtonAction
 
     protected string $name = '';
 
+    public static function make(string $name): static
+    {
+        return ( new static() )->name($name);
+    }
+
     public function action(Closure $action): static
     {
         $this->action = $action;
@@ -39,11 +44,6 @@ class ButtonAction
         $this->label = $label;
 
         return $this;
-    }
-
-    public static function make(string $name): static
-    {
-        return ( new static() )->name($name);
     }
 
     public function name(string $name): static

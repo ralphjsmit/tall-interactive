@@ -9,11 +9,6 @@ class ActionablesManager extends Component
 {
     public array $openedActionables = [];
 
-    public function render(): View
-    {
-        return view('tall-interactive::livewire.actionables-manager');
-    }
-
     protected $listeners = [
         'modal:open' => 'openActionable',
         'modal:close' => 'closeActionable',
@@ -23,15 +18,9 @@ class ActionablesManager extends Component
         'actionables:forceClose' => 'forceCloseActionables',
     ];
 
-    public function openActionable(string $actionable, ...$params): void
+    public function render(): View
     {
-        if ($this->openedActionables) {
-            $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
-        }
-
-        $this->openedActionables[] = $actionable;
-
-        $this->emit('actionable:open', $actionable, ...$params);
+        return view('tall-interactive::livewire.actionables-manager');
     }
 
     public function closeActionable(): void
@@ -40,8 +29,23 @@ class ActionablesManager extends Component
 
         $this->emit('actionable:close', $actionable);
 
-        if ($this->openedActionables) {
+        if ( $this->openedActionables ) {
             $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
+        }
+    }
+
+    public function closeSingleActionable(string $actionable): void
+    {
+        if ( ( $key = array_search($actionable, $this->openedActionables) ) !== false ) {
+            $this->emit('actionable:close', $actionable);
+
+            unset($this->openedActionables[$key]);
+
+            $this->openedActionables = array_values($this->openedActionables);
+
+            if ( $this->openedActionables ) {
+                $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
+            }
         }
     }
 
@@ -53,18 +57,14 @@ class ActionablesManager extends Component
         }
     }
 
-    public function closeSingleActionable(string $actionable): void
+    public function openActionable(string $actionable, ...$params): void
     {
-        if (($key = array_search($actionable, $this->openedActionables)) !== false) {
-            $this->emit('actionable:close', $actionable);
-
-            unset($this->openedActionables[$key]);
-
-            $this->openedActionables = array_values($this->openedActionables);
-
-            if ($this->openedActionables) {
-                $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
-            }
+        if ( $this->openedActionables ) {
+            $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
         }
+
+        $this->openedActionables[] = $actionable;
+
+        $this->emit('actionable:open', $actionable, ...$params);
     }
 }

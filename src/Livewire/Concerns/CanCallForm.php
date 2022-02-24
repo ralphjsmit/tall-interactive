@@ -6,20 +6,6 @@ use Closure;
 
 trait CanCallForm
 {
-    protected function call(string|Closure $method, array $parameters = []): mixed
-    {
-        if (is_string($method)) {
-            if (! $this->formClass || ! method_exists($this->formClass, $method)) {
-                return null;
-            }
-        }
-
-        return app()->call(
-            callback: is_string($method) ? [$this->formClass, $method] : $method,
-            parameters: array_merge($this->getDefaultCallableParameters(), $parameters)
-        );
-    }
-
     public function getDefaultCallableParameters(): array
     {
         $parameters = collect([
@@ -34,5 +20,19 @@ trait CanCallForm
         ]);
 
         return $parameters->all();
+    }
+
+    protected function call(string|Closure $method, array $parameters = []): mixed
+    {
+        if ( is_string($method) ) {
+            if ( ! $this->formClass || ! method_exists($this->formClass, $method) ) {
+                return null;
+            }
+        }
+
+        return app()->call(
+            callback: is_string($method) ? [$this->formClass, $method] : $method,
+            parameters: array_merge($this->getDefaultCallableParameters(), $parameters)
+        );
     }
 }

@@ -15,6 +15,14 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class ActionablesServiceProvider extends PackageServiceProvider
 {
+    public function bootingPackage(): void
+    {
+        Livewire::component('tall-interactive::actionables-manager', \RalphJSmit\Tall\Interactive\Livewire\ActionablesManager::class);
+        Livewire::component('tall-interactive::modal', \RalphJSmit\Tall\Interactive\Livewire\Modal::class);
+        Livewire::component('tall-interactive::slide-over', \RalphJSmit\Tall\Interactive\Livewire\SlideOver::class);
+        Livewire::component('tall-interactive::inline-form', \RalphJSmit\Tall\Interactive\Livewire\InlineForm::class);
+    }
+
     public function configurePackage(Package $package): void
     {
         $package
@@ -22,13 +30,5 @@ class ActionablesServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasViewComponents('tall-interactive::', Modal::class, SlideOver::class, ActionablesManager::class, InlineForm::class, FormContainer::class, Minimal::class, Classic::class);
-    }
-
-    public function bootingPackage(): void
-    {
-        Livewire::component('tall-interactive::actionables-manager', \RalphJSmit\Tall\Interactive\Livewire\ActionablesManager::class);
-        Livewire::component('tall-interactive::modal', \RalphJSmit\Tall\Interactive\Livewire\Modal::class);
-        Livewire::component('tall-interactive::slide-over', \RalphJSmit\Tall\Interactive\Livewire\SlideOver::class);
-        Livewire::component('tall-interactive::inline-form', \RalphJSmit\Tall\Interactive\Livewire\InlineForm::class);
     }
 }

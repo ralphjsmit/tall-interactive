@@ -31,6 +31,7 @@ class InlineForm extends Actionable implements HasForms
     use ReceivesForm;
 
     public ?string $actionableId;
+
     public string $actionableType = 'inlineForm';
 
     public function mount(string $id = null): void

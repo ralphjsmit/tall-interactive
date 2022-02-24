@@ -17,17 +17,20 @@ trait HasForm
     use RegisterListeners;
 
     public array $data = [];
+
     public bool $hasConstructedForm = false;
+
     public array $params = [];
+
     public bool $shouldFillForm = true;
 
     public function bootedHasForm(): void
     {
-        if ($this->shouldFillForm && $this->formClass) {
+        if ( $this->shouldFillForm && $this->formClass ) {
             $this->mountForm();
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->registerFormMessages();
         }
     }
@@ -36,7 +39,7 @@ trait HasForm
     {
         collect($this->call('getButtonActions'))
             ->each(function (ButtonAction $buttonAction) use ($buttonActionName): void {
-                if ($buttonAction->getName() !== $buttonActionName) {
+                if ( $buttonAction->getName() !== $buttonActionName ) {
                     return;
                 }
 
@@ -72,7 +75,7 @@ trait HasForm
                     $this->makeForm()
                         ->schema($this->call('getFormSchema') ?: [])
                         ->tap(function (ComponentContainer $componentContainer): ComponentContainer {
-                            if ($this->model) {
+                            if ( $this->model ) {
                                 $componentContainer->model($this->model);
                             }
 
@@ -88,7 +91,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->mountForm();
         }
     }

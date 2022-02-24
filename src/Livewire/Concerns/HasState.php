@@ -8,6 +8,17 @@ trait HasState
 
     public bool $actionableOpen = false;
 
+    public function closeActionable(string $actionable): void
+    {
+        if ( $this->actionableId !== $actionable ) {
+            return;
+        }
+
+        $this->resetValidation();
+
+        $this->actionableOpen = false;
+    }
+
     public function initializeHasState(): void
     {
         $this->registerListeners([
@@ -18,7 +29,7 @@ trait HasState
 
     public function openActionable(string $actionable, ...$params): void
     {
-        if ($this->actionableId !== $actionable) {
+        if ( $this->actionableId !== $actionable ) {
             return;
         }
 
@@ -27,16 +38,5 @@ trait HasState
         $this->call('onOpen', [
             'eventParams' => $params ?? [],
         ]);
-    }
-
-    public function closeActionable(string $actionable): void
-    {
-        if ($this->actionableId !== $actionable) {
-            return;
-        }
-
-        $this->resetValidation();
-
-        $this->actionableOpen = false;
     }
 }

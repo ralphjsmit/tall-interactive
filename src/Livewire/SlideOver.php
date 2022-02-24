@@ -35,6 +35,7 @@ class SlideOver extends Actionable implements HasForms
     use ReceivesForm;
 
     public string $actionableId;
+
     public string $actionableType = 'slideOver';
 
     public function mount(string $id): void

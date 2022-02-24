@@ -35,6 +35,7 @@ class Modal extends Actionable implements HasForms
     use ReceivesForm;
 
     public string $actionableId;
+
     public string $actionableType = 'modal';
 
     public function mount(string $id): void
