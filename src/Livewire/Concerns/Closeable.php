@@ -14,13 +14,13 @@ trait Closeable
 
     public function handleCloseOnSubmit(): void
     {
-        if ( $this->forceCloseOnSubmit ) {
+        if ($this->forceCloseOnSubmit) {
             $this->forceClose();
 
             return;
         }
 
-        if ( $this->closeOnSubmit ) {
+        if ($this->closeOnSubmit) {
             $this->close();
         }
     }

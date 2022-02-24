@@ -29,21 +29,21 @@ class ActionablesManager extends Component
 
         $this->emit('actionable:close', $actionable);
 
-        if ( $this->openedActionables ) {
+        if ($this->openedActionables) {
             $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
         }
     }
 
     public function closeSingleActionable(string $actionable): void
     {
-        if ( ( $key = array_search($actionable, $this->openedActionables) ) !== false ) {
+        if (($key = array_search($actionable, $this->openedActionables)) !== false) {
             $this->emit('actionable:close', $actionable);
 
             unset($this->openedActionables[$key]);
 
             $this->openedActionables = array_values($this->openedActionables);
 
-            if ( $this->openedActionables ) {
+            if ($this->openedActionables) {
                 $this->emit('actionable:open', $this->openedActionables[array_key_last($this->openedActionables)]);
             }
         }
@@ -59,7 +59,7 @@ class ActionablesManager extends Component
 
     public function openActionable(string $actionable, ...$params): void
     {
-        if ( $this->openedActionables ) {
+        if ($this->openedActionables) {
             $this->emit('actionable:close', $this->openedActionables[array_key_last($this->openedActionables)]);
         }
 

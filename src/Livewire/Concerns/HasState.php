@@ -10,7 +10,7 @@ trait HasState
 
     public function closeActionable(string $actionable): void
     {
-        if ( $this->actionableId !== $actionable ) {
+        if ($this->actionableId !== $actionable) {
             return;
         }
 
@@ -29,7 +29,7 @@ trait HasState
 
     public function openActionable(string $actionable, ...$params): void
     {
-        if ( $this->actionableId !== $actionable ) {
+        if ($this->actionableId !== $actionable) {
             return;
         }
 
