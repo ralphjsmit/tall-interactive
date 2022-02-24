@@ -28,7 +28,7 @@ it('can get a callable from the above methods', function (string $livewire) {
     $component
         ->assertSet('formVersion', 'create')
         ->set('data.email', 'john@example.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertHasNoErrors();
 })->with('actionables');
 
@@ -41,7 +41,7 @@ class ExpectFormversionTest extends Form
         return [TextInput::make('email')->email()->required()];
     }
 
-    public function SubmitForm(Closure $close, Closure $forceClose, string $formVersion): void
+    public function submit(Closure $close, Closure $forceClose, string $formVersion): void
     {
         Assert::assertSame(static::$expectedFormVersion, $formVersion);
     }

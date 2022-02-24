@@ -30,8 +30,9 @@ it('can mount actionables', function (string $actionable) {
 
     $component
         ->assertSet('form', fn ($value) => $value !== null)
-        ->call('submitForm')
-        ->call('submitForm');
+        ->assertSet('data.test', 'FILLED_FORM_VALUE')
+        ->call('submit')
+        ->call('submit');
 
     expect(MountTestForm::$mountedTimes)->toBe(1);
 })->with('actionables');
@@ -97,13 +98,13 @@ it('can specify additional buttons with tasks', function (string $livewire) {
     $component
         ->assertDontSee('Other Action');
 
-    AdditionalButtonsTestForm::$formButtons = ($buttons = [
+    AdditionalButtonsTestForm::$formButtons = ( $buttons = [
         ButtonAction::make('other_action')
             ->action(function (Component $livewire) {
                 $livewire->hasExecutedAction = true;
             })
             ->label('Other Action'),
-    ]);
+    ] );
 
     expect($component->instance())
         ->getButtonActions()

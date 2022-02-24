@@ -78,7 +78,7 @@
                                     <div class="my-8 px-4 divide-y divide-gray-200 sm:px-6">
 
                                         @if($formClass)
-                                            <form wire:submit.prevent="submitForm">
+                                            <form wire:submit.prevent="submit">
                                                 <!-- Submission is handled by the buttons below. Nevertheless we still expose the method for submission on enter keystroke. -->
                                                 {{ $this->form }}
 
@@ -103,7 +103,7 @@
 
                                     @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
 
-                                    <button type="submit" wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}"
+                                    <button type="submit" wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}"
                                             class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                         {{ $submitWith }}
                                     </button>

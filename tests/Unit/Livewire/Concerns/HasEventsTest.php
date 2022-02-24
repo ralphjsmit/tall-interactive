@@ -48,7 +48,7 @@ it('can get a callable from the above methods', function (mixed $closeCallablePa
 
     $component
         ->set('data.email', 'john@example.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertHasNoErrors()
         ->assertEmitted(':close', $expectedEmittedEventParams)
         ->assertEmitted('actionables:forceClose');
@@ -66,7 +66,7 @@ class CallableTestForm extends Form
         return [TextInput::make('email')->email()->required(),];
     }
 
-    public function SubmitForm(Closure $close, Closure $forceClose): void
+    public function submit(Closure $close, Closure $forceClose): void
     {
         $close(...static::$closeCallableParameters);
 

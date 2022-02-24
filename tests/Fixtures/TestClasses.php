@@ -18,12 +18,12 @@ class TestForm extends Form
         ];
     }
 
-    public function submitForm(Collection $formData, object|null $model): void
+    public function submit(Collection $state, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
-        Assert::assertTrue($formData->isNotEmpty());
-        Assert::assertIsArray($formData->all());
+        Assert::assertTrue($state->isNotEmpty());
+        Assert::assertIsArray($state->all());
     }
 }
 
@@ -45,14 +45,14 @@ class AdditionalButtonsTestForm extends Form
 {
     public static array $formButtons = [];
 
-    public function getFormSchema(array $params): array
-    {
-        return [];
-    }
-
     public function getButtonActions(): array
     {
         return static::$formButtons;
+    }
+
+    public function getFormSchema(array $params): array
+    {
+        return [];
     }
 }
 
@@ -61,9 +61,18 @@ class MountTestForm extends Form
     public static int $mountedTimes = 0;
     public static Model $expectedModel;
 
+    public function fill(): array
+    {
+        return [
+            'test' => 'FILLED_FORM_VALUE',
+        ];
+    }
+
     public function getFormSchema(): array
     {
-        return [];
+        return [
+            TextInput::make('test')->default('DEFAULT'),
+        ];
     }
 
     public function mount(array $params, Model $model): void
@@ -117,7 +126,7 @@ class UserForm extends Form
         ];
     }
 
-    public function submitForm(Collection $formData, object|null $model): void
+    public function submit(Collection $state, object|null $model): void
     {
         Assert::assertSame(
             get_object_vars(static::$expectedUser),
@@ -135,7 +144,7 @@ class DependencyInjectionTestForm extends Form
         return [];
     }
 
-    public function submitForm(self $formClass): void
+    public function submit(self $formClass): void
     {
         $this->submittedTimes++;
 

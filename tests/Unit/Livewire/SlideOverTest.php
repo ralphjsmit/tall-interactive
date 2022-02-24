@@ -64,7 +64,7 @@ it('can forceClose actionables on submit', function () {
         ->emit('actionable:open', 'test-modal')
         ->assertSet('actionableOpen', true)
         ->set('data.email', 'john@example.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertHasNoErrors()
         ->assertEmitted('actionables:forceClose');
 });
@@ -114,10 +114,10 @@ it('can initialize and submit the form', function () {
     $component
         ->assertSet('data.email', '')
         ->assertSet('data.year', 2000)
-        ->call('submitForm')
+        ->call('submit')
         ->assertHasErrors()
         ->set('data.email', 'rjs@ralphjsmit.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertHasNoErrors()
         ->assertNotSet('data.email', 'rjs@ralphjsmit.com');
 
@@ -139,12 +139,12 @@ class SlideOverTestForm extends Form
         ];
     }
 
-    public function submitForm(Collection $formData, object|null $model): void
+    public function submit(Collection $state, object|null $model): void
     {
         static::$submittedTimes++;
         Assert::assertNull($model);
-        Assert::assertTrue($formData->isNotEmpty());
-        Assert::assertIsArray($formData->all());
+        Assert::assertTrue($state->isNotEmpty());
+        Assert::assertIsArray($state->all());
     }
 }
 
@@ -161,7 +161,7 @@ it('can close the form on submit', function () {
 
     $component
         ->set('data.email', 'rjs@ralphjsmit.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertEmitted(':close', 'test-slide-over')
         ->emit('actionable:close', 'test-slide-over')/* Action performed by ActionablesManager */
         ->assertSet('actionableOpen', false);
@@ -180,7 +180,7 @@ it('cannot close the form on submit if not allowed', function () {
 
     $component
         ->set('data.email', 'rjs@ralphjsmit.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertNotEmitted('modal:close')
         ->assertNotEmitted('slideOver:close')
         ->assertSet('actionableOpen', true);
@@ -267,7 +267,8 @@ it('will display the description', function () {
 });
 
 it('can receive an Eloquent record', function () {
-    $user = new class () extends Model {
+    $user = new class () extends Model
+    {
         public $email = 'john@example.com';
         public $password = 'password';
     };
@@ -283,7 +284,7 @@ it('can receive an Eloquent record', function () {
     $component
         ->assertSet('model', $user)
         ->assertSet('model.email', 'john@example.com')
-        ->call('submitForm')
+        ->call('submit')
         ->assertSet('model.email', 'john@example.com');
 });
 

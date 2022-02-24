@@ -64,7 +64,7 @@
                         <div class="mt-6 w-full">
 
                             @if($formClass)
-                                <form wire:submit.prevent="submitForm">
+                                <form wire:submit.prevent="submit">
                                     <!-- Submission is handled by the buttons below. Nevertheless we still expose the method for submission on enter keystroke. -->
                                     {{ $this->form }}
 
@@ -82,7 +82,7 @@
                 </div>
                 @if($showControls)
                     <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-[inherit]" id="tall-interactive-slide-over-controls">
-                        <button wire:click="{{ $formClass ? 'submitForm': (!$formClass && $slot ? 'submitSlot' : '') }}" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2
+                        <button wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2
                         focus:ring-offset-2
                     focus:ring-primary-500 sm:ml-3
                     sm:w-auto

@@ -34,7 +34,7 @@ it('can pass the form instance when doing dependency injection', function (strin
         ->submittedTimes->toBe(0);
 
     $component
-        ->call('submitForm');
+        ->call('submit');
 
     expect($component->get('formClass'))
         ->submittedTimes->toBe(1);

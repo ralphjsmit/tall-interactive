@@ -115,7 +115,7 @@ class UserForm extends Form {
         return [];
     }
 
-    public function submitForm(): void
+    public function submit(): void
     {
         //
     }
@@ -179,16 +179,36 @@ public function getFormSchema(Component $livewire): array
 }
 ```
 
+You can also add a `fill()` method on your form class. This will be passed to the `$this->form->fill()` method and can be used for pre-filling values:
+
+Here is an example of pre-filling a form based on a Blade component parameter:
+
+```php  
+    public function mount(array $params): void
+    {
+        $this->personId = $params['personId'];
+    }
+    
+    public function fill(): array
+    {
+        $person = Person::find($this->personId);
+        
+        return [
+            'year' => $person->birthdate->format('Y'),
+        ];
+    }
+```
+
 #### Submitting a form
 
-You can use the **`submitForm()` method** to provide the logic for submitting the form.
+You can use the **`submit()` method** to provide the logic for submitting the form.
 
 ```php
 use Illuminate\Support\Collection;
 
-public function submitForm(Collection $formData): void
+public function submit(Collection $state): void
 {
-    User::create($formData->all());
+    User::create($state->all());
 
     toast()
         ->success('Thanks for submitting the form! (Your data isn\'t stored anywhere.')
@@ -222,7 +242,7 @@ You can specify the following variables in each of the above methods:
 2. `$model` to get the **current model** (if any)
 3. `$formClass` to access the **current instance of the form class**. You could use this to set and get parameters (see [Storing data](#storing-data)).
 4. `$formVersion` to access the **current form version**. You could use this to dinstinguish between different versions of your form (like a 'create' and 'edit' version of the same form).
-5. `$formData` to access the **currently submitted form data**. This is a collection. Only available in the `submitForm` method.
+5. `$state` to access the **currently submitted form data**. This is a collection. Only available in the `submit` method.
 6. `$close` to get a closure that allows you to **close an actionable**. You may pass the closure a string with the `id` of an actionable in order to close that actionable. It defaults to the current actionable. If you pass an `id` that doesn't exist nothing will happen.
 7. `$forceClose` to get a closure that allows you to **close all actionables**.
 8. `$params` to get an array with all additional parameters passed to the actionable Blade component.
@@ -238,15 +258,15 @@ use Closure;
 use Livewire\Component;
 use App\Models\User;
 
-public function submitForm(Component $livewire, User $model, Collection $formData, Closure $close, Closure $forceClose): void 
+public function submit(Component $livewire, User $model, Collection $state, Closure $close, Closure $forceClose): void 
 {
     $model
-        ->fill($formData->except('password'))
+        ->fill($state->except('password'))
         ->save();
 
-    if ($formData->has('password')) {
+    if ($state->has('password')) {
         $model->update(
-            $formData->only('password')->all()
+            $state->only('password')->all()
         );
     }
     
@@ -363,7 +383,7 @@ If you specify the `forceCloseOnSubmit` attribute, **all actionables will be clo
 />
 ```
 
-If you need more advanced customization of which actionables to close and which to keep open, you should innject and use the `$close()` and `$forceClose()` in the `submitForm()` method in the formclass.
+If you need more advanced customization of which actionables to close and which to keep open, you should innject and use the `$close()` and `$forceClose()` in the `submit()` method in the formclass.
 
 **Adding a title**
 

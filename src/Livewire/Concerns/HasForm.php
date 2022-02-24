@@ -21,18 +21,13 @@ trait HasForm
     public array $params = [];
     public bool $shouldFillForm = true;
 
-    public function mountHasForm(string $maxWidth = null): void
-    {
-        $this->maxWidth = $maxWidth ?? '2xl';
-    }
-
     public function bootedHasForm(): void
     {
-        if ($this->shouldFillForm && $this->formClass) {
+        if ( $this->shouldFillForm && $this->formClass ) {
             $this->mountForm();
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->registerFormMessages();
         }
     }
@@ -41,7 +36,7 @@ trait HasForm
     {
         collect($this->call('getButtonActions'))
             ->each(function (ButtonAction $buttonAction) use ($buttonActionName): void {
-                if ($buttonAction->getName() !== $buttonActionName) {
+                if ( $buttonAction->getName() !== $buttonActionName ) {
                     return;
                 }
 
@@ -54,6 +49,20 @@ trait HasForm
         return $this->call('getButtonActions') ?: [];
     }
 
+    public function mountHasForm(string $maxWidth = null): void
+    {
+        $this->maxWidth = $maxWidth ?? '2xl';
+    }
+
+    public function submit(): void
+    {
+        $this->call('submit', [
+            'state' => collect($this->form->getState()),
+        ]);
+
+        $this->handleFormSubmitted();
+    }
+
     protected function getForms(): array
     {
         return collect()
@@ -63,7 +72,7 @@ trait HasForm
                     $this->makeForm()
                         ->schema($this->call('getFormSchema') ?: [])
                         ->tap(function (ComponentContainer $componentContainer): ComponentContainer {
-                            if ($this->model) {
+                            if ( $this->model ) {
                                 $componentContainer->model($this->model);
                             }
 
@@ -79,7 +88,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->mountForm();
         }
     }
@@ -88,17 +97,10 @@ trait HasForm
     {
         $this->call('mount');
 
-        $this->form->fill();
+        $this->form->fill(
+            $this->call('fill')
+        );
 
         $this->shouldFillForm = false;
-    }
-
-    public function submitForm(): void
-    {
-        $this->call('submitForm', [
-            'formData' => collect($this->form->getState()),
-        ]);
-
-        $this->handleFormSubmitted();
     }
 }

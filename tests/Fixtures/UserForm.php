@@ -65,7 +65,7 @@ class UserForm extends Form
         ];
     }
 
-    public function submitForm()
+    public function submit()
     {
         //
     }
