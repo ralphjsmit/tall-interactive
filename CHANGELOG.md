@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.7.0 - 2022-02-24
+
+- Add dark mode support to the modal component
+
 ## 0.6.3 - 2022-02-23
 
 - DOM diffing issues
