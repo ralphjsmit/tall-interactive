@@ -98,13 +98,13 @@ it('can specify additional buttons with tasks', function (string $livewire) {
     $component
         ->assertDontSee('Other Action');
 
-    AdditionalButtonsTestForm::$formButtons = ( $buttons = [
+    AdditionalButtonsTestForm::$formButtons = ($buttons = [
         ButtonAction::make('other_action')
             ->action(function (Component $livewire) {
                 $livewire->hasExecutedAction = true;
             })
             ->label('Other Action'),
-    ] );
+    ]);
 
     expect($component->instance())
         ->getButtonActions()
