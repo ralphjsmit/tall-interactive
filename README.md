@@ -184,6 +184,8 @@ You can also add a `fill()` method on your form class. This will be passed to th
 Here is an example of pre-filling a form based on a Blade component parameter:
 
 ```php  
+    public int $personId;
+    
     public function mount(array $params): void
     {
         $this->personId = $params['personId'];
