@@ -2,6 +2,12 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.0 - 2022-02-24
+
+- Add support for adding a `fill()` method on the form class, which will be passed to `$this->form->fill()`
+- Rename parameter `$formData` to `$state`
+- Rename method `submitForm()` to `submit()`
+
 ## 0.7.0 - 2022-02-24
 
 - Add dark mode support to the modal component
