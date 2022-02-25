@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.1 - 2022-02-25
+
+- Fixes for mobile design with multiple / longer buttons in the modal and slideover
+
 ## 0.8.0 - 2022-02-24
 
 - Add support for adding a `fill()` method on the form class, which will be passed to `$this->form->fill()`
