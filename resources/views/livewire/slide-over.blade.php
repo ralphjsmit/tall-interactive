@@ -94,9 +94,9 @@
                                 </div>
                             </div>
                             @if($showControls)
-                                <div class="flex-shrink-0 px-4 py-4 flex justify-end" id="tall-interactive-slide-over-controls">
+                                <div class="flex-shrink-0 px-4 py-4 flex justify-end gap-2 flex-wrap" id="tall-interactive-slide-over-controls">
                                     @if($dismissable)
-                                        <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                        <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="w-full md:w-auto bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                             {{ $dismissableWith }}
                                         </button>
                                     @endif
@@ -104,7 +104,7 @@
                                     @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
 
                                     <button type="submit" wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}"
-                                            class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                            class="w-full md:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                         {{ $submitWith }}
                                     </button>
                                 </div>
