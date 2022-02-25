@@ -81,25 +81,19 @@
                     </div>
                 </div>
                 @if($showControls)
-                    <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-[inherit]" id="tall-interactive-slide-over-controls">
-                        <button wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2
-                        focus:ring-offset-2
-                    focus:ring-primary-500 sm:ml-3
-                    sm:w-auto
-                    sm:text-sm">
-                            {{ $submitWith }}
-                        </button>
-
-                        @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
-
+                    <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 flex-shrink-0 flex justify-end gap-2 flex-wrap rounded-b-[inherit]" id="tall-interactive-slide-over-controls">
                         @if($dismissable)
-                            <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="button"
-                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-700 dark:text-white text-base font-medium text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                                    sm:mt-0 sm:ml-3 sm:w-auto
-                                    sm:text-sm">
+                            <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="w-full md:w-auto bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                 {{ $dismissableWith }}
                             </button>
                         @endif
+
+                        @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
+
+                        <button type="submit" wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}"
+                                class="w-full md:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            {{ $submitWith }}
+                        </button>
                     </div>
                 @endif
             </div>
