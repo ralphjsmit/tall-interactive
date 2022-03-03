@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.2 - 2022-03-03
+
+- Remove unused files
+
 ## 0.8.1 - 2022-02-25
 
 - Fixes for mobile design with multiple / longer buttons in the modal and slideover
