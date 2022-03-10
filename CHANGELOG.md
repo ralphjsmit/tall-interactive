@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.3 - 2022-03-10
+
+- Update modal fix on mobile
+
 ## 0.8.2 - 2022-03-03
 
 - Remove unused files
