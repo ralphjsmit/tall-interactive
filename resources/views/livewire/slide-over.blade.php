@@ -103,7 +103,7 @@
 
                                     @include('tall-interactive::components.forms.button-actions', ['buttonActions' => $this->getButtonActions()])
 
-                                    <button type="submit" wire:click="{{ $formClass ? 'submit': (!$formClass && $slot ? 'submitSlot' : '') }}"
+                                    <button type="submit" wire:click="{{ $formClass ? 'submit': 'submitSlot' }}"
                                             class="w-full md:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                         {{ $submitWith }}
                                     </button>
