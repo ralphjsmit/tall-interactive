@@ -12,6 +12,7 @@
         'forceCloseOnSubmit',
         'form',
         'hideControls',
+        'livewire',
         'maxWidth',
         'model',
         'submitWith',
