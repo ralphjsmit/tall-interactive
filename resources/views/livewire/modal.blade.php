@@ -71,7 +71,7 @@
                                     <button type="submit" class="invisible max-h-0 max-w-0 absolute">Submit</button>
                                 </form>
                             @elseif($livewire)
-                                @livewire($livewire)
+                                @livewire($livewire, $params)
                             @elseif($slot)
                                 {!! $slot !!}
                             @endif
