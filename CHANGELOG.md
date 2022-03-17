@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.4 - 2022-03-17
+
+- Fix: receive Livewire parameter in components.
+
 ## 0.8.3 - 2022-03-10
 
 - Update modal fix on mobile
