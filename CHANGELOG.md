@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.6 - 2022-03-17
+
+- Fix submitting slots with Livewire component.
+
 ## 0.8.5 - 2022-03-17
 
 - Feature: Add $params to included Livewire components
