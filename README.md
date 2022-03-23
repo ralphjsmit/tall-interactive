@@ -47,7 +47,7 @@ module.exports = {
 
 #### Toast notifications
 
-Using the [Toast TALL notifications package](http://github.com/usernotnull/tall-toasts) is not required, but it is a recommend if you need to send notifications to your users, for example on submitting a form.
+Using the [Toast TALL notifications package](http://github.com/usernotnull/tall-toasts) is not required, but it is recommended if you need to send notifications to your users, for example on submitting a form.
 
 If you decide to use Toast, please follow their [**setup instructions**](https://github.com/usernotnull/tall-toasts#setup).
 
