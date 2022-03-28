@@ -93,13 +93,7 @@ You can build a **modal**, a **slide-over** or an **inline form** (together I ca
 
 To start **building our first actionable**, let's do some preparation first. Create a new file in your `app/Forms` directory (custom namespaces are also fine). You could call it `UserForm` or however you like.
 
-Run the following command to **generate a Filament form class** in your `app/Forms` namespace:
-
-```bash
-php artisan make:form UserForm
-```
-
-This will add the following contents to the form file:
+Add the following contents to the file:
 
 ```php
 <?php
@@ -120,10 +114,16 @@ class UserForm extends Form {
         //
     }
 
-    public function mount(): void {}
+    public function mount(): void 
+    {
+        //
+    }
     
-    /** Only applicable for Models and SlideOvers */
-    public function onOpen(): void {}
+    /** Only applicable for Modals and SlideOvers */
+    public function onOpen(): void 
+    {
+        //
+    }
 }
 ```
 
