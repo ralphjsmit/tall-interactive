@@ -102,8 +102,8 @@ namespace App\Forms;
 
 use RalphJSmit\Tall\Interactive\Forms\Form;
 
-class UserForm extends Form {
-
+class UserForm extends Form 
+{
     public function getFormSchema(): array
     {
         return [];
