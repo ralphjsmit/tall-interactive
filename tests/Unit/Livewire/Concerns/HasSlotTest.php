@@ -11,7 +11,7 @@ it('can emit :close event on submitting the slot', function (string $livewire) {
     $component
         ->call('submitSlot')
         ->assertEmitted(':close', 'test-actionable');
-})->with('actionables');
+})->with('stateful_actionables');
 
 it('cannot emit :close event on submitting the slot if that isn\'t allowed', function (string $livewire) {
     $component = Livewire::test($livewire, [

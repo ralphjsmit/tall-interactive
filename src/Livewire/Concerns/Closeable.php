@@ -2,6 +2,8 @@
 
 namespace RalphJSmit\Tall\Interactive\Livewire\Concerns;
 
+use RalphJSmit\Tall\Interactive\Livewire\InlineForm;
+
 trait Closeable
 {
     use RegisterListeners;
@@ -14,13 +16,13 @@ trait Closeable
 
     public function handleCloseOnSubmit(): void
     {
-        if ($this->forceCloseOnSubmit) {
+        if ( $this->forceCloseOnSubmit ) {
             $this->forceClose();
 
             return;
         }
 
-        if ($this->closeOnSubmit) {
+        if ( $this->closeOnSubmit && ! $this instanceof InlineForm ) {
             $this->close();
         }
     }
