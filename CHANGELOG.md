@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.7 - 2022-06-03
+
+– Fix: trying to close Inline Form on submit.
+
 ## 0.8.6 - 2022-03-17
 
 - Fix submitting slots with Livewire component.
