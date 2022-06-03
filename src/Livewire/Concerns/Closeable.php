@@ -16,13 +16,13 @@ trait Closeable
 
     public function handleCloseOnSubmit(): void
     {
-        if ( $this->forceCloseOnSubmit ) {
+        if ($this->forceCloseOnSubmit) {
             $this->forceClose();
 
             return;
         }
 
-        if ( $this->closeOnSubmit && ! $this instanceof InlineForm ) {
+        if ($this->closeOnSubmit && ! $this instanceof InlineForm) {
             $this->close();
         }
     }
