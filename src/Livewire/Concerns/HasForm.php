@@ -26,11 +26,11 @@ trait HasForm
 
     public function bootedHasForm(): void
     {
-        if ($this->shouldFillForm && $this->formClass) {
+        if ( $this->shouldFillForm && $this->formClass ) {
             $this->mountForm();
         }
 
-        if ($this->formClass) {
+        if ( $this->formClass ) {
             $this->registerFormMessages();
         }
     }
@@ -38,8 +38,9 @@ trait HasForm
     public function executeButtonAction(string $buttonActionName): void
     {
         collect($this->call('getButtonActions'))
+            ->reject(fn (ButtonAction $buttonAction) => $buttonAction->isHidden())
             ->each(function (ButtonAction $buttonAction) use ($buttonActionName): void {
-                if ($buttonAction->getName() !== $buttonActionName) {
+                if ( $buttonAction->getName() !== $buttonActionName ) {
                     return;
                 }
 
@@ -49,7 +50,7 @@ trait HasForm
 
     public function getButtonActions(): array
     {
-        return $this->call('getButtonActions') ?: [];
+        return array_filter($this->call('getButtonActions') ?: [], fn (ButtonAction $buttonAction) => ! $buttonAction->isHidden());
     }
 
     public function mountHasForm(string $maxWidth = null): void
@@ -75,7 +76,7 @@ trait HasForm
                     $this->makeForm()
                         ->schema($this->call('getFormSchema') ?: [])
                         ->tap(function (ComponentContainer $componentContainer): ComponentContainer {
-                            if ($this->model) {
+                            if ( $this->model ) {
                                 $componentContainer->model($this->model);
                             }
 
@@ -91,7 +92,7 @@ trait HasForm
     {
         $this->handleCloseOnSubmit();
 
-        if (! $this->model) {
+        if ( ! $this->model ) {
             $this->reset('data', 'shouldFillForm');
 
             $this->mountForm();

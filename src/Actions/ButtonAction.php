@@ -12,6 +12,10 @@ class ButtonAction
 
     protected string $name = '';
 
+    protected bool|Closure $isHidden = false;
+
+    protected bool|Closure $isVisible = true;
+
     public static function make(string $name): static
     {
         return ( new static() )->name($name);
@@ -39,6 +43,15 @@ class ButtonAction
         return $this->name;
     }
 
+    public function isHidden(): bool
+    {
+        if ( $this->evaluate($this->isHidden) ) {
+            return true;
+        }
+
+        return ! $this->evaluate($this->isVisible);
+    }
+
     public function label(string $label): static
     {
         $this->label = $label;
@@ -51,5 +64,28 @@ class ButtonAction
         $this->name = $name;
 
         return $this;
+    }
+
+    public function visible(bool|Closure $condition): static
+    {
+        $this->isVisible = $condition;
+
+        return $this;
+    }
+
+    public function hidden(bool|Closure $condition): static
+    {
+        $this->isHidden = $condition;
+
+        return $this;
+    }
+
+    protected function evaluate(mixed $value): mixed
+    {
+        if ( $value instanceof Closure ) {
+            return $value();
+        }
+
+        return $value;
     }
 }
