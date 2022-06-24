@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.8 - 2022-06-24
+
+– Add support for hiding ButtonActions.
+
 ## 0.8.7 - 2022-06-03
 
 – Fix: trying to close Inline Form on submit.
