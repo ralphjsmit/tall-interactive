@@ -10,6 +10,8 @@ class ButtonAction
 
     protected string $label = '';
 
+    protected string $color = 'secondary';
+
     protected string $name = '';
 
     protected bool|Closure $isHidden = false;
@@ -45,7 +47,7 @@ class ButtonAction
 
     public function isHidden(): bool
     {
-        if ($this->evaluate($this->isHidden)) {
+        if ( $this->evaluate($this->isHidden) ) {
             return true;
         }
 
@@ -82,10 +84,24 @@ class ButtonAction
 
     protected function evaluate(mixed $value): mixed
     {
-        if ($value instanceof Closure) {
-            return $value();
+        if ( $value instanceof Closure ) {
+            return app()->call($value);
         }
 
         return $value;
+    }
+
+    public function color(string $color): static
+    {
+        if ( in_array($color, ['secondary', 'danger']) ) {
+            $this->color = $color;
+        }
+
+        return $this;
+    }
+
+    public function getColor(): string
+    {
+        return $this->color;
     }
 }
