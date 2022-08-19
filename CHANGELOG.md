@@ -2,6 +2,11 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.9 - 2022-08-15
+
+– Add ButtonAction color support.
+– Add CSS button classes.
+
 ## 0.8.8 - 2022-06-24
 
 – Add support for hiding ButtonActions.

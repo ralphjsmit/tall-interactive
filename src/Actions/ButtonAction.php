@@ -47,7 +47,7 @@ class ButtonAction
 
     public function isHidden(): bool
     {
-        if ( $this->evaluate($this->isHidden) ) {
+        if ($this->evaluate($this->isHidden)) {
             return true;
         }
 
@@ -84,7 +84,7 @@ class ButtonAction
 
     protected function evaluate(mixed $value): mixed
     {
-        if ( $value instanceof Closure ) {
+        if ($value instanceof Closure) {
             return app()->call($value);
         }
 
@@ -93,7 +93,7 @@ class ButtonAction
 
     public function color(string $color): static
     {
-        if ( in_array($color, ['secondary', 'danger']) ) {
+        if (in_array($color, ['secondary', 'danger'])) {
             $this->color = $color;
         }
 
