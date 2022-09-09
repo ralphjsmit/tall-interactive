@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.12 - 2022-09-09
+
+– Fix remove unused trait
+
 ## 0.8.11 - 2022-09-09
 
 – Remove unnecessary dependency.
