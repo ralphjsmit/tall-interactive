@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.11 - 2022-09-09
+
+– Remove unnecessary dependency.
+
 ## 0.8.10 - 2022-08-19
 
 – Fix type-error bug after Filament refactored internal implementation.
