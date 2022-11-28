@@ -85,7 +85,7 @@
                         @if($dismissable)
                             <button wire:click="$emit('modal:close', '{{ $actionableId }}')" type="submit" class="tall-interactive-close-button w-full md:w-auto bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2
                             focus:ring-primary-500">
-                                {{ $dismissableWith }}
+                                {!! $dismissableWith !!}
                             </button>
                         @endif
 
@@ -93,7 +93,7 @@
 
                         <button type="submit" wire:click="{{ $formClass ? 'submit': 'submitSlot' }}"
                                 class="tall-interactive-submit-button w-full md:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                            {{ $submitWith }}
+                            {!! $submitWith !!}
                         </button>
                     </div>
                 @endif
