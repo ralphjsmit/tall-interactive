@@ -9,7 +9,17 @@ it('can return the default parameters for calling forms', function (string $live
     ]);
 
     $parameters = $component->instance()->getDefaultCallableParameters();
-    //
+
+    expect($parameters)
+        ->toBeArray()
+        ->toHaveKey('close')
+        ->toHaveKey('forceClose')
+        ->toHaveKey('formClass')
+        ->toHaveKey('formVersion')
+        ->toHaveKey('livewire')
+        ->toHaveKey('model')
+        ->toHaveKey('modelPathIfGiven')
+        ->toHaveKey('params');
 })->with('actionables');
 
 it('can store properties on the form object', function (string $livewire) {

@@ -3,6 +3,7 @@
 namespace RalphJSmit\Tall\Interactive\Tests;
 
 use Filament\Forms\FormsServiceProvider;
+use Filament\Support\SupportServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RalphJSmit\Tall\Interactive\ActionablesServiceProvider;
@@ -23,6 +24,7 @@ class TestCase extends Orchestra
             LivewireServiceProvider::class,
             BladeTablerIconsServiceProvider::class,
             FormsServiceProvider::class,
+            SupportServiceProvider::class,
             ToastServiceProvider::class,
         ];
     }

@@ -71,6 +71,8 @@ it('can contain the form', function () {
         'id' => 'test-modal',
         'form' => '',
     ]);
+
+    $component->assertOk();
 });
 
 it('will set the maxWidth to the correct default', function () {
@@ -104,7 +106,7 @@ it('can initialize and submit the form', function () {
     expect(TestForm::$submittedTimes)->toBe(0);
 
     $component
-        ->assertSet('formClass', fn ($value): bool => $value instanceof TestForm)
+        ->assertSet('formClass', fn($value): bool => $value instanceof TestForm)
         ->assertSee('email')
         ->assertSee('Enter your e-mail');
 

@@ -74,6 +74,8 @@ it('can contain the form', function () {
         'id' => 'test-slide-over',
         'form' => '',
     ]);
+
+    $component->assertOk();
 });
 
 it('will set the maxWidth to the correct default', function () {
@@ -107,7 +109,7 @@ it('can initialize and submit the form', function () {
     expect(SlideOverTestForm::$submittedTimes)->toBe(0);
 
     $component
-        ->assertSet('formClass', fn ($value): bool => $value instanceof SlideOverTestForm)
+        ->assertSet('formClass', fn($value): bool => $value instanceof SlideOverTestForm)
         ->assertSee('email')
         ->assertSee('Enter your e-mail');
 
@@ -322,4 +324,6 @@ it('can reset the form after closing it', function () {
         'id' => 'test-slide-over',
         'form' => UserForm::class,
     ]);
+
+    $component->assertOk();
 });
