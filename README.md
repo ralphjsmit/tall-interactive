@@ -173,7 +173,7 @@ public function getFormSchema(Component $livewire): array
     return [
         TextInput::make('year')
             ->label('Pick your year of birth')
-            ->default(now()->subYears(18)->format('Y')),
+            ->default(now()->subYears(18)->format('Y'))
             ->required(),
     ];
 }
@@ -575,8 +575,8 @@ public function getFormSchema(): array
 {
     return [
         Hidden::make('user_id')->default($this->user->id)
-    ];}
-
+    ];
+}
 ```
 
 ### Reacting to events
