@@ -109,7 +109,7 @@ it('can initialize and submit the form', function () {
     expect(SlideOverTestForm::$submittedTimes)->toBe(0);
 
     $component
-        ->assertSet('formClass', fn($value): bool => $value instanceof SlideOverTestForm)
+        ->assertSet('formClass', fn ($value): bool => $value instanceof SlideOverTestForm)
         ->assertSee('email')
         ->assertSee('Enter your e-mail');
 
