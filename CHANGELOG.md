@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.14 - 2022-12-16
+
+- Fix for server error when clicking multiple times on close buttons.
+
 ## 0.8.13 - 2022-11-28
 
 - Prevent escaping button labels.
