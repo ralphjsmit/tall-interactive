@@ -8,8 +8,12 @@ trait HasState
 
     public bool $actionableOpen = false;
 
-    public function closeActionable(string $actionable): void
+    public function closeActionable(?string $actionable): void
     {
+        if ($actionable === null) {
+            return;
+        }
+
         if ($this->actionableId !== $actionable) {
             return;
         }
