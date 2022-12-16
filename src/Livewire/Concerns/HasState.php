@@ -10,10 +10,10 @@ trait HasState
 
     public function closeActionable(?string $actionable): void
     {
-        if (!$actionable) {
-            retrun;
+        if ($actionable === null) {
+            return;
         }
-        
+
         if ($this->actionableId !== $actionable) {
             return;
         }
