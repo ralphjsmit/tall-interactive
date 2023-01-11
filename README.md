@@ -63,7 +63,7 @@ After installing the package and setting up the dependencies, **add the followin
 
 > #### Faster installation
 >
-> If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation.
+> If you want a faster installation process, you could check out my [ralphjsmit/tall-install](https://github.com/ralphjsmit/tall-install) package. This package provides you with a simple command that runs the installation process for all the above dependencies in a plain Laravel installation.
 >
 > It works like this:
 >
