@@ -13,7 +13,7 @@
     ][$maxWidth];
 @endphp
 
-<div class="relative z-[999]" id="{{ $actionableId }}">
+<div class="tall-interactive-slide-over relative z-[999]" id="{{ $actionableId }}">
     {{-- Slide-over --}}
     <div class=" fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak
          x-data="{ state: $wire.entangle('actionableOpen') }"
@@ -31,7 +31,7 @@
                          x-transition:leave-end="translate-x-full"
                          x-show="state"
                     >
-                        <div class="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl">
+                        <div class="tall-interactive-slide-over-body h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl">
                             <div class="flex-1 h-0 overflow-y-auto">
                                 @if($title || $description)
                                     <div class="py-6 px-4 bg-primary-700 sm:px-6">

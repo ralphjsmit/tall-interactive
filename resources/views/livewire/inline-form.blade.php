@@ -16,7 +16,7 @@
 {{-- Inline form --}}
 
 <x-tall-interactive::forms.form-container :controlsDesign="$controlsDesign" :maxWidth="$maxWidth" :applyContainer="$container">
-    <div class="space-y-8">
+    <div class="tall-interactive-inline-form space-y-8">
         @if($title || $description)
             <div>
                 @if($title)
@@ -32,7 +32,7 @@
             </div>
         @endif
 
-        <div class="">
+        <div class="tall-interactive-inline-form-body">
 
             @if($formClass)
                 <form wire:submit.prevent="submit">
