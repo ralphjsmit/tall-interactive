@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.8.15 - 2023-01-18
+
+- Add CSS classes to modal, slide-over & inline form (#17)
+
 ## 0.8.14 - 2022-12-16
 
 - Fix for server error when clicking multiple times on close buttons.
