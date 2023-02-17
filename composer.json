@@ -24,7 +24,7 @@
         "ryangjchandler/blade-tabler-icons": "^1.1|^2.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "usernotnull/tall-toasts": "^1.5",
-        "carbon/carbon": "^2.66"
+        "nesbot/carbon": "^2.66"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10|^6.0",
