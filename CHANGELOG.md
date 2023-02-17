@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.9.0 - 2023-02-17
+
+- Laravel 10 support in #19
+
 ## 0.8.15 - 2023-01-18
 
 - Add CSS classes to modal, slide-over & inline form (#17)
