@@ -20,7 +20,7 @@ class ButtonAction
 
     public static function make(string $name): static
     {
-        return ( new static() )->name($name);
+        return (new static())->name($name);
     }
 
     public function action(Closure $action): static
