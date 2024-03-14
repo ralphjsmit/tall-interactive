@@ -2,6 +2,10 @@
 
 All notable changes to `tall-interactive` will be documented in this file.
 
+## 0.10.0 - 2024-03-14
+
+- Add Laravel 11 Compatibility.
+
 ## 0.9.0 - 2023-02-17
 
 - Laravel 10 support in #19
