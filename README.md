@@ -4,6 +4,10 @@
 
 This package allows you to create beautiful forms, modals and slide-overs with ease. It utillises the great Filament Forms package for creating the forms and the awesome TALL-stack for the design.
 
+> [!IMPORTANT]  
+> This package will only work for Filament V2 and Livewire V2. Since Filament V3, the better way to implement modals and slide-overs is by utilising the new [Filament Actions](https://filamentphp.com/docs/3.x/actions/installation). 
+
+
 [![Run tests](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/ralphjsmit/tall-interactive/actions/workflows/run-tests.yml)
 
 ## Installation
