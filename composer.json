@@ -46,7 +46,7 @@
             "RalphJSmit\\Tall\\Interactive\\Tests\\": "tests"
         }
     },
-    "scripts": [],
+    "scripts": {},
     "config": {
         "sort-packages": true,
         "allow-plugins": {
