@@ -27,12 +27,12 @@
         "nesbot/carbon": "^2.66|^3.0"
     },
     "require-dev": {
-        "nunomaduro/collision": "^5.10|^6.0|^8.0",
-        "nunomaduro/larastan": "^1.0|^2.0",
-        "pestphp/pest": "^1.22|^2.34|^3.7",
-        "pestphp/pest-plugin-laravel": "^1.4.0|^2.3|^3.1",
+        "nunomaduro/collision": "^5.10|^6.0|^8.0|^9.0",
+        "nunomaduro/larastan": "^1.0|^2.0|^3.0",
+        "pestphp/pest": "^1.22|^2.34",
+        "pestphp/pest-plugin-laravel": "^1.4.0|^2.3|^3.0",
         "phpstan/extension-installer": "^1.1",
-        "phpunit/phpunit": "^9.5|^10.5|^11.5.3",
+        "phpunit/phpunit": "^9.5|^10.5|^11.5",
         "spatie/invade": "^1.0|^2.0",
         "spatie/laravel-ray": "^1.27"
     },
